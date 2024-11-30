@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraSwitcher : MonoBehaviour
 {
+    [SerializeField] private Text CameraIndexLabel;
+    [Space]
     [SerializeField] private List<Camera> Cameras;
 
     private int CameraIndex = 0;
@@ -13,19 +16,12 @@ public class CameraSwitcher : MonoBehaviour
         Cameras[CameraIndex].enabled = true;
     }
 
-    private void Update()
+    public void SwitchToCamera(int index)
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Cameras[CameraIndex].enabled = false;
+        Cameras[CameraIndex ].depth = -10;
+        CameraIndex = index - 1;
+        Cameras[CameraIndex].depth = -9;
 
-            CameraIndex++;
-            if (CameraIndex >= Cameras.Count)
-            {
-                CameraIndex = 0;
-            }
-
-            Cameras[CameraIndex].enabled = true;
-        }
+        CameraIndexLabel.text = index.ToString("00");
     }
 }
