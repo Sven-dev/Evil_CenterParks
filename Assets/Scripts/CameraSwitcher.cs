@@ -5,23 +5,19 @@ using UnityEngine.UI;
 
 public class CameraSwitcher : MonoBehaviour
 {
-    [SerializeField] private Text CameraIndexLabel;
-    [Space]
-    [SerializeField] private List<Camera> Cameras;
+    [SerializeField] private List<Room> Rooms;
 
     private int CameraIndex = 0;
 
     private void Start()
     {
-        Cameras[CameraIndex].enabled = true;
+        Rooms[CameraIndex].EnableCamera();
     }
 
-    public void SwitchToCamera(int index)
+    public void SwitchToRoom(int index)
     {
-        Cameras[CameraIndex ].depth = -10;
+        Rooms[CameraIndex].DisableCamera();
         CameraIndex = index - 1;
-        Cameras[CameraIndex].depth = -9;
-
-        CameraIndexLabel.text = index.ToString("00");
+        Rooms[CameraIndex].EnableCamera();
     }
 }
