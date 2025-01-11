@@ -15,6 +15,8 @@ public class Room : MonoBehaviour
     public List<Room> ConnectedRooms;
     [SerializeField] private List<Entity> Entities = new List<Entity>();
 
+    [SerializeField] private List<GameObject> CorkVisuals; 
+
     private int NoiseCeiling = 5;
     private bool NoiseEntityInRoom = false;
 
@@ -34,33 +36,28 @@ public class Room : MonoBehaviour
         Camera.depth = -10;
     }
 
-    public void EnterRoom(Entity entity)
+    public void EnterRoom(EntityType entity)
     {
-        Entities.Add(entity);
-
-        if (entity.NoiseMaker)
+        switch (entity)
         {
-            NoiseEntityInRoom = true;
+            case EntityType.Cork:
+                CorkVisuals[Random.Range(0, CorkVisuals.Count)].SetActive(true);
+                break;
         }
 
-        print(entity.gameObject.name + " entered " + gameObject.name + ".");
+        print(entity.ToString() + " entered " + gameObject.name + ".");
     }
 
-    public void LeaveRoom(Entity entity)
+    public void LeaveRoom(EntityType entity)
     {
-        Entities.Remove(entity);
-
-        bool noiseEntitiesPresent = true;
-        foreach (Entity e in Entities)
+        switch (entity)
         {
-            if (e.NoiseMaker)
-            {
-                noiseEntitiesPresent = false;
-            }
+            case EntityType.Cork:
+                CorkVisuals[Random.Range(0, CorkVisuals.Count)].SetActive(false);
+                break;
         }
 
-        NoiseEntityInRoom = noiseEntitiesPresent;
-        print("Entity left " + gameObject.name);
+        print(entity.ToString() + " left " + gameObject.name + ".");
     }
 
     public int GetNoiseLevel()

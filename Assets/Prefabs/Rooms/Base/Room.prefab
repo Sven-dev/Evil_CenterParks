@@ -435,7 +435,10 @@ MonoBehaviour:
   HasHouses: 0
   NoiseLevel: 5
   NoiseFloor: 0
+  ConnectedRooms: []
   Entities: []
+  CorkVisuals:
+  - {fileID: 6395350539081768987}
 --- !u!1 &7321231813567399206
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,8 +665,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cork
       objectReference: {fileID: 0}
+    - target: {fileID: 3720247315454651079, guid: 357ca4a8ad1796a409d0735ae2c0bf94, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 357ca4a8ad1796a409d0735ae2c0bf94, type: 3}
+--- !u!1 &6395350539081768987 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3720247315454651079, guid: 357ca4a8ad1796a409d0735ae2c0bf94, type: 3}
+  m_PrefabInstance: {fileID: 7737219719640648412}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5326065196254769503 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2488762456449629059, guid: 357ca4a8ad1796a409d0735ae2c0bf94, type: 3}

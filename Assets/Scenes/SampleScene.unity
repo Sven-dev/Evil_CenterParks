@@ -3691,20 +3691,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060861704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbe853ef889000945b84f9a42228e8ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e604b943dd15774ca445e9f48fdd161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AILevel: 20
-  MovementOpportunityCooldown: 4.69
+  EntityType: 0
+  AILevel: 10
+  MovementOpportunityCooldown: 4.9
   NoiseMaker: 0
   CurrentRoom: {fileID: 1846751022}
-  currentRoute:
-    Start: {fileID: 0}
-    Destination: {fileID: 0}
-    Path: []
-    Distance: 0
-    ReachesDestination: 0
-  routeProgress: 0
 --- !u!222 &191982087019388157
 CanvasRenderer:
   m_ObjectHideFlags: 0
