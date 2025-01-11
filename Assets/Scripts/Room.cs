@@ -12,6 +12,7 @@ public class Room : MonoBehaviour
     [Range(0, 5)]
     [SerializeField] private int NoiseFloor = 0;
     [Space]
+    public List<Room> ConnectedRooms;
     [SerializeField] private List<Entity> Entities = new List<Entity>();
 
     private int NoiseCeiling = 5;
@@ -41,6 +42,8 @@ public class Room : MonoBehaviour
         {
             NoiseEntityInRoom = true;
         }
+
+        print(entity.gameObject.name + " entered " + gameObject.name + ".");
     }
 
     public void LeaveRoom(Entity entity)
@@ -57,6 +60,7 @@ public class Room : MonoBehaviour
         }
 
         NoiseEntityInRoom = noiseEntitiesPresent;
+        print("Entity left " + gameObject.name);
     }
 
     public int GetNoiseLevel()
@@ -81,5 +85,15 @@ public class Room : MonoBehaviour
             NoiseLevel = Mathf.Clamp(NoiseLevel - 2, NoiseFloor, NoiseCeiling);
             yield return new WaitForSecondsRealtime(6);
         }
+    }
+
+    public bool IsTargetRoom(Room room)
+    {
+        if (this == room)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
