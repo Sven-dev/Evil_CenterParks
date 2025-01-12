@@ -37,26 +37,89 @@ public class RoomController : MonoBehaviour
         return loudestRooms;
     }
 
-    public Route GetRandomRoom(Room current)
+    public Route GetFurthestQuietestRoomPath(Room currentRoom)
     {
-        Room targetRoom = current;
-        while (targetRoom == current)
+        //Filter through all rooms until you have the ones with the lowest noise level
+        int loudestNoiseLevel = 6;
+        List<Room> quietestRooms = new List<Room>();
+        foreach(Room room in Rooms)
+        {
+            //Make sure the character doesn't try to path to the room they're in
+            if (room == currentRoom)
+            {
+                continue;
+            }
+
+            int roomNoise = room.GetNoiseLevel();
+            if (roomNoise < loudestNoiseLevel)
+            {
+                loudestNoiseLevel = roomNoise;
+                quietestRooms.Clear();
+
+                quietestRooms.Add(room);
+            }
+            else if (roomNoise == loudestNoiseLevel)
+            {
+                quietestRooms.Add(room);
+            }
+        }
+
+        //Calculate all possible routes
+        List<Route> routes = new List<Route>();
+        foreach(Room targetRoom in quietestRooms)
+        {
+            //Per room, pick a random route (avoids bias towards rooms with multiple entrances)
+            List<Route> r = FindLongestRoutes(currentRoom, targetRoom);
+            routes.Add(r[Random.Range(0, r.Count)]);
+        }
+
+        //return a random route
+        return routes[Random.Range(0, routes.Count)];
+    }
+
+    public Route GetRandomRoomPath(Room currentRoom)
+    {
+        Room targetRoom = currentRoom;
+        while (targetRoom == currentRoom)
         {
             targetRoom = Rooms[Random.Range(0, Rooms.Count)];
         }
 
-        print("Current room: " + current.gameObject.name + ", target room: " + targetRoom.gameObject.name);
-        print("Calculating routes...");
-
-        List<Route> routes = FindShortestRoutes(current, targetRoom);
-
+        List<Route> routes = FindShortestRoutes(currentRoom, targetRoom);
         return routes[Random.Range(0, routes.Count)];
     }
 
-    private List<Route> FindShortestRoutes(Room current, Room target)
+    public Route GetCameraRoomPath(Room currentRoom)
+    {
+        //Get the cameraRoom
+        Room targetRoom = Rooms[0];
+        if (currentRoom == targetRoom)
+        {
+            throw new System.Exception("Pathfinding error: target room cannot be the same as current room");
+        }
+
+        //Find the shortest route
+        List<Route> routes = FindShortestRoutes(currentRoom, targetRoom);
+
+        //If there's multiple possible routes, prioritize the one that goes through room 2 (index 1 in the Rooms list)
+        if (routes.Count > 1)
+        {
+            foreach (Route route in routes)
+            {
+                if (route.Path.Contains(Rooms[1]))
+                {
+                    return route;
+                }
+            }
+        }
+
+        return routes[0];
+    }
+
+    private List<Route> FindShortestRoutes(Room start, Room end)
     {
         //Get all possible routes
-        List<Route> possibleRoutes = CalculateRoutes(new Route(current, target));
+        List<Route> possibleRoutes = CalculateRoutes(new Route(start, end));
 
         //Find the shortest one
         List<Route> shortestRoutes = new List<Route>();
@@ -65,7 +128,7 @@ public class RoomController : MonoBehaviour
             //only check routes that actually reach the destination
             if (route.ReachesDestination)
             {
-                //if there isn't a shortest round yet, this becomes the default one
+                //if there isn't a shortest route yet, this becomes the default one
                 if (shortestRoutes.Count == 0)
                 {
                     shortestRoutes.Add(route);
@@ -85,6 +148,39 @@ public class RoomController : MonoBehaviour
         }
 
         return shortestRoutes;
+    }
+
+    private List<Route> FindLongestRoutes(Room start, Room end)
+    {
+        //Get all possible routes
+        List<Route> possibleRoutes = CalculateRoutes(new Route(start, end));
+
+        //Find the longest one
+        List<Route> longestRoutes = new List<Route>();
+        foreach (Route route in possibleRoutes)
+        {
+            if (route.ReachesDestination)
+            {
+                //If there isn't a longest route yet, this one becomes the default one
+                if (longestRoutes.Count == 0)
+                {
+                    longestRoutes.Add(route);
+                }
+                //If the distance is the same as the longest one, add it to the list
+                else if (route.Distance == longestRoutes[0].Distance)
+                {
+                    longestRoutes.Add(route);
+                }
+                //If the distance is longer, empty the list and add this one instead
+                else if (route.Distance > longestRoutes[0].Distance)
+                {
+                    longestRoutes.Clear();
+                    longestRoutes.Add(route);
+                }
+            }
+        }
+
+        return longestRoutes;
     }
 
     private List<Route> CalculateRoutes(Route route)
@@ -115,16 +211,6 @@ public class RoomController : MonoBehaviour
                 //If it doesn't, keep searching.
                 routes.AddRange(CalculateRoutes(routeCopy));
                 //(this adds all possible routes that return to a list, it's a little complicated to explain lol)
-            }
-        }
-
-        //Filter out routes that don't reach the destination
-        List<Route> returnRoutes = new List<Route>();
-        foreach(Route r in routes)
-        {
-            if (r.ReachesDestination)
-            {
-                returnRoutes.Add(r);
             }
         }
 

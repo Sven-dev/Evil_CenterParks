@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: ID
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7321231813279467571, guid: a5219b11a03d389469800e448f25f991, type: 3}
       propertyPath: m_Name
       value: Room 10
@@ -75,7 +79,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 42229d36ca43eab4380844df773e2272, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 42229d36ca43eab4380844df773e2272, type: 3}
       propertyPath: m_LocalPosition.x

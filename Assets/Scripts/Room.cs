@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    [SerializeField] private Camera Camera;
-    [Space]
+    public int ID;
     [SerializeField] private bool HasHouses = false;
     [Range(0, 5)]
     [SerializeField] private int NoiseLevel = 0;
@@ -13,12 +12,14 @@ public class Room : MonoBehaviour
     [SerializeField] private int NoiseFloor = 0;
     [Space]
     public List<Room> ConnectedRooms;
-    [SerializeField] private List<Entity> Entities = new List<Entity>();
+    [SerializeField] private List<EntityType> NoiseMakers;
+    [SerializeField] private List<EntityType> Entities = new List<EntityType>();
 
+    [Header("Entity visuals")]
     [SerializeField] private List<GameObject> CorkVisuals; 
+    [SerializeField] private List<GameObject> VialVisuals; 
 
-    private int NoiseCeiling = 5;
-    private bool NoiseEntityInRoom = false;
+    private const int NoiseCeiling = 5;
 
     private void Start()
     {
@@ -26,38 +27,34 @@ public class Room : MonoBehaviour
         StartCoroutine(_ManageNoiseLevel());
     }
 
-    public void EnableCamera()
-    {
-        Camera.depth = -9;
-    }
-
-    public void DisableCamera()
-    {
-        Camera.depth = -10;
-    }
-
     public void EnterRoom(EntityType entity)
     {
+        Entities.Add(entity);
         switch (entity)
         {
             case EntityType.Cork:
                 CorkVisuals[Random.Range(0, CorkVisuals.Count)].SetActive(true);
                 break;
+            case EntityType.Vial:
+                VialVisuals[Random.Range(0, VialVisuals.Count)].SetActive(true);
+                AlterNoiseLevel(+1);
+                break;
         }
-
-        print(entity.ToString() + " entered " + gameObject.name + ".");
     }
 
     public void LeaveRoom(EntityType entity)
     {
+        Entities.Remove(entity);
         switch (entity)
         {
             case EntityType.Cork:
                 CorkVisuals[Random.Range(0, CorkVisuals.Count)].SetActive(false);
                 break;
+            case EntityType.Vial:
+                VialVisuals[Random.Range(0, VialVisuals.Count)].SetActive(false);
+                AlterNoiseLevel(-1);
+                break;
         }
-
-        print(entity.ToString() + " left " + gameObject.name + ".");
     }
 
     public int GetNoiseLevel()
@@ -65,22 +62,22 @@ public class Room : MonoBehaviour
         return NoiseLevel;
     }
 
-    public void RaiseNoiseLevel(int amount)
+    public void AlterNoiseLevel(int amount)
     {
         NoiseLevel = Mathf.Clamp(NoiseLevel + amount, NoiseFloor, NoiseCeiling);
     }
 
     private IEnumerator _ManageNoiseLevel()
     {
-        while(true)
-        {
-            while (NoiseEntityInRoom)
+        while (true)
+        {    
+            if (!Entities.Contains(EntityType.Vial))
             {
-                yield return new WaitForSecondsRealtime(0.1f);
+                yield return new WaitForSecondsRealtime(6);
+                NoiseLevel = Mathf.Clamp(NoiseLevel - 2, NoiseFloor, NoiseCeiling);                
             }
 
-            NoiseLevel = Mathf.Clamp(NoiseLevel - 2, NoiseFloor, NoiseCeiling);
-            yield return new WaitForSecondsRealtime(6);
+            yield return null;
         }
     }
 
