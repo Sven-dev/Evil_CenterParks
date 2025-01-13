@@ -75,9 +75,9 @@ public class Entity : MonoBehaviour
                 continue;
             }
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 1; i < 3; i++)
             {
-                if (MovementOpportunity())
+                if (MovementOpportunity(21 * i))
                 {
                     if (currentRoute != null && CurrentRoom != currentRoute.Destination)
                     {
@@ -124,9 +124,9 @@ public class Entity : MonoBehaviour
         }
     }
 
-    private bool MovementOpportunity()
+    private bool MovementOpportunity(int max = 21)
     {
-        int rnd = Random.Range(1, 21);
+        int rnd = Random.Range(1, max);
         if (AILevel > rnd)
         {
             return true;
