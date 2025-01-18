@@ -44,6 +44,11 @@ public class RoomController : MonoBehaviour
         List<Room> quietestRooms = new List<Room>();
         foreach(Room room in Rooms)
         {
+            if (!room.NoiseRoom())
+            {
+                continue;
+            }
+
             //Make sure the character doesn't try to path to the room they're in
             if (room == currentRoom)
             {
@@ -69,8 +74,8 @@ public class RoomController : MonoBehaviour
         foreach(Room targetRoom in quietestRooms)
         {
             //Per room, pick a random route (avoids bias towards rooms with multiple entrances)
-            List<Route> r = FindLongestRoutes(currentRoom, targetRoom);
-            routes.Add(r[Random.Range(0, r.Count)]);
+            List<Route> possibleRoutes = FindShortestRoutes(currentRoom, targetRoom);
+            routes.Add(possibleRoutes[Random.Range(0, possibleRoutes.Count)]);
         }
 
         //return a random route
