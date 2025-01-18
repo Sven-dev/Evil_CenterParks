@@ -37,6 +37,44 @@ public class RoomController : MonoBehaviour
         return loudestRooms;
     }
 
+    public Route GetLoudestRoomPath(Room currentRoom)
+    {
+        //Get the loudest rooms
+        int loudestNoiseLevel = -1;
+        List<Room> LoudestRooms = new List<Room>();
+        foreach (Room room in Rooms)
+        {
+            int noiseLevel = room.GetNoiseLevel();
+            if (noiseLevel > loudestNoiseLevel)
+            {
+                loudestNoiseLevel = noiseLevel;
+                LoudestRooms.Clear();
+                LoudestRooms.Add(room);
+            }
+            else if (noiseLevel == loudestNoiseLevel)
+            {
+                LoudestRooms.Add(room);
+            }
+        }
+
+        //Get the shortest route to each room
+        List<Route> routes = new List<Route>();
+        foreach (Room loudRoom in LoudestRooms)
+        {
+            //Filter out the room you're currently in, if that's one of the loudest rooms
+            if (loudRoom == currentRoom)
+            {
+                continue;
+            }
+
+            List<Route> possibleRoutes = FindShortestRoutes(currentRoom, loudRoom);
+            routes.Add(possibleRoutes[Random.Range(0, possibleRoutes.Count)]);
+        }
+
+        //Return a random shortest route to one of the loudest rooms
+        return routes[Random.Range(0, routes.Count)];
+    }
+
     public Route GetFurthestQuietestRoomPath(Room currentRoom)
     {
         //Filter through all rooms until you have the ones with the lowest noise level

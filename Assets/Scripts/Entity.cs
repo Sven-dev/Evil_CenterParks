@@ -8,8 +8,7 @@ public class Entity : MonoBehaviour
     [Range(1, 20)]
     [SerializeField] protected int AILevel = 10;
     [Range(1, 10)]
-    [SerializeField] protected float MovementOpportunityCooldown = 4.9f;
-    //[SerializeField] public bool NoiseMaker = false;    
+    [SerializeField] protected float MovementOpportunityCooldown = 4.9f; 
     [Space]
     [SerializeField] private Room CurrentRoom;
     private Route currentRoute;
@@ -25,36 +24,64 @@ public class Entity : MonoBehaviour
             case EntityType.Vial:
                 StartCoroutine(VialAI());
                 break;
+            case EntityType.Wanderer:
+                StartCoroutine(WandererAI());
+                break;
         }
     }
 
     private IEnumerator CorkAI()
     {
-        print("<color=cyan>Cork:</color> AI started in " + CurrentRoom.name + ".");
+        print("<color=Cyan>Cork:</color> AI started in " + CurrentRoom.name + ".");
         CurrentRoom.EnterRoom(EntityType);
 
         routeProgress = 0;
-        currentRoute = RoomController.Instance.GetRandomRoomPath(CurrentRoom);
+        currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom);
+        print("<color=Cyan>Cork:</color> Calculating route from" + currentRoute.Start.name + " to " + currentRoute.Destination.name);
         while (true)
         {
-            print("<color=cyan>Cork:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
-            yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
-
-            if (MovementOpportunity())
+            if (CurrentRoom.ID == 1)
             {
-                //Movement opportunity
-                routeProgress++;
-                CurrentRoom.LeaveRoom(EntityType);
-                CurrentRoom = currentRoute.Path[routeProgress];
-                CurrentRoom.EnterRoom(EntityType);
-                print("<color=Cyan>Cork:</color> Went to " + CurrentRoom.name + ".");
+                print("<color=Cyan>Cork:</color> Cork is in the camera room, and will not move until he has done a kill attempt");
+                yield return new WaitForSecondsRealtime(1f);
+                continue;
+            }
 
-                //Check if you need to recalculate your route
-                if (CurrentRoom == currentRoute.Destination)
+            List<Room> loudestRooms = RoomController.Instance.GetLoudestRooms();
+            switch (loudestRooms[0].GetNoiseLevel())
+            {
+                case 5:
+                    print("<color=Cyan>Cork:</color> Waiting for next movement opportunity (" + 2 + " seconds)");
+                    yield return new WaitForSecondsRealtime(2f);
+                    break;
+                case 4:
+                    print("<color=Cyan>Cork:</color> Waiting for next movement opportunity (" + 4 + " seconds)");
+                    yield return new WaitForSecondsRealtime(4f);
+                    break;
+                default:
+                    print("<color=Cyan>Cork:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
+                    yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
+                    break;
+            }
+
+            //if the destination room isn't one of the loudest rooms anymore, recalculate
+            if (loudestRooms[0].GetNoiseLevel() != currentRoute.Destination.GetNoiseLevel())
+            {
+                routeProgress = 0;
+                currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom);
+                print("<color=Cyan>Cork:</color> Calculating route from" + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+            }
+
+            if (CurrentRoom != currentRoute.Destination)
+            {
+                if (MovementOpportunity())
                 {
-                    routeProgress = 0;
-                    currentRoute = RoomController.Instance.GetRandomRoomPath(CurrentRoom);
-                    print("<color=Cyan>Cork:</color> Calculating route from" + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+                    //Movement opportunity
+                    routeProgress++;
+                    CurrentRoom.LeaveRoom(EntityType);
+                    CurrentRoom = currentRoute.Path[routeProgress];
+                    CurrentRoom.EnterRoom(EntityType);
+                    print("<color=Cyan>Cork:</color> Went to " + CurrentRoom.name + ".");
                 }
             }
         }
@@ -66,6 +93,8 @@ public class Entity : MonoBehaviour
         CurrentRoom.EnterRoom(EntityType);
 
         routeProgress = 0;
+        currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom);
+        print("<color=Yellow>Vial:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
         while (true)
         {
             if (CurrentRoom.ID == 1)
@@ -75,11 +104,33 @@ public class Entity : MonoBehaviour
                 continue;
             }
 
+            if (CurrentRoom == currentRoute.Destination && CurrentRoom.GetNoiseLevel() == 5)
+            {
+                //Recalculate path
+                int rnd = Random.Range(1, 5);
+                if (rnd == 1)
+                {
+                    routeProgress = 0;
+                    currentRoute = RoomController.Instance.GetCameraRoomPath(CurrentRoom);
+                    print("<color=Yellow>Vial:</color> Beelining it from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+                }
+                else if (rnd >= 2)
+                {
+                    routeProgress = 0;
+                    currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom);
+                    print("<color=Yellow>Vial:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+                }
+            }
+
+            print("<color=Yellow>Vial:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
+            yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
+
+            //Movement opportunites (Vial takes 2)
             for (int i = 1; i < 3; i++)
             {
                 if (MovementOpportunity(21 * i))
                 {
-                    if (currentRoute != null && CurrentRoom != currentRoute.Destination)
+                    if (CurrentRoom != currentRoute.Destination)
                     {
                         //Walking
                         routeProgress++;
@@ -94,36 +145,42 @@ public class Entity : MonoBehaviour
                         CurrentRoom.AlterNoiseLevel(+1);
                         print("<color=Yellow>Vial:</color> Raising " + CurrentRoom.name + " noise level to " + CurrentRoom.GetNoiseLevel() + ".");
                     }
-                    else
-                    {
-                        //Recalculating
-                        int rnd = Random.Range(1, 5);
-                        if (rnd == 1)
-                        {
-                            routeProgress = 0;
-                            currentRoute = RoomController.Instance.GetCameraRoomPath(CurrentRoom);
-                            print("<color=Yellow>Vial:</color> Beelining it " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
-                        }
-                        else if (rnd >= 2)
-                        {
-                            routeProgress = 0;
-                            currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom);
-                            print("<color=Yellow>Vial:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
-                        }
-
-                        routeProgress++;
-                        CurrentRoom.LeaveRoom(EntityType);
-                        CurrentRoom = currentRoute.Path[routeProgress];
-                        CurrentRoom.EnterRoom(EntityType);
-                        print("<color=Yellow>Vial:</color> Went to " + CurrentRoom.name + ".");
-                    }
                 }
 
                 yield return new WaitForSecondsRealtime(0.1f);
             }
-            
-            print("<color=Yellow>Vial:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
+        }
+    }
+
+    private IEnumerator WandererAI()
+    {
+        print("<color=Grey>Wanderer:</color> AI started in " + CurrentRoom.name + ".");
+        CurrentRoom.EnterRoom(EntityType);
+
+        routeProgress = 0;
+        currentRoute = RoomController.Instance.GetRandomRoomPath(CurrentRoom);
+        while (true)
+        {
+            print("<color=Grey>Wanderer:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
             yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
+
+            if (MovementOpportunity())
+            {
+                //Movement opportunity
+                routeProgress++;
+                CurrentRoom.LeaveRoom(EntityType);
+                CurrentRoom = currentRoute.Path[routeProgress];
+                CurrentRoom.EnterRoom(EntityType);
+                print("<color=Grey>Wanderer:</color> Went to " + CurrentRoom.name + ".");
+
+                //Check if you need to recalculate your route
+                if (CurrentRoom == currentRoute.Destination)
+                {
+                    routeProgress = 0;
+                    currentRoute = RoomController.Instance.GetRandomRoomPath(CurrentRoom);
+                    print("<color=Grey>Wanderer:</color> Calculating route from" + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+                }
+            }
         }
     }
 
@@ -143,7 +200,10 @@ public class Entity : MonoBehaviour
                     color = "Cyan";
                     break;
                 case EntityType.Vial:
-                    color = "yellow";
+                    color = "Yellow";
+                    break;
+                case EntityType.Wanderer:
+                    color = "Grey";
                     break;
             }
 
@@ -157,5 +217,6 @@ public class Entity : MonoBehaviour
 public enum EntityType
 {
     Cork,
-    Vial
+    Vial,
+    Wanderer
 }
