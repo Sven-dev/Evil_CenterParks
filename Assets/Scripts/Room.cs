@@ -11,6 +11,7 @@ public class Room : MonoBehaviour
     [Header("Entity visuals")]
     [SerializeField] private List<GameObject> CorkVisuals;
     [SerializeField] private List<GameObject> VialVisuals;
+    [SerializeField] private List<GameObject> WandererVisuals;
 
     [Space]
     [SerializeField] private UnityVoidEvent OnEntityUpdate;
@@ -51,6 +52,9 @@ private const int NoiseCeiling = 5;
                 VialVisuals[Random.Range(0, VialVisuals.Count)].SetActive(true);
                 AlterNoiseLevel(+1);
                 break;
+            case EntityType.Wanderer:
+                WandererVisuals[Random.Range(0, WandererVisuals.Count)].SetActive(true);
+                break;
         }
     }
 
@@ -70,6 +74,9 @@ private const int NoiseCeiling = 5;
                 {
                     AlterNoiseLevel(-1);
                 }
+                break;
+            case EntityType.Wanderer:
+                WandererVisuals[Random.Range(0, WandererVisuals.Count)].SetActive(false);
                 break;
         }
     }

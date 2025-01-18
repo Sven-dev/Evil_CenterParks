@@ -154,14 +154,14 @@ public class Entity : MonoBehaviour
 
     private IEnumerator WandererAI()
     {
-        print("<color=Grey>Wanderer:</color> AI started in " + CurrentRoom.name + ".");
+        print("<color=Green>Wanderer:</color> AI started in " + CurrentRoom.name + ".");
         CurrentRoom.EnterRoom(EntityType);
 
         routeProgress = 0;
         currentRoute = RoomController.Instance.GetRandomRoomPath(CurrentRoom);
         while (true)
         {
-            print("<color=Grey>Wanderer:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
+            print("<color=Green>Wanderer:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
             yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
 
             if (MovementOpportunity())
@@ -171,14 +171,14 @@ public class Entity : MonoBehaviour
                 CurrentRoom.LeaveRoom(EntityType);
                 CurrentRoom = currentRoute.Path[routeProgress];
                 CurrentRoom.EnterRoom(EntityType);
-                print("<color=Grey>Wanderer:</color> Went to " + CurrentRoom.name + ".");
+                print("<color=Green>Wanderer:</color> Went to " + CurrentRoom.name + ".");
 
                 //Check if you need to recalculate your route
                 if (CurrentRoom == currentRoute.Destination)
                 {
                     routeProgress = 0;
                     currentRoute = RoomController.Instance.GetRandomRoomPath(CurrentRoom);
-                    print("<color=Grey>Wanderer:</color> Calculating route from" + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+                    print("<color=Green>Wanderer:</color> Calculating route from" + currentRoute.Start.name + " to " + currentRoute.Destination.name);
                 }
             }
         }
@@ -203,7 +203,7 @@ public class Entity : MonoBehaviour
                     color = "Yellow";
                     break;
                 case EntityType.Wanderer:
-                    color = "Grey";
+                    color = "Green";
                     break;
             }
 
