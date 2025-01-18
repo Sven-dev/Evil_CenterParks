@@ -81,6 +81,7 @@ public class Entity : MonoBehaviour
                 {
                     if (currentRoute != null && CurrentRoom != currentRoute.Destination)
                     {
+                        //Walking
                         routeProgress++;
                         CurrentRoom.LeaveRoom(EntityType);
                         CurrentRoom = currentRoute.Path[routeProgress];
@@ -89,17 +90,19 @@ public class Entity : MonoBehaviour
                     }
                     else if (CurrentRoom.GetNoiseLevel() < 5)
                     {
+                        //Noise raising
                         CurrentRoom.AlterNoiseLevel(+1);
                         print("<color=Yellow>Vial:</color> Raising " + CurrentRoom.name + " noise level to " + CurrentRoom.GetNoiseLevel() + ".");
                     }
                     else
                     {
+                        //Recalculating
                         int rnd = Random.Range(1, 5);
                         if (rnd == 1)
                         {
                             routeProgress = 0;
                             currentRoute = RoomController.Instance.GetCameraRoomPath(CurrentRoom);
-                            print("<color=Yellow>Vial:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+                            print("<color=Yellow>Vial:</color> Beelining it " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
                         }
                         else if (rnd >= 2)
                         {

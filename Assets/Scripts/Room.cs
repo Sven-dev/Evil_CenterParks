@@ -5,30 +5,42 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     public int ID;
-    [SerializeField] private bool HasHouses = false;
+    public List<Room> ConnectedRooms;
+    [SerializeField] private List<EntityType> Entities = new List<EntityType>();
+
+    [Header("Entity visuals")]
+    [SerializeField] private List<GameObject> CorkVisuals;
+    [SerializeField] private List<GameObject> VialVisuals;
+
+    [Space]
+    [SerializeField] private UnityVoidEvent OnEntityUpdate;
+
+    [Header("Noise")]
     [Range(0, 5)]
     [SerializeField] private int NoiseLevel = 0;
     [Range(0, 5)]
     [SerializeField] private int NoiseFloor = 0;
+    [SerializeField] private bool NoiseRoom;
+
+private const int NoiseCeiling = 5;
+
     [Space]
-    public List<Room> ConnectedRooms;
-    [SerializeField] private List<EntityType> NoiseMakers;
-    [SerializeField] private List<EntityType> Entities = new List<EntityType>();
+    [SerializeField] private UnityFloatEvent OnNoiseLevelChange;
 
-    [Header("Entity visuals")]
-    [SerializeField] private List<GameObject> CorkVisuals; 
-    [SerializeField] private List<GameObject> VialVisuals; 
-
-    private const int NoiseCeiling = 5;
+    [Header("Disturbance")]
+    [SerializeField] private HouseManager HouseManager;
 
     private void Start()
     {
         NoiseLevel = NoiseFloor;
+        OnNoiseLevelChange?.Invoke(NoiseLevel);
         StartCoroutine(_ManageNoiseLevel());
     }
 
     public void EnterRoom(EntityType entity)
     {
+        OnEntityUpdate?.Invoke();
+
         Entities.Add(entity);
         switch (entity)
         {
@@ -44,6 +56,8 @@ public class Room : MonoBehaviour
 
     public void LeaveRoom(EntityType entity)
     {
+        OnEntityUpdate?.Invoke();
+
         Entities.Remove(entity);
         switch (entity)
         {
@@ -57,6 +71,11 @@ public class Room : MonoBehaviour
         }
     }
 
+    public bool NoiseRoomCheck()
+    {
+        return NoiseRoom;
+    }
+
     public int GetNoiseLevel()
     {
         return NoiseLevel;
@@ -65,6 +84,7 @@ public class Room : MonoBehaviour
     public void AlterNoiseLevel(int amount)
     {
         NoiseLevel = Mathf.Clamp(NoiseLevel + amount, NoiseFloor, NoiseCeiling);
+        OnNoiseLevelChange?.Invoke(NoiseLevel);
     }
 
     private IEnumerator _ManageNoiseLevel()
@@ -74,7 +94,8 @@ public class Room : MonoBehaviour
             if (!Entities.Contains(EntityType.Vial))
             {
                 yield return new WaitForSecondsRealtime(6);
-                NoiseLevel = Mathf.Clamp(NoiseLevel - 2, NoiseFloor, NoiseCeiling);                
+                NoiseLevel = Mathf.Clamp(NoiseLevel - 2, NoiseFloor, NoiseCeiling);
+                OnNoiseLevelChange?.Invoke(NoiseLevel);
             }
 
             yield return null;
