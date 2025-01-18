@@ -66,7 +66,10 @@ private const int NoiseCeiling = 5;
                 break;
             case EntityType.Vial:
                 VialVisuals[Random.Range(0, VialVisuals.Count)].SetActive(false);
-                AlterNoiseLevel(-1);
+                if (NoiseLevel != 5)
+                {
+                    AlterNoiseLevel(-1);
+                }
                 break;
         }
     }
