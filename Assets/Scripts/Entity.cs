@@ -212,6 +212,26 @@ public class Entity : MonoBehaviour
             return false;
         }
     }  
+
+    public void CheckForAILevelIncrease(System.TimeSpan currentTime)
+    {
+        switch (EntityType)
+        {
+            case EntityType.Cork:
+                if (currentTime.Hours == 2 || currentTime.Hours == 3 || currentTime.Hours == 4)
+                {
+                    AILevel++;
+                }
+                break;
+
+            case EntityType.Vial:
+                if (currentTime.Hours == 2 || currentTime.Hours == 4)
+                {
+                    AILevel++;
+                }
+                break;
+        }
+    }
 }
 
 public enum EntityType

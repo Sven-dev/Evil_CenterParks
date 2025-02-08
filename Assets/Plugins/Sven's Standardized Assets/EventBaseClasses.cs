@@ -1,4 +1,5 @@
-﻿using UnityEngine.Events;
+﻿using System;
+using UnityEngine.Events;
 using UnityEngine;
 
 /// <summary>
@@ -6,26 +7,27 @@ using UnityEngine;
 /// </summary>
 
 #region Generic
-[System.Serializable]
+[Serializable]
 public class UnityVoidEvent : UnityEvent { }
 
-[System.Serializable]
+[Serializable]
 public class UnityIntEvent : UnityEvent<int> { }
 
-[System.Serializable]
+[Serializable]
 public class UnityStringEvent : UnityEvent<string> { }
-
-[System.Serializable]
+[Serializable]
 public class UnityFloatEvent : UnityEvent<float> { }
 
-[System.Serializable]
+[Serializable]
 public class UnityBoolEvent : UnityEvent<bool> { }
 #endregion
 
 #region Unity
-[System.Serializable]
+[Serializable]
 public class UnitySpriteEvent : UnityEvent<Sprite> { }
 #endregion
 
 #region Custom
+[Serializable]
+public class UnityTimeSpanEvent : UnityEvent<TimeSpan> { }
 #endregion
