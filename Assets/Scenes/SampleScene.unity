@@ -703,6 +703,10 @@ PrefabInstance:
       propertyPath: m_Shadows.m_Strength
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -259972160606440404, guid: e67b06b4d83bdba449cc088c8c43134b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e67b06b4d83bdba449cc088c8c43134b, type: 3}
       propertyPath: m_Name
       value: Fnaf
@@ -972,6 +976,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264341540}
   m_CullTransparentMesh: 1
+--- !u!1 &265047815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3378483878977603760, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+  m_PrefabInstance: {fileID: 2218674804042384618}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &265047816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265047815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b8799c85e9a43f4c987d0f6d9bf2430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DisturbanceLevel: 0
+  OnDisturbed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoorOpen:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoorClose:
+    m_PersistentCalls:
+      m_Calls: []
+  OnKill:
+    m_PersistentCalls:
+      m_Calls: []
+  BeingDisturbed: 0
 --- !u!1 &320338665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2138,6 +2173,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b8799c85e9a43f4c987d0f6d9bf2430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DisturbanceLevel: 0
+  OnDisturbed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoorOpen:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoorClose:
+    m_PersistentCalls:
+      m_Calls: []
+  OnKill:
+    m_PersistentCalls:
+      m_Calls: []
+  BeingDisturbed: 0
 --- !u!1 &936277203
 GameObject:
   m_ObjectHideFlags: 0
@@ -2835,6 +2884,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b8799c85e9a43f4c987d0f6d9bf2430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DisturbanceLevel: 0
+  OnDisturbed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoorOpen:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoorClose:
+    m_PersistentCalls:
+      m_Calls: []
+  OnKill:
+    m_PersistentCalls:
+      m_Calls: []
+  BeingDisturbed: 0
 --- !u!1 &1585366519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2959,6 +3022,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1742800327 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 315418182805299485, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+  m_PrefabInstance: {fileID: 6730259660386185746}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b8799c85e9a43f4c987d0f6d9bf2430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1799719089 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2859992218674786320, guid: d8063285ca6e0ff4b8f691cc4407f799, type: 3}
@@ -3203,7 +3277,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
   m_PrefabInstance: {fileID: 2218674804042384618}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 265047815}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 722e098398a10de41980ffbb8500dac2, type: 3}
@@ -4063,7 +4137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6459548462311019483, guid: 8ff41f34265957b449ab533294529c47, type: 3}
       propertyPath: NoiseRoom
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6459548462311019483, guid: 8ff41f34265957b449ab533294529c47, type: 3}
       propertyPath: ConnectedRooms.Array.size
@@ -4252,6 +4326,14 @@ PrefabInstance:
       value: Room 6
       objectReference: {fileID: 0}
     - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: NoiseRoom
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: GuestRooms
+      value: 
+      objectReference: {fileID: 265047816}
+    - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
       propertyPath: ConnectedRooms.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -4263,6 +4345,34 @@ PrefabInstance:
       propertyPath: ConnectedRooms.Array.data[1]
       value: 
       objectReference: {fileID: 224976128}
+    - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 265047816}
+    - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CheckForDisturbance
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: GuestRoomManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3378483878977603763, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -5076,6 +5186,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2028128508733489559, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: GuestRooms
+      value: 
+      objectReference: {fileID: 1742800327}
+    - target: {fileID: 2028128508733489559, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
       propertyPath: ConnectedRooms.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -5137,6 +5251,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 598709010}
     m_Modifications:
+    - target: {fileID: 3546743690353985675, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546743690353985675, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.85
+      objectReference: {fileID: 0}
     - target: {fileID: 3757596334794567994, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5145,8 +5267,52 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4783081393182233430, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.279
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783081393182233430, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.932
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783081393182233430, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.214
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783081393182233430, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7041488
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783081393182233430, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7041488
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783081393182233430, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.06460999
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783081393182233430, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06460999
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783081393182233430, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -79.515
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783081393182233430, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783081393182233430, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 5814435548465413566, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6001554833472750098, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6260937782739282235, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
@@ -5156,6 +5322,18 @@ PrefabInstance:
     - target: {fileID: 6260937782739282235, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -76.899994
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611751209033454723, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611751209033454723, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654958112623712903, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: ID
@@ -5167,8 +5345,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: NoiseRoom
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: GuestRooms
+      value: 
+      objectReference: {fileID: 1518532597}
     - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: NoiseFloor
       value: 2
@@ -5176,7 +5358,7 @@ PrefabInstance:
     - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: HouseManager
       value: 
-      objectReference: {fileID: 1518532597}
+      objectReference: {fileID: 0}
     - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: NoiseMakers.Array.size
       value: 0
@@ -5189,21 +5371,49 @@ PrefabInstance:
       propertyPath: ConnectedRooms.Array.data[0]
       value: 
       objectReference: {fileID: 1848148883}
+    - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Slider, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7931730337585015353, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7931730337585015353, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -89.72
       objectReference: {fileID: 0}
     - target: {fileID: 7931730337585015353, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.52
       objectReference: {fileID: 0}
     - target: {fileID: 7931730337585015353, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -113.66
       objectReference: {fileID: 0}
     - target: {fileID: 7931730337585015353, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5236,6 +5446,14 @@ PrefabInstance:
     - target: {fileID: 7931730337585015354, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: m_Name
       value: Room 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931730337833887534, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 8713475544589137638, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8777148078844675361, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -5499,6 +5717,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5672082207307318763, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
+      propertyPath: GuestRooms
+      value: 
+      objectReference: {fileID: 897875996}
+    - target: {fileID: 5672082207307318763, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
       propertyPath: HouseManager
       value: 
       objectReference: {fileID: 897875996}
@@ -5518,6 +5740,34 @@ PrefabInstance:
       propertyPath: ConnectedRooms.Array.data[2]
       value: 
       objectReference: {fileID: 585647053}
+    - target: {fileID: 5672082207307318763, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5672082207307318763, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5672082207307318763, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 897875996}
+    - target: {fileID: 5672082207307318763, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5672082207307318763, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CheckForDisturbance
+      objectReference: {fileID: 0}
+    - target: {fileID: 5672082207307318763, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: GuestRoomManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5672082207307318763, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6443194953704565490, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -4.130005

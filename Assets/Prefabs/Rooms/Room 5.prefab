@@ -120,6 +120,34 @@ PrefabInstance:
       propertyPath: HouseManager
       value: 
       objectReference: {fileID: 315418182805299485}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 315418182805299485}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CheckForDisturbance
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: GuestRoomManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7321231813279467571, guid: a5219b11a03d389469800e448f25f991, type: 3}
       propertyPath: m_Name
       value: Room 5
@@ -148,3 +176,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b8799c85e9a43f4c987d0f6d9bf2430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DisturbanceLevel: 0
+  OnDisturbed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoorOpen:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoorClose:
+    m_PersistentCalls:
+      m_Calls: []
+  DoorOpened: 0

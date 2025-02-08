@@ -21,15 +21,13 @@ public class Room : MonoBehaviour
     [SerializeField] private int NoiseLevel = 0;
     [Range(0, 5)]
     [SerializeField] private int NoiseFloor = 0;
-    [SerializeField] private bool NoiseRoom;
 
-private const int NoiseCeiling = 5;
+    private const int NoiseCeiling = 5;
 
     [Space]
     [SerializeField] private UnityFloatEvent OnNoiseLevelChange;
 
-    [Header("Disturbance")]
-    [SerializeField] private HouseManager HouseManager;
+    public GuestRoomManager GuestRooms;
 
     private void Start()
     {
@@ -79,11 +77,6 @@ private const int NoiseCeiling = 5;
                 WandererVisuals[Random.Range(0, WandererVisuals.Count)].SetActive(false);
                 break;
         }
-    }
-
-    public bool NoiseRoomCheck()
-    {
-        return NoiseRoom;
     }
 
     public int GetNoiseLevel()

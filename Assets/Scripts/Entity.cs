@@ -14,6 +14,8 @@ public class Entity : MonoBehaviour
     private Route currentRoute;
     private int routeProgress = 0;
 
+    private List<Room> IgnoredRooms = new List<Room>(); 
+
     private void Start()
     {
         switch(EntityType)
@@ -36,10 +38,11 @@ public class Entity : MonoBehaviour
         CurrentRoom.EnterRoom(EntityType);
 
         routeProgress = 0;
-        currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom);
+        currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, IgnoredRooms);
         print("<color=Cyan>Cork:</color> Calculating route from" + currentRoute.Start.name + " to " + currentRoute.Destination.name);
         while (true)
         {
+            //Main office logic
             if (CurrentRoom.ID == 1)
             {
                 print("<color=Cyan>Cork:</color> Cork is in the camera room, and will not move until he has done a kill attempt");
@@ -47,7 +50,17 @@ public class Entity : MonoBehaviour
                 continue;
             }
 
-            List<Room> loudestRooms = RoomController.Instance.GetLoudestRooms();
+            //Checking ignored rooms
+            foreach (Room room in IgnoredRooms)
+            {
+                if (room.GetNoiseLevel() == 0)
+                {
+                    IgnoredRooms.Remove(room);
+                }
+            }
+
+            //Waiting based on loudest noise level
+            List<Room> loudestRooms = RoomController.Instance.GetLoudestRooms(IgnoredRooms);
             switch (loudestRooms[0].GetNoiseLevel())
             {
                 case 5:
@@ -65,10 +78,14 @@ public class Entity : MonoBehaviour
             }
 
             //if the destination room isn't one of the loudest rooms anymore, recalculate
+            loudestRooms = RoomController.Instance.GetLoudestRooms(IgnoredRooms);
             if (loudestRooms[0].GetNoiseLevel() != currentRoute.Destination.GetNoiseLevel())
             {
                 routeProgress = 0;
-                currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom);
+                IgnoredRooms.Add(CurrentRoom);
+                currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, IgnoredRooms);
+                IgnoredRooms.Remove(CurrentRoom);
+
                 print("<color=Cyan>Cork:</color> Calculating route from" + currentRoute.Start.name + " to " + currentRoute.Destination.name);
             }
 
@@ -76,12 +93,27 @@ public class Entity : MonoBehaviour
             {
                 if (MovementOpportunity())
                 {
-                    //Movement opportunity
-                    routeProgress++;
-                    CurrentRoom.LeaveRoom(EntityType);
-                    CurrentRoom = currentRoute.Path[routeProgress];
-                    CurrentRoom.EnterRoom(EntityType);
-                    print("<color=Cyan>Cork:</color> Went to " + CurrentRoom.name + ".");
+                    GuestRoomManager guests = CurrentRoom.GuestRooms;
+                    if (guests != null && CurrentRoom.GetNoiseLevel() == 5)
+                    {
+                        if (guests.BeingDisturbed)
+                        {
+                            guests.Kill();
+                        }
+                        else
+                        {
+                            IgnoredRooms.Add(CurrentRoom);
+                        }
+                    }
+                    else
+                    {
+                        //Movement opportunity
+                        routeProgress++;
+                        CurrentRoom.LeaveRoom(EntityType);
+                        CurrentRoom = currentRoute.Path[routeProgress];
+                        CurrentRoom.EnterRoom(EntityType);
+                        print("<color=Cyan>Cork:</color> Went to " + CurrentRoom.name + ".");
+                    }
                 }
             }
         }

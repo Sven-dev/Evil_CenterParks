@@ -13,13 +13,18 @@ public class RoomController : MonoBehaviour
         Instance = this;
     }
 
-    public List<Room> GetLoudestRooms()
+    public List<Room> GetLoudestRooms(List<Room> ignoredRooms)
     {
         int loudestNoiseLevel = -1;
         List<Room> loudestRooms = new List<Room>();
 
         foreach (Room room in Rooms)
         {
+            if (ignoredRooms.Contains(room))
+            {
+                continue;
+            }
+
             int roomNoiseLevel = room.GetNoiseLevel();
             if (roomNoiseLevel == loudestNoiseLevel)
             {
@@ -37,25 +42,10 @@ public class RoomController : MonoBehaviour
         return loudestRooms;
     }
 
-    public Route GetLoudestRoomPath(Room currentRoom)
+    public Route GetLoudestRoomPath(Room currentRoom, List<Room> ignoredRooms)
     {
         //Get the loudest rooms
-        int loudestNoiseLevel = -1;
-        List<Room> LoudestRooms = new List<Room>();
-        foreach (Room room in Rooms)
-        {
-            int noiseLevel = room.GetNoiseLevel();
-            if (noiseLevel > loudestNoiseLevel)
-            {
-                loudestNoiseLevel = noiseLevel;
-                LoudestRooms.Clear();
-                LoudestRooms.Add(room);
-            }
-            else if (noiseLevel == loudestNoiseLevel)
-            {
-                LoudestRooms.Add(room);
-            }
-        }
+        List<Room> LoudestRooms = GetLoudestRooms(ignoredRooms);
 
         //Get the shortest route to each room
         List<Route> routes = new List<Route>();
@@ -82,7 +72,7 @@ public class RoomController : MonoBehaviour
         List<Room> quietestRooms = new List<Room>();
         foreach(Room room in Rooms)
         {
-            if (!room.NoiseRoomCheck())
+            if (room.GuestRooms == null)
             {
                 continue;
             }
