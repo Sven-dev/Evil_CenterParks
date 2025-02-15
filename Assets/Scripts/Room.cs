@@ -6,12 +6,13 @@ public class Room : MonoBehaviour
 {
     public int ID;
     public List<Room> ConnectedRooms;
-    [SerializeField] private List<EntityType> Entities = new List<EntityType>();
+    [HideInInspector] public List<EntityType> Entities = new List<EntityType>();
 
     [Header("Entity visuals")]
     [SerializeField] private List<GameObject> CorkVisuals;
     [SerializeField] private List<GameObject> VialVisuals;
     [SerializeField] private List<GameObject> WandererVisuals;
+    [SerializeField] private List<GameObject> HallucinationVisuals;
 
     [Space]
     [SerializeField] private UnityVoidEvent OnEntityUpdate;
@@ -53,6 +54,9 @@ public class Room : MonoBehaviour
             case EntityType.Wanderer:
                 WandererVisuals[Random.Range(0, WandererVisuals.Count)].SetActive(true);
                 break;
+            case EntityType.Hallucination:
+                HallucinationVisuals[Random.Range(0, HallucinationVisuals.Count)].SetActive(true);
+                break;
         }
     }
 
@@ -75,6 +79,9 @@ public class Room : MonoBehaviour
                 break;
             case EntityType.Wanderer:
                 WandererVisuals[Random.Range(0, WandererVisuals.Count)].SetActive(false);
+                break;
+            case EntityType.Hallucination:
+                HallucinationVisuals[Random.Range(0, HallucinationVisuals.Count)].SetActive(false);
                 break;
         }
     }

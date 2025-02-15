@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Entity : MonoBehaviour
 {
@@ -14,32 +15,59 @@ public class Entity : MonoBehaviour
     private Route currentRoute;
     private int routeProgress = 0;
 
-    private List<Room> IgnoredRooms = new List<Room>(); 
+    [SerializeField] private Entity Hallucination;
 
     private void Start()
     {
         switch(EntityType)
         {
             case EntityType.Cork:
-                StartCoroutine(CorkAI());
+                StartCoroutine(_CorkAI());
                 break;
             case EntityType.Vial:
-                StartCoroutine(VialAI());
+                StartCoroutine(_VialAI());
                 break;
             case EntityType.Wanderer:
-                StartCoroutine(WandererAI());
+                StartCoroutine(_WandererAI());
                 break;
         }
     }
 
-    private IEnumerator CorkAI()
+    private void OnEnable()
     {
-        print("<color=Cyan>Cork:</color> AI started in " + CurrentRoom.name + ".");
-        CurrentRoom.EnterRoom(EntityType);
+        switch (EntityType)
+        {
+            case EntityType.Hallucination:
+                StartCoroutine(_HallucinationAI());
+                break;
+        }
+    }
 
+    private void OnDisable()
+    {
+        CurrentRoom.LeaveRoom(EntityType);
+        StopAllCoroutines();
+    }
+
+    private IEnumerator _CorkAI()
+    {
+        CurrentRoom.EnterRoom(EntityType);
+        print("<color=Cyan>Cork:</color> AI started in " + CurrentRoom.name + ".");
+
+        List<Room> ignoredRooms = new List<Room>();
+
+        //Hallucination setup
+        bool hallucinationMode = false;
+        float rnd = UnityEngine.Random.Range(60, 121);     
+        TimeSpan hallucinationTimer = DateTime.Now.TimeOfDay + TimeSpan.FromSeconds(UnityEngine.Random.Range(60, 121));
+        print("<color=Cyan>Cork:</color> Setting a hallucination timer for " + rnd + " seconds.");
+
+        ignoredRooms.Add(CurrentRoom);
         routeProgress = 0;
-        currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, IgnoredRooms);
+        currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, ignoredRooms);
+        ignoredRooms.Remove(CurrentRoom); 
         print("<color=Cyan>Cork:</color> Calculating route from" + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+        
         while (true)
         {
             //Main office logic
@@ -51,16 +79,16 @@ public class Entity : MonoBehaviour
             }
 
             //Checking ignored rooms
-            foreach (Room room in IgnoredRooms)
+            foreach (Room room in ignoredRooms)
             {
                 if (room.GetNoiseLevel() == 0)
                 {
-                    IgnoredRooms.Remove(room);
+                    ignoredRooms.Remove(room);
                 }
             }
 
             //Waiting based on loudest noise level
-            List<Room> loudestRooms = RoomController.Instance.GetLoudestRooms(IgnoredRooms);
+            List<Room> loudestRooms = RoomController.Instance.GetLoudestRooms(ignoredRooms);
             switch (loudestRooms[0].GetNoiseLevel())
             {
                 case 5:
@@ -77,16 +105,55 @@ public class Entity : MonoBehaviour
                     break;
             }
 
-            //if the destination room isn't one of the loudest rooms anymore, recalculate
-            loudestRooms = RoomController.Instance.GetLoudestRooms(IgnoredRooms);
-            if (loudestRooms[0].GetNoiseLevel() != currentRoute.Destination.GetNoiseLevel())
+            if (hallucinationMode)
             {
-                routeProgress = 0;
-                IgnoredRooms.Add(CurrentRoom);
-                currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, IgnoredRooms);
-                IgnoredRooms.Remove(CurrentRoom);
+                if (CurrentRoom == currentRoute.Destination)
+                {
+                    //Clear hallucination
+                    Hallucination.gameObject.SetActive(false);
 
-                print("<color=Cyan>Cork:</color> Calculating route from" + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+                    //Generate new timer
+                    rnd = UnityEngine.Random.Range(60, 121);
+                    hallucinationTimer = DateTime.Now.TimeOfDay + TimeSpan.FromSeconds(rnd);
+
+                    hallucinationMode = false;
+                    print("<color=Cyan>Cork:</color> Hallucination mode done! setting a new hallucination timer for " + rnd + " seconds, and resuming normal behaviour.");
+                }
+            }
+            else
+            {
+                if (DateTime.Now.TimeOfDay > hallucinationTimer)
+                {
+                    loudestRooms = RoomController.Instance.GetLoudestRooms(ignoredRooms);
+                    if (CurrentRoom.GetNoiseLevel() == 5 || loudestRooms[0].GetNoiseLevel() < 4)
+                    {
+                        hallucinationMode = true;
+
+                        //Create hallucination
+                        Hallucination.gameObject.SetActive(true);
+
+                        //Path to room 1 or 12, whichever is closer
+                        routeProgress = 0;
+                        currentRoute = RoomController.Instance.GetRouteTo1or12(CurrentRoom);
+
+                        print("<color=Cyan>Cork:</color> Hallucination mode: Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+                    }
+                }
+            }
+
+            if (!hallucinationMode)
+            {
+                //if the destination room isn't one of the loudest rooms anymore, recalculate
+                loudestRooms = RoomController.Instance.GetLoudestRooms(ignoredRooms);
+                if (loudestRooms[0].GetNoiseLevel() != currentRoute.Destination.GetNoiseLevel())
+                {
+                    routeProgress = 0;
+                    ignoredRooms.Add(CurrentRoom);
+                    currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, ignoredRooms);
+                    ignoredRooms.Remove(CurrentRoom);
+
+                    print("<color=Cyan>Cork:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+                }
             }
 
             if (CurrentRoom != currentRoute.Destination)
@@ -102,7 +169,7 @@ public class Entity : MonoBehaviour
                         }
                         else
                         {
-                            IgnoredRooms.Add(CurrentRoom);
+                            ignoredRooms.Add(CurrentRoom);
                         }
                     }
                     else
@@ -119,10 +186,10 @@ public class Entity : MonoBehaviour
         }
     }
 
-    private IEnumerator VialAI()
+    private IEnumerator _VialAI()
     {
-        print("<color=Yellow>Vial:</color> AI started in " + CurrentRoom.name + ".");
         CurrentRoom.EnterRoom(EntityType);
+        print("<color=Yellow>Vial:</color> AI started in " + CurrentRoom.name + ".");
 
         routeProgress = 0;
         currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom);
@@ -139,7 +206,7 @@ public class Entity : MonoBehaviour
             if (CurrentRoom == currentRoute.Destination && CurrentRoom.GetNoiseLevel() == 5)
             {
                 //Recalculate path
-                int rnd = Random.Range(1, 5);
+                int rnd = UnityEngine.Random.Range(1, 5);
                 if (rnd == 1)
                 {
                     routeProgress = 0;
@@ -184,10 +251,95 @@ public class Entity : MonoBehaviour
         }
     }
 
-    private IEnumerator WandererAI()
+    private IEnumerator _HallucinationAI()
     {
-        print("<color=Green>Wanderer:</color> AI started in " + CurrentRoom.name + ".");
+        CurrentRoom = RoomController.Instance.FindCorkRoom();
         CurrentRoom.EnterRoom(EntityType);
+        print("<color=Grey>Hallucination:</color> AI started in " + CurrentRoom.name + ".");
+        
+        List<Room> ignoredRooms = new List<Room>();
+       
+        ignoredRooms.Add(CurrentRoom);
+        routeProgress = 0;
+        currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, ignoredRooms);
+        ignoredRooms.Remove(CurrentRoom);
+        print("<color=Grey>Hallucination:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+        
+        while (true)
+        {
+            //Checking ignored rooms
+            foreach (Room room in ignoredRooms)
+            {
+                if (room.GetNoiseLevel() == 0)
+                {
+                    ignoredRooms.Remove(room);
+                }
+            }
+
+            //Waiting based on loudest noise level
+            List<Room> loudestRooms = RoomController.Instance.GetLoudestRooms(ignoredRooms);
+            switch (loudestRooms[0].GetNoiseLevel())
+            {
+                case 5:
+                    print("<color=Grey>Hallucination:</color> Waiting for next movement opportunity (" + 2 + " seconds)");
+                    yield return new WaitForSecondsRealtime(2f);
+                    break;
+                case 4:
+                    print("<color=Grey>Hallucination:</color> Waiting for next movement opportunity (" + 4 + " seconds)");
+                    yield return new WaitForSecondsRealtime(4f);
+                    break;
+                default:
+                    print("<color=Grey>Hallucination:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
+                    yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
+                    break;
+            }
+
+            //if the destination room isn't one of the loudest rooms anymore, recalculate
+            loudestRooms = RoomController.Instance.GetLoudestRooms(ignoredRooms);
+            if (loudestRooms[0].GetNoiseLevel() != currentRoute.Destination.GetNoiseLevel())
+            {               
+                ignoredRooms.Add(CurrentRoom);
+                routeProgress = 0;
+                currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, ignoredRooms);
+                ignoredRooms.Remove(CurrentRoom);
+
+                print("<color=Grey>Hallucination:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+            }
+            
+            if (CurrentRoom != currentRoute.Destination)
+            {
+                if (MovementOpportunity())
+                {
+                    GuestRoomManager guests = CurrentRoom.GuestRooms;
+                    if (guests != null && CurrentRoom.GetNoiseLevel() == 5)
+                    {
+                        if (guests.BeingDisturbed)
+                        {
+                            guests.Kill();
+                        }
+                        else
+                        {
+                            ignoredRooms.Add(CurrentRoom);
+                        }
+                    }
+                    else
+                    {
+                        //Movement opportunity
+                        routeProgress++;
+                        CurrentRoom.LeaveRoom(EntityType);
+                        CurrentRoom = currentRoute.Path[routeProgress];
+                        CurrentRoom.EnterRoom(EntityType);
+                        print("<color=Grey>Hallucination:</color> Went to " + CurrentRoom.name + ".");
+                    }
+                }
+            }
+        }
+    }
+
+    private IEnumerator _WandererAI()
+    {
+        CurrentRoom.EnterRoom(EntityType);
+        print("<color=Green>Wanderer:</color> AI started in " + CurrentRoom.name + ".");
 
         routeProgress = 0;
         currentRoute = RoomController.Instance.GetRandomRoomPath(CurrentRoom);
@@ -218,7 +370,7 @@ public class Entity : MonoBehaviour
 
     private bool MovementOpportunity(int max = 21)
     {
-        int rnd = Random.Range(1, max);
+        int rnd = UnityEngine.Random.Range(1, max);
         if (AILevel > rnd)
         {
             return true;
@@ -236,6 +388,9 @@ public class Entity : MonoBehaviour
                     break;
                 case EntityType.Wanderer:
                     color = "Green";
+                    break;
+                case EntityType.Hallucination:
+                    color = "Grey";
                     break;
             }
 
@@ -262,6 +417,13 @@ public class Entity : MonoBehaviour
                     AILevel++;
                 }
                 break;
+
+            case EntityType.Hallucination:
+                if (currentTime.Hours == 2 || currentTime.Hours == 3 || currentTime.Hours == 4)
+                {
+                    AILevel++;
+                }
+                break;
         }
     }
 }
@@ -270,5 +432,6 @@ public enum EntityType
 {
     Cork,
     Vial,
-    Wanderer
+    Wanderer,
+    Hallucination
 }

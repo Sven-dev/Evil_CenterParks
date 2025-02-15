@@ -19,7 +19,7 @@ public class NightProgressTimer : MonoBehaviour
     private void Start()
     {
         CustomTimeScale = new TimeSpan(0, 0, (int)(60 * 60 / HourDuration));
-        print(CustomTimeScale);
+        //print(CustomTimeScale);
         StartCoroutine(_NightTimer());
     }
 
