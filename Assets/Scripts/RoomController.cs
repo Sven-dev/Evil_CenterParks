@@ -51,12 +51,6 @@ public class RoomController : MonoBehaviour
         List<Route> routes = new List<Route>();
         foreach (Room loudRoom in LoudestRooms)
         {
-            //Filter out the room you're currently in, if that's one of the loudest rooms
-            if (loudRoom == currentRoom)
-            {
-                continue;
-            }
-
             List<Route> possibleRoutes = FindShortestRoutes(currentRoom, loudRoom);
             routes.Add(possibleRoutes[Random.Range(0, possibleRoutes.Count)]);
         }
@@ -177,6 +171,12 @@ public class RoomController : MonoBehaviour
         return routesTo12[Random.Range(0, routesTo12.Count)];
     }
 
+    public Route GetRouteTo7(Room currentRoom)
+    {
+        List<Route> routesTo7 = FindShortestRoutes(currentRoom, Rooms[0]);
+        return routesTo7[Random.Range(0, routesTo7.Count)];
+    }
+
     private List<Route> FindShortestRoutes(Room start, Room end)
     {
         //Get all possible routes
@@ -262,6 +262,15 @@ public class RoomController : MonoBehaviour
     {
         //Check every connected room
         List<Route> routes = new List<Route>();
+
+        //If the start of the room is the same as the destination, return a path with a length of 0 to prevent errors.
+        if (route.Start == route.Destination)
+        {
+            route.ReachesDestination = true;
+            routes.Add(route);
+            return routes;
+        }
+
         foreach (Room connectedRoom in route.Path[route.Path.Count - 1].ConnectedRooms)
         {
             //If the connected room is already in the path (meaning it's a dead end or a loop), end the route
@@ -312,7 +321,7 @@ public class Route
         Path.Add(start);
 
         ReachesDestination = false;
-        Distance = 1;
+        Distance = 0;
     }
 
     public Route(Route original)

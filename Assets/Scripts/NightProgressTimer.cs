@@ -20,6 +20,7 @@ public class NightProgressTimer : MonoBehaviour
     {
         CustomTimeScale = new TimeSpan(0, 0, (int)(60 * 60 / HourDuration));
         //print(CustomTimeScale);
+        OnHourPassed?.Invoke(currentTime);
         StartCoroutine(_NightTimer());
     }
 
