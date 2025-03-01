@@ -173,8 +173,14 @@ public class RoomController : MonoBehaviour
 
     public Route GetRouteTo7(Room currentRoom)
     {
-        List<Route> routesTo7 = FindShortestRoutes(currentRoom, Rooms[0]);
+        List<Route> routesTo7 = FindShortestRoutes(currentRoom, Rooms[6]);
         return routesTo7[Random.Range(0, routesTo7.Count)];
+    }
+
+    public Route GetRouteTo2(Room currentRoom)
+    {
+        List<Route> routesTo2 = FindShortestRoutes(currentRoom, Rooms[1]);
+        return routesTo2[Random.Range(0, routesTo2.Count)];
     }
 
     private List<Route> FindShortestRoutes(Room start, Room end)
@@ -244,17 +250,17 @@ public class RoomController : MonoBehaviour
         return longestRoutes;
     }
 
-    public Room FindCorkRoom()
+    public Room FindEntity(EntityType entity)
     {
         foreach(Room room in Rooms)
         {
-            if (room.Entities.Contains(EntityType.Cork))
+            if (room.Entities.Contains(entity))
             {
                 return room;
             }
         }
 
-        //If Cork can't be found (which should never happen), default to camera 8.
+        //If an entity can't be found (which should never happen), default to camera 8.
         return Rooms[9];
     }
 

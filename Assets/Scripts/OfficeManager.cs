@@ -9,8 +9,10 @@ public class OfficeManager : MonoBehaviour
     private int CameraIndex = 0;
 
     [SerializeField] private UnityVoidEvent OnDeath;
+    [SerializeField] private UnityVoidEvent OnVialEnter;
 
     public bool ShutterOpen = true;
+    public bool ModemWorking = true;
 
     private void Start()
     {
@@ -30,15 +32,6 @@ public class OfficeManager : MonoBehaviour
             }
 
             Cameras[CameraIndex].enabled = true;
-        }
-
-        if (Input.GetKey(KeyCode.V))
-        {
-            ShutterOpen = false;
-        }
-        else
-        {
-            ShutterOpen = true;
         }
     }
 
@@ -91,5 +84,20 @@ public class OfficeManager : MonoBehaviour
         }
 
         //To do: Force cork to leave the room
+    }
+
+    public void VialEnter()
+    {
+        OnVialEnter?.Invoke();
+    }
+
+    public void ModemFixed()
+    {
+        ModemWorking = true;
+    }
+
+    public void ModemBroken()
+    {
+        ModemWorking = false;
     }
 }

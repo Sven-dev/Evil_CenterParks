@@ -124,6 +124,8 @@ public class Entity : MonoBehaviour
             }
             else if (DateTime.Now.TimeOfDay > hallucinationTimer)
             {
+                failedOfficeKill = false;
+
                 loudestRooms = RoomController.Instance.GetLoudestRooms(ignoredRooms);
                 if (CurrentRoom.GetNoiseLevel() == 5 || loudestRooms[0].GetNoiseLevel() < 4)
                 {
@@ -155,20 +157,20 @@ public class Entity : MonoBehaviour
 
             if (MovementOpportunity())
             {
-                GuestRoomManager guests = CurrentRoom.GuestRooms;
+                GuestRoomManager guestRooms = CurrentRoom.GuestRooms;
                 OfficeManager office = CurrentRoom.Office;
-                if (guests != null && CurrentRoom.GetNoiseLevel() == 5)
+                if (guestRooms && CurrentRoom.GetNoiseLevel() == 5)
                 {
-                    if (guests.BeingDisturbed)
+                    if (guestRooms.BeingDisturbed)
                     {
-                        guests.Kill();
+                        guestRooms.Kill();
                     }
                     else
                     {
                         ignoredRooms.Add(CurrentRoom);
                     }
                 }
-                else if (office != null && office.ShutterOpen)
+                else if (office)
                 {
                     if (office.ShutterOpen)
                     {
@@ -207,7 +209,7 @@ public class Entity : MonoBehaviour
             {
                 print("<color=Yellow>Vial:</color> Vial is in the camera room, and will not move until removed");
                 yield return new WaitForSecondsRealtime(1f);
-                continue;
+                continue;              
             }
 
             if (CurrentRoom == currentRoute.Destination && CurrentRoom.GetNoiseLevel() == 5)
@@ -257,7 +259,7 @@ public class Entity : MonoBehaviour
 
     private IEnumerator _HallucinationAI()
     {
-        CurrentRoom = RoomController.Instance.FindCorkRoom();
+        CurrentRoom = RoomController.Instance.FindEntity(EntityType.Cork);
         CurrentRoom.EnterRoom(EntityType);
         print("<color=Grey>Hallucination:</color> AI started in " + CurrentRoom.name + ".");
         
@@ -371,20 +373,13 @@ public class Entity : MonoBehaviour
 
     private void WalkToNextRoom()
     {
-        try
+        //If you're already at the destination, don't move.
+        if (currentRoute.Distance != 0 && routeProgress != currentRoute.Distance)
         {
-            //If you're already at the destination, don't move.
-            if (currentRoute.Distance != 0 && routeProgress != currentRoute.Distance)
-            {
-                CurrentRoom.LeaveRoom(EntityType);
-                routeProgress++;
-                CurrentRoom = currentRoute.Path[routeProgress];
-                CurrentRoom.EnterRoom(EntityType);
-            }
-        }
-        catch
-        {
-            throw new Exception("Route progress: " + routeProgress.ToString() + ", Current route distance:" + currentRoute.Distance.ToString());
+            CurrentRoom.LeaveRoom(EntityType);
+            routeProgress++;
+            CurrentRoom = currentRoute.Path[routeProgress];
+            CurrentRoom.EnterRoom(EntityType);
         }
     }
 
@@ -412,6 +407,17 @@ public class Entity : MonoBehaviour
                     AILevel++;
                 }
                 break;
+        }
+    }
+
+    public void KickOutOfOffice()
+    {
+        if (CurrentRoom.ID == 1)
+        {
+            routeProgress = 0;
+            currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom);
+            WalkToNextRoom();
+            print("<color=Yellow>Vial:</color> Got kicked out of " + currentRoute.Start.name + ", to " + currentRoute.Destination.name);
         }
     }
 }
