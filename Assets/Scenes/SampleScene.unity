@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8168ddebd0c147049a8ef44e74e18f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HourDuration: 90
+  HourDuration: 52.5
   OnHourPassed:
     m_PersistentCalls:
       m_Calls:
@@ -2005,6 +2005,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 320338665}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5365339}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnVialEnter:
     m_PersistentCalls:
       m_Calls:
@@ -2312,7 +2336,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
   m_PrefabInstance: {fileID: 7931730337718181479}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1518532596}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 722e098398a10de41980ffbb8500dac2, type: 3}
@@ -5485,37 +5509,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1 &1518532596 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7931730337585015354, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
-  m_PrefabInstance: {fileID: 7931730337718181479}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1518532597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1518532596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b8799c85e9a43f4c987d0f6d9bf2430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DisturbanceLevel: 0
-  OnDisturbed:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDoorOpen:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDoorClose:
-    m_PersistentCalls:
-      m_Calls: []
-  OnKill:
-    m_PersistentCalls:
-      m_Calls: []
-  BeingDisturbed: 0
 --- !u!1 &1585366519
 GameObject:
   m_ObjectHideFlags: 0
@@ -8431,7 +8424,7 @@ PrefabInstance:
     - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: GuestRooms
       value: 
-      objectReference: {fileID: 1518532597}
+      objectReference: {fileID: 0}
     - target: {fileID: 7931730337585015352, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: NoiseFloor
       value: 2
