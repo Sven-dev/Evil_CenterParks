@@ -4,36 +4,11 @@ using UnityEngine;
 
 public class OfficeManager : MonoBehaviour
 {
-    [SerializeField] private List<Camera> Cameras;
-
-    private int CameraIndex = 0;
-
     [SerializeField] private UnityVoidEvent OnDeath;
     [SerializeField] private UnityVoidEvent OnVialEnter;
 
     public bool ShutterOpen = true;
     public bool ModemWorking = true;
-
-    private void Start()
-    {
-        Cameras[CameraIndex].enabled = true;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Cameras[CameraIndex].enabled = false;
-
-            CameraIndex++;
-            if (CameraIndex >= Cameras.Count)
-            {
-                CameraIndex = 0;
-            }
-
-            Cameras[CameraIndex].enabled = true;
-        }
-    }
 
     public void Kill()
     {

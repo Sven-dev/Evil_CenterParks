@@ -6,38 +6,61 @@ public class PlayerCameraManager : MonoBehaviour
 {
     [SerializeField] private float Duration;
     [SerializeField] private AnimationCurve MovementCurve;
-    private bool Rotating = false;
+    private bool Moving = false;
 
-    public void RotateLeft()
+    [SerializeField] private List<Transform> Pivots;
+    private int ActivePivot = 1;
+
+    public void MoveLeft()
     {
-        if (!Rotating)
+        if (Moving)
         {
-            StartCoroutine(_Rotate(-1));
+            return;
         }
+
+        if (ActivePivot == 0)
+        {
+            return;
+        }
+
+        StartCoroutine(_Move(-1));
     }
 
-    public void RotateRight()
+    public void MoveRight()
     {
-        if (!Rotating)
+        if (Moving)
         {
-            StartCoroutine(_Rotate(1));
+            return;
         }
+
+        if (ActivePivot == Pivots.Count - 1)
+        {
+            return;
+        }
+
+        StartCoroutine(_Move(1));       
     }
 
-    private IEnumerator _Rotate(int direction)
+    private IEnumerator _Move(int direction)
     {
-        Rotating = true;
+        Moving = true;
 
-        Quaternion start = transform.rotation;
-        Quaternion end = start * Quaternion.Euler(direction * Vector3.up * 90);
+        Vector3 startPosition = Pivots[ActivePivot].position;
+        Vector3 endPosition = Pivots[ActivePivot + direction].position;
+
+        Quaternion startRotation = Pivots[ActivePivot].rotation;
+        Quaternion endRotation = Pivots[ActivePivot + direction].rotation;
+
         float progress = 0;
         while (progress < 1)
         {
             progress = Mathf.Clamp01(progress += Time.deltaTime / Duration);
-            transform.rotation = Quaternion.Lerp(start, end, MovementCurve.Evaluate(progress));
+            transform.position = Vector3.Lerp(startPosition, endPosition, MovementCurve.Evaluate(progress));
+            transform.rotation = Quaternion.Lerp(startRotation, endRotation, MovementCurve.Evaluate(progress));
             yield return null;
         }
 
-        Rotating = false;
+        ActivePivot += direction;
+        Moving = false;
     }
 }
