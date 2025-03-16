@@ -21,7 +21,12 @@ public class GuestRoomManager : MonoBehaviour
     /// </summary>
     public void CheckForDisturbance(float noiseLevel)
     {
-        if (!Killed && !DisturbanceBuilding && noiseLevel >= 4)
+        if (Killed)
+        {
+            return;
+        }
+
+        if (noiseLevel >= 4 && !DisturbanceBuilding)
         {
             DisturbanceBuilding = true;
             OnDisturbed?.Invoke();
@@ -38,6 +43,7 @@ public class GuestRoomManager : MonoBehaviour
     {
         Killed = true;
         OnKill?.Invoke();
+        StopAllCoroutines();
     }
 
     private IEnumerator _disturbance()
@@ -52,7 +58,9 @@ public class GuestRoomManager : MonoBehaviour
                 //open door
                 BeingDisturbed = true;
                 OnDoorOpen?.Invoke();
+
                 yield return new WaitForSecondsRealtime(10);
+
                 DisturbanceLevel = 0;
                 BeingDisturbed = false;
                 OnDoorClose?.Invoke();

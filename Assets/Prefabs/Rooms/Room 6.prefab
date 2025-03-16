@@ -359,6 +359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1667971493553398498}
+  - component: {fileID: 203652156365891201}
   m_Layer: 0
   m_Name: GuestRoom
   m_TagString: Untagged
@@ -382,6 +383,96 @@ Transform:
   m_Father: {fileID: 5534746548407585171}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -32.887, z: 0}
+--- !u!114 &203652156365891201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8909141345836264928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b8799c85e9a43f4c987d0f6d9bf2430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DisturbanceLevel: 0
+  OnIdle:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 885685423633314201}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Idle
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDisturbed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 885685423633314201}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Disturbed
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDoorOpen:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 885685423633314201}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Door open
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDoorClose:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 885685423633314201}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Door closed
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnKill:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 885685423633314201}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Killed
+          m_BoolArgument: 0
+        m_CallState: 2
+  BeingDisturbed: 0
+  Killed: 0
 --- !u!1001 &985152121772602290
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -498,17 +589,44 @@ PrefabInstance:
       propertyPath: ID
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: GuestRooms
+      value: 
+      objectReference: {fileID: 203652156365891201}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 203652156365891201}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CheckForDisturbance
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: GuestRoomManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321231813279467569, guid: a5219b11a03d389469800e448f25f991, type: 3}
+      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7321231813279467571, guid: a5219b11a03d389469800e448f25f991, type: 3}
       propertyPath: m_Name
       value: Room 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5219b11a03d389469800e448f25f991, type: 3}
---- !u!1 &3378483878977603760 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7321231813279467571, guid: a5219b11a03d389469800e448f25f991, type: 3}
-  m_PrefabInstance: {fileID: 5438365635943317635}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3378483878977603763 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7321231813279467568, guid: a5219b11a03d389469800e448f25f991, type: 3}
@@ -519,93 +637,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 556100073871673616, guid: a5219b11a03d389469800e448f25f991, type: 3}
   m_PrefabInstance: {fileID: 5438365635943317635}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7778499597373983646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3378483878977603760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b8799c85e9a43f4c987d0f6d9bf2430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DisturbanceLevel: 0
-  OnIdle:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 885685423633314201}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-        m_MethodName: set_text
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Idle
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDisturbed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 885685423633314201}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-        m_MethodName: set_text
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Disturbed
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDoorOpen:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 885685423633314201}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-        m_MethodName: set_text
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Door open
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDoorClose:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 885685423633314201}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-        m_MethodName: set_text
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Door closed
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnKill:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 885685423633314201}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-        m_MethodName: set_text
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Killed
-          m_BoolArgument: 0
-        m_CallState: 2
-  BeingDisturbed: 0
-  Killed: 0

@@ -1292,17 +1292,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264341540}
   m_CullTransparentMesh: 1
---- !u!114 &265047816 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7778499597373983646, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
-  m_PrefabInstance: {fileID: 2218674804042384618}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b8799c85e9a43f4c987d0f6d9bf2430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &292449900
 GameObject:
   m_ObjectHideFlags: 0
@@ -5764,17 +5753,6 @@ Transform:
   m_Father: {fileID: 950583362}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1742800327 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 315418182805299485, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
-  m_PrefabInstance: {fileID: 6730259660386185746}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b8799c85e9a43f4c987d0f6d9bf2430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1799719089 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2859992218674786320, guid: d8063285ca6e0ff4b8f691cc4407f799, type: 3}
@@ -8090,10 +8068,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
-      propertyPath: GuestRooms
-      value: 
-      objectReference: {fileID: 265047816}
-    - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
       propertyPath: ConnectedRooms.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -8113,10 +8087,6 @@ PrefabInstance:
       propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
-      propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 265047816}
     - target: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
       propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -10212,10 +10182,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2028128508733489559, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
-      propertyPath: GuestRooms
-      value: 
-      objectReference: {fileID: 1742800327}
-    - target: {fileID: 2028128508733489559, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
       propertyPath: ConnectedRooms.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -11812,7 +11778,7 @@ PrefabInstance:
       objectReference: {fileID: 585647053}
     - target: {fileID: 5672082207307318763, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
       propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5672082207307318763, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
       propertyPath: OnNoiseLevelChange.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
