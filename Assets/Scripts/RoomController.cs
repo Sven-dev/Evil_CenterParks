@@ -250,6 +250,11 @@ public class RoomController : MonoBehaviour
         return longestRoutes;
     }
 
+    public Room GetRoom(int ID)
+    {
+        return Rooms[ID - 1];
+    }
+
     public Room FindEntity(EntityType entity)
     {
         foreach(Room room in Rooms)

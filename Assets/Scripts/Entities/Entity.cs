@@ -63,8 +63,6 @@ public class Entity : MonoBehaviour
         TimeSpan hallucinationTimer = DateTime.Now.TimeOfDay + TimeSpan.FromSeconds(UnityEngine.Random.Range(60, 121));
         print("<color=Cyan>Cork:</color> Setting a hallucination timer for " + rnd + " seconds.");
 
-        bool failedOfficeKill = false;
-
         ignoredRooms.Add(CurrentRoom);
         routeProgress = 0;
         currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, ignoredRooms);
@@ -73,12 +71,6 @@ public class Entity : MonoBehaviour
         
         while (true)
         {
-            //Main office logic
-            if (CurrentRoom.ID == 7)
-            {
-                failedOfficeKill = false;
-            }
-
             //Checking ignored rooms
             for (int i = ignoredRooms.Count -1; i >= 0; i--)
             {
@@ -124,8 +116,6 @@ public class Entity : MonoBehaviour
             }
             else if (DateTime.Now.TimeOfDay > hallucinationTimer)
             {
-                failedOfficeKill = false;
-
                 loudestRooms = RoomController.Instance.GetLoudestRooms(ignoredRooms);
                 if (CurrentRoom.GetNoiseLevel() == 5 || loudestRooms[0].GetNoiseLevel() < 4)
                 {
@@ -142,7 +132,7 @@ public class Entity : MonoBehaviour
                 }
             }
 
-            if (!hallucinationMode && !failedOfficeKill)
+            if (!hallucinationMode)
             {
                 //if the destination room isn't one of the loudest rooms anymore, recalculate
                 loudestRooms = RoomController.Instance.GetLoudestRooms(ignoredRooms);
@@ -164,11 +154,13 @@ public class Entity : MonoBehaviour
                     if (guestRooms.BeingDisturbed)
                     {
                         guestRooms.Kill();
+                        print("<color=Cyan>Cork:</color> Guest kill attempt successful.");
                         continue;
                     }
                     else
                     {
                         ignoredRooms.Add(CurrentRoom);
+                        print("<color=Cyan>Cork:</color> Guest kill attempt successful.");
                     }
                 }
                 else if (office)
@@ -180,10 +172,19 @@ public class Entity : MonoBehaviour
                     }
                     else
                     {
-                        failedOfficeKill = true;
+                        //Teleport Cork to room 7
+                        CurrentRoom.LeaveRoom(EntityType);
+                        CurrentRoom = RoomController.Instance.GetRoom(7);
+                        CurrentRoom.EnterRoom(EntityType);
 
+                        //resume normal behavior
                         routeProgress = 0;
-                        currentRoute = RoomController.Instance.GetRouteTo7(CurrentRoom);
+                        currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, ignoredRooms);
+
+                        print("<color=Cyan>Cork:</color> Player kill attempt failed.");
+                        print("<color=Cyan>Cork:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+
+                        continue;
                     }
                 }
 
