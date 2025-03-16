@@ -114,7 +114,7 @@ public class Entity : MonoBehaviour
                     print("<color=Cyan>Cork:</color> Hallucination mode done! setting a new hallucination timer for " + rnd + " seconds, and resuming normal behaviour.");
                 }
             }
-            else if (DateTime.Now.TimeOfDay > hallucinationTimer)
+            else if (DateTime.Now.TimeOfDay > hallucinationTimer && CurrentRoom.ID != 1)
             {
                 loudestRooms = RoomController.Instance.GetLoudestRooms(ignoredRooms);
                 if (CurrentRoom.GetNoiseLevel() == 5 || loudestRooms[0].GetNoiseLevel() < 4)
@@ -154,13 +154,13 @@ public class Entity : MonoBehaviour
                     if (guestRooms.BeingDisturbed)
                     {
                         guestRooms.Kill();
-                        print("<color=Cyan>Cork:</color> Guest kill attempt successful.");
+                        print("<color=Cyan>Cork:</color> Room " + CurrentRoom + " kill attempt successful.");
                         continue;
                     }
                     else
                     {
                         ignoredRooms.Add(CurrentRoom);
-                        print("<color=Cyan>Cork:</color> Guest kill attempt successful.");
+                        print("<color=Cyan>Cork:</color> Room " + CurrentRoom + " kill attempt failed.");
                     }
                 }
                 else if (office)
