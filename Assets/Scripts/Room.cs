@@ -100,6 +100,13 @@ public class Room : MonoBehaviour
         return NoiseLevel;
     }
 
+    public void AlterNoiseFloor(int amount)
+    {
+        NoiseFloor = Mathf.Clamp(NoiseFloor + amount, 0, NoiseCeiling);
+        NoiseLevel = Mathf.Clamp(NoiseLevel, NoiseFloor, NoiseCeiling);
+        OnNoiseLevelChange?.Invoke(NoiseLevel);
+    }
+
     public void AlterNoiseLevel(int amount)
     {
         NoiseLevel = Mathf.Clamp(NoiseLevel + amount, NoiseFloor, NoiseCeiling);
@@ -113,8 +120,11 @@ public class Room : MonoBehaviour
             if (!Entities.Contains(EntityType.Vial))
             {
                 yield return new WaitForSecondsRealtime(6);
-                NoiseLevel = Mathf.Clamp(NoiseLevel - 2, NoiseFloor, NoiseCeiling);
-                OnNoiseLevelChange?.Invoke(NoiseLevel);
+                if (!Entities.Contains(EntityType.Vial))
+                {
+                    NoiseLevel = Mathf.Clamp(NoiseLevel - 2, NoiseFloor, NoiseCeiling);
+                    OnNoiseLevelChange?.Invoke(NoiseLevel);
+                }
             }
 
             yield return null;

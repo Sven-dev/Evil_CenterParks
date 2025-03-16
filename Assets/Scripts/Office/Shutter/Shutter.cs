@@ -12,16 +12,24 @@ public class Shutter : MonoBehaviour
     [Space]
     [SerializeField] private OfficeManager OfficeManager;
 
+    private bool ForcedOpen = false;
+    private bool ShutterInteractable = false;
+
     public void ToggleActive(int cameraPerspective)
     {
         if (cameraPerspective == ActivePerspective)
         {
-            Slider.interactable = true;
+            ShutterInteractable = true;
+            if (!ForcedOpen)
+            {
+                Slider.interactable = true;
+            }
         }
         else
         {
-            Slider.interactable = false;
-        }
+            ShutterInteractable = false;
+            Slider.interactable = false;                
+        }        
     }
 
     public void StopFalling()
@@ -45,6 +53,21 @@ public class Shutter : MonoBehaviour
         {
             OfficeManager.ShutterOpen = true;
         }
+    }
+
+    /// <summary>
+    /// Gets called when Vial is in the room
+    /// </summary>
+    public void ForceShutterOpen()
+    {
+        ForcedOpen = true;
+        Slider.interactable = false;
+    }
+
+    public void ReleaseShutter()
+    {
+        ForcedOpen = false;
+        Slider.interactable = ShutterInteractable;      
     }
 
     private IEnumerator _FallBackDown()

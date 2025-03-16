@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class OfficeManager : MonoBehaviour
 {
+    [SerializeField] private Room Room;
+
     [SerializeField] private UnityVoidEvent OnDeath;
     [SerializeField] private UnityVoidEvent OnVialEnter;
+    [SerializeField] private UnityVoidEvent OnVialLeave;
 
     public bool ShutterOpen = true;
     public bool ModemWorking = true;
@@ -64,6 +67,14 @@ public class OfficeManager : MonoBehaviour
     public void VialEnter()
     {
         OnVialEnter?.Invoke();
+    }
+
+    public void VialLeave()
+    {
+        if (Room.Entities.Contains(EntityType.Vial))
+        {
+            OnVialLeave?.Invoke();
+        }
     }
 
     public void ModemFixed()
