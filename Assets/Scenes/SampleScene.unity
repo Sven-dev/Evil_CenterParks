@@ -1292,37 +1292,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264341540}
   m_CullTransparentMesh: 1
---- !u!1 &265047815 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3378483878977603760, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+--- !u!114 &265047816 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7778499597373983646, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
   m_PrefabInstance: {fileID: 2218674804042384618}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &265047816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265047815}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b8799c85e9a43f4c987d0f6d9bf2430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisturbanceLevel: 0
-  OnDisturbed:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDoorOpen:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDoorClose:
-    m_PersistentCalls:
-      m_Calls: []
-  OnKill:
-    m_PersistentCalls:
-      m_Calls: []
-  BeingDisturbed: 0
 --- !u!1 &292449900
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,37 +1696,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &378545812 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7188985745075559016, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
-  m_PrefabInstance: {fileID: 4548294144955945958}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &378545813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 378545812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b8799c85e9a43f4c987d0f6d9bf2430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DisturbanceLevel: 0
-  OnDisturbed:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDoorOpen:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDoorClose:
-    m_PersistentCalls:
-      m_Calls: []
-  OnKill:
-    m_PersistentCalls:
-      m_Calls: []
-  BeingDisturbed: 0
 --- !u!1 &402401463
 GameObject:
   m_ObjectHideFlags: 0
@@ -2363,7 +2312,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7188985745075559018, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
   m_PrefabInstance: {fileID: 4548294144955945958}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 378545812}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 722e098398a10de41980ffbb8500dac2, type: 3}
@@ -5742,13 +5691,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606109652}
-  m_LocalRotation: {x: 0.07450176, y: 0.8829996, z: -0.1500352, w: 0.438464}
-  m_LocalPosition: {x: 1.225, y: 1.094, z: -1.468}
+  m_LocalRotation: {x: 0.017856134, y: 0.89493525, z: -0.03595991, w: 0.44438612}
+  m_LocalPosition: {x: 1.241, y: 0.704, z: -2.184}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1379367}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 19.287, y: 127.186, z: 0}
+  m_LocalEulerAnglesHint: {x: 4.602, y: 127.186, z: 0}
 --- !u!1 &1719558004
 GameObject:
   m_ObjectHideFlags: 0
@@ -6149,7 +6098,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3378483878977603762, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
   m_PrefabInstance: {fileID: 2218674804042384618}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265047815}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 722e098398a10de41980ffbb8500dac2, type: 3}
@@ -9841,7 +9790,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 715724872825254972}
   m_LocalRotation: {x: -0.6952328, y: -0.15690835, z: -0.09108785, w: 0.69550997}
-  m_LocalPosition: {x: 0.8293057, y: 0.20249607, z: 2.5166414}
+  m_LocalPosition: {x: 1.0793056, y: 0.20249607, z: -3.4833593}
   m_LocalScale: {x: 25.701717, y: 18.011215, z: 113.156006}
   m_Children: []
   m_Father: {fileID: 543450653499366564}
@@ -10175,7 +10124,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2261832726627966543}
   m_LocalRotation: {x: -0.6952328, y: -0.15690836, z: -0.09108787, w: 0.69550997}
-  m_LocalPosition: {x: 0.7499071, y: 0.19864936, z: 2.732703}
+  m_LocalPosition: {x: 0.9999071, y: 0.19864936, z: -3.2672968}
   m_LocalScale: {x: 25.70172, y: 18.011215, z: 113.1565}
   m_Children: []
   m_Father: {fileID: 543450653499366564}

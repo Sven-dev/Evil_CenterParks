@@ -159,11 +159,12 @@ public class Entity : MonoBehaviour
             {
                 GuestRoomManager guestRooms = CurrentRoom.GuestRooms;
                 OfficeManager office = CurrentRoom.Office;
-                if (guestRooms && CurrentRoom.GetNoiseLevel() == 5)
+                if (guestRooms && !guestRooms.Killed)
                 {
                     if (guestRooms.BeingDisturbed)
                     {
                         guestRooms.Kill();
+                        continue;
                     }
                     else
                     {
@@ -175,6 +176,7 @@ public class Entity : MonoBehaviour
                     if (office.ShutterOpen)
                     {
                         office.Kill();
+                        continue;
                     }
                     else
                     {
@@ -182,15 +184,12 @@ public class Entity : MonoBehaviour
 
                         routeProgress = 0;
                         currentRoute = RoomController.Instance.GetRouteTo7(CurrentRoom);
-                        WalkToNextRoom();
                     }
                 }
-                else
-                {
-                    //Movement opportunity
-                    WalkToNextRoom();
-                    print("<color=Cyan>Cork:</color> Went to " + CurrentRoom.name + ".");              
-                }
+
+                //Movement opportunity
+                WalkToNextRoom();
+                print("<color=Cyan>Cork:</color> Went to " + CurrentRoom.name + ".");                         
             }         
         }
     }

@@ -6,6 +6,7 @@ public class GuestRoomManager : MonoBehaviour
 {
     [SerializeField] private int DisturbanceLevel = 0;
     [Space]
+    [SerializeField] private UnityVoidEvent OnIdle;
     [SerializeField] private UnityVoidEvent OnDisturbed;
     [SerializeField] private UnityVoidEvent OnDoorOpen;
     [SerializeField] private UnityVoidEvent OnDoorClose;
@@ -13,8 +14,11 @@ public class GuestRoomManager : MonoBehaviour
 
     [HideInInspector] public bool BeingDisturbed = false;
     private bool DisturbanceBuilding = false;
-    private bool Killed = false;
+    public bool Killed = false;
 
+    /// <summary>
+    /// Gets called when the noise level of a room changes.
+    /// </summary>
     public void CheckForDisturbance(float noiseLevel)
     {
         if (!Killed && !DisturbanceBuilding && noiseLevel >= 4)
@@ -26,6 +30,7 @@ public class GuestRoomManager : MonoBehaviour
         else if (noiseLevel < 4)
         {
             DisturbanceBuilding = false;
+            OnIdle?.Invoke();
         }
     }
 
