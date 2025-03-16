@@ -742,7 +742,6 @@ GameObject:
   - component: {fileID: 92149440}
   - component: {fileID: 92149442}
   - component: {fileID: 92149441}
-  - component: {fileID: 92149443}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -815,47 +814,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &92149443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92149439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fc6bdc26c1c67b418ea353108b86e29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Duration: 0.5
-  MovementCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  Pivots:
-  - {fileID: 2017952364}
-  - {fileID: 2062603139}
-  - {fileID: 1606109653}
 --- !u!1 &149170836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,6 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254260ee3680d5e4aa3326fa0aeb47c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActivePerspective: 0
   Cameras:
   - {fileID: 7931730337718181480}
   - {fileID: 1922280553367912663}
@@ -1137,6 +1096,19 @@ MonoBehaviour:
   - {fileID: 4548294144955945960}
   - {fileID: 3038628350194911051}
   - {fileID: 6333694650999126881}
+  Buttons:
+  - {fileID: 8865906197567695723}
+  - {fileID: 750269948}
+  - {fileID: 1446788320}
+  - {fileID: 2045368763}
+  - {fileID: 853584600}
+  - {fileID: 2038165177}
+  - {fileID: 514065880}
+  - {fileID: 1845334387}
+  - {fileID: 264341542}
+  - {fileID: 1858720777}
+  - {fileID: 936277205}
+  - {fileID: 1938835127}
 --- !u!114 &224976128 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2256966920028061277, guid: 6e13f6c3f20d1494a9dd181ac921c699, type: 3}
@@ -1731,7 +1703,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a916db150337749a13833336590603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActivePerspective: 2
   BreakChance: 0.125
+  ResetButton: {fileID: 600992675}
   OnModemBreak:
     m_PersistentCalls:
       m_Calls:
@@ -3614,7 +3588,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 92149443}
+        - m_Target: {fileID: 1159705625}
           m_TargetAssemblyTypeName: PlayerCameraManager, Assembly-CSharp
           m_MethodName: MoveRight
           m_Mode: 1
@@ -4076,6 +4050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2185cfc98fd4840a8a97d6c1baf697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActivePerspective: 1
   Slider: {fileID: 1598291810}
   Animator: {fileID: 995231008}
   OfficeManager: {fileID: 367619510}
@@ -4747,6 +4722,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1159705624}
+  - component: {fileID: 1159705625}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -4770,6 +4746,87 @@ Transform:
   m_Father: {fileID: 367619511}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1159705625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159705623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fc6bdc26c1c67b418ea353108b86e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Camera: {fileID: 92149442}
+  Duration: 0.5
+  MovementCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Pivots:
+  - {fileID: 2017952364}
+  - {fileID: 2062603139}
+  - {fileID: 1606109653}
+  OnCameraPerpectiveChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 184721084}
+        m_TargetAssemblyTypeName: CameraSwitcher, Assembly-CSharp
+        m_MethodName: ToggleActive
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 995231009}
+        m_TargetAssemblyTypeName: Shutter, Assembly-CSharp
+        m_MethodName: ToggleActive
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 402401465}
+        m_TargetAssemblyTypeName: Modem, Assembly-CSharp
+        m_MethodName: ToggleActive
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1221113140
 GameObject:
   m_ObjectHideFlags: 0
@@ -6281,7 +6338,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 92149443}
+        - m_Target: {fileID: 1159705625}
           m_TargetAssemblyTypeName: PlayerCameraManager, Assembly-CSharp
           m_MethodName: MoveLeft
           m_Mode: 1

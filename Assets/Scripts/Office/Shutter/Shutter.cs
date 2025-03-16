@@ -5,10 +5,24 @@ using UnityEngine.UI;
 
 public class Shutter : MonoBehaviour
 {
+    [SerializeField] private int ActivePerspective;
+    [Space]
     [SerializeField] private Slider Slider;
     [SerializeField] private Animator Animator;
     [Space]
     [SerializeField] private OfficeManager OfficeManager;
+
+    public void ToggleActive(int cameraPerspective)
+    {
+        if (cameraPerspective == ActivePerspective)
+        {
+            Slider.interactable = true;
+        }
+        else
+        {
+            Slider.interactable = false;
+        }
+    }
 
     public void StopFalling()
     {

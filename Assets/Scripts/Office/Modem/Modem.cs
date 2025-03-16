@@ -1,17 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Modem : MonoBehaviour
 {
+    [SerializeField] private int ActivePerspective;
+    [Space]
     [SerializeField] private float BreakChance;
-
+    [SerializeField] private Button ResetButton;
+    [Space]
     [SerializeField] private UnityVoidEvent OnModemBreak;
     [SerializeField] private UnityVoidEvent OnModemReset;
 
     private void Start()
     {
         StartCoroutine(_RandomBreak());
+    }
+
+    public void ToggleActive(int cameraPerspective)
+    {
+        if (cameraPerspective == ActivePerspective)
+        {
+            ResetButton.interactable = true;
+        }
+        else
+        {
+            ResetButton.interactable = false;
+        }
     }
 
     public void StartReset()
