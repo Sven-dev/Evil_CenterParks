@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class CameraSwitcher : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class CameraSwitcher : MonoBehaviour
     [Space]
     [SerializeField] private List<ParkCamera> Cameras;
     [SerializeField] private List<Button> Buttons;
+    [Space]
+    [SerializeField] private float SwitchTime;
+    [SerializeField] private RawImage Static;
+    [SerializeField] private VideoPlayer VideoPlayer;
 
     private int CameraIndex = 0;
 
@@ -37,8 +42,24 @@ public class CameraSwitcher : MonoBehaviour
 
     public void SwitchToRoom(int index)
     {
+        StartCoroutine(_SwitchToRoom(index));
+    }
+
+    public IEnumerator _SwitchToRoom(int index)
+    {
         Cameras[CameraIndex].DisableCamera();
         CameraIndex = index - 1;
         Cameras[CameraIndex].EnableCamera();
+
+        Color c = Static.color;
+        c.a = 1;
+        Static.color = c;
+
+        VideoPlayer.SetDirectAudioVolume(0, 0.5f);
+        yield return new WaitForSeconds(SwitchTime);
+        VideoPlayer.SetDirectAudioVolume(0, 0f);
+
+        c.a = 0.1f;
+        Static.color = c;
     }
 }
