@@ -351,38 +351,42 @@ public class Entity : MonoBehaviour
         while (true)
         {
             print("<color=Green>Abo:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
+
+           OfficeManager office = CurrentRoom.Office;
+           if (office)
+           {
+               yield return new WaitForSecondsRealtime(3 - AILevel * 0.1f);
+               if (CurrentRoom.GetNoiseLevel() > 2)
+               {
+                   office.Kill();
+                   continue;
+               }
+               else
+               {
+                   //Teleport Cork to room 7
+                   CurrentRoom.LeaveRoom(EntityType);
+                   CurrentRoom = RoomController.Instance.GetRoom(7);
+                   CurrentRoom.EnterRoom(EntityType);
+
+                   //resume normal behavior
+                   routeProgress = 0;
+                   currentRoute = RoomController.Instance.GetCameraRoomPath(CurrentRoom);
+
+                   print("<color=Green>Abo:</color> Player kill attempt failed.");
+                   print("<color=Green>Abo:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+
+                   continue;
+               }     
+          }
+          else 
+          {
             yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
 
-            if (MovementOpportunity())
-            {
-                OfficeManager office = CurrentRoom.Office;
-                if (office)
-                {
-                    if (CurrentRoom.GetNoiseLevel() > 2)
-                    {
-                        office.Kill();
-                        continue;
-                    }
-                    else
-                    {
-                        //Teleport Cork to room 7
-                        CurrentRoom.LeaveRoom(EntityType);
-                        CurrentRoom = RoomController.Instance.GetRoom(7);
-                        CurrentRoom.EnterRoom(EntityType);
+            if (MovementOpportunity()) 
 
-                        //resume normal behavior
-                        routeProgress = 0;
-                        currentRoute = RoomController.Instance.GetCameraRoomPath(CurrentRoom);
-
-                        print("<color=Green>Abo:</color> Player kill attempt failed.");
-                        print("<color=Green>Abo:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
-
-                        continue;
-                    }
-               }
-            }
                 WalkToNextRoom();
-                print("<color=Green>Abo:</color> Went to " + CurrentRoom.name + ".");   
+                print("<color=Green>Abo:</color> Went to " + CurrentRoom.name + ".");
+          }   
         }
     }
 

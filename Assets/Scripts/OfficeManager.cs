@@ -12,6 +12,8 @@ public class OfficeManager : MonoBehaviour
 
     public bool ShutterOpen = true;
     public bool ModemWorking = true;
+    public bool PCWorking = true;
+    public bool PCFan = true;
 
     public void Kill()
     {
@@ -85,5 +87,25 @@ public class OfficeManager : MonoBehaviour
     public void ModemBroken()
     {
         ModemWorking = false;
+    }
+   
+    public void PCON()
+    {
+        PCWorking = true;
+    }
+
+    public void PCOFF()
+    {
+        PCWorking = false;
+    }
+
+    public void PCFANON()
+    {
+        PCFan = true;
+    }
+
+    public void PCFANOFF()
+    {
+        PCFan = false;
     }
 }

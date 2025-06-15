@@ -62,7 +62,7 @@ public class Room : MonoBehaviour
                 }
                 break;
             case EntityType.Abhorwretch:
-                WandererVisuals[Random.Range(0, AbhorwretchVisuals.Count)].SetActive(true);
+                AbhorwretchVisuals[Random.Range(0, AbhorwretchVisuals.Count)].SetActive(true);
                 break;
             case EntityType.Wanderer:
                 WandererVisuals[Random.Range(0, WandererVisuals.Count)].SetActive(true);
@@ -91,7 +91,7 @@ public class Room : MonoBehaviour
                 }
                 break;
             case EntityType.Abhorwretch:
-                WandererVisuals[Random.Range(0, AbhorwretchVisuals.Count)].SetActive(false);
+                AbhorwretchVisuals[Random.Range(0, AbhorwretchVisuals.Count)].SetActive(false);
                 break;
             case EntityType.Wanderer:
                 WandererVisuals[Random.Range(0, WandererVisuals.Count)].SetActive(false);

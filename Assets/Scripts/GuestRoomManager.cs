@@ -59,7 +59,7 @@ public class GuestRoomManager : MonoBehaviour
                 BeingDisturbed = true;
                 OnDoorOpen?.Invoke();
 
-                yield return new WaitForSecondsRealtime(10);
+                yield return new WaitForSecondsRealtime(12);
 
                 DisturbanceLevel = 0;
                 BeingDisturbed = false;
