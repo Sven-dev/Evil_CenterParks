@@ -15,6 +15,7 @@ public class PCNoise : MonoBehaviour
     [SerializeField] private UnityVoidEvent OnPCFanon;
     private bool PCBootDelay = false;
     public OfficeManager Office;
+
     public void ToggleActive(int cameraPerspective)
     {
         if (cameraPerspective == ActivePerspective)
@@ -29,73 +30,68 @@ public class PCNoise : MonoBehaviour
 
     public void Update()
     {
-    //if PCWorking == False
-    //and StartBoot
-    //then  StartBootDelay
-    if(Input.GetKeyDown(KeyCode.LeftControl))
+        //if PCWorking == False
+        //and StartBoot
+        //then  StartBootDelay
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-        StartBoot();
+            StartBoot();
         }
-    if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-        StartFan();
+            StartFan();
         }
     }
+
     private IEnumerator StartBootDelay()
     {
-    float BootTime = 3;
-    while(BootTime > 0)
+        PCBootDelay = true;
+        float BootTime = 3;
+        while (BootTime > 0)
         {
-            if(Input.GetKeyDown(KeyCode.LeftControl))
-            {
-            PCBootDelay = false;
-            StopCoroutine("StartBootDelay");         
-            }
             BootTime -= Time.deltaTime;
             yield return null;
+
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                PCBootDelay = false;
+                StopCoroutine("StartBootDelay");
+            }
         }
-       OnPCBootup?.Invoke();
-       OnPCFanon?.Invoke();
-       PCBootDelay = false;
+
+        OnPCBootup?.Invoke();
+        OnPCFanon?.Invoke();
+        PCBootDelay = false;
     }
 
     public void StartBoot()
     {
-    if (Office.PCWorking == true)
+        if (Office.PCWorking == true)
         {
-        OnPCBootdown?.Invoke();
-        if (Office.PCFan == true)
+            OnPCBootdown?.Invoke();
+            if (Office.PCFan == true)
             {
-            OnPCFanoff?.Invoke();
+                OnPCFanoff?.Invoke();
             }
         }
-   /* else if (PCBootDelay == true)
-       {
-        PCBootDelay = false;
-       }*/
-    else
-       {
-       if(PCBootDelay == false)
-       {
-       PCBootDelay = true;
-       StartCoroutine("StartBootDelay");
-       }        
-       }
+        else if (PCBootDelay == false)
+        {
+            StartCoroutine("StartBootDelay");          
+        }
     }
 
     public void StartFan()
     {
-         if (Office.PCWorking == true)
+        if (Office.PCWorking == true)
         {
             if (Office.PCFan == true)
             {
-            OnPCFanoff?.Invoke();
+                OnPCFanoff?.Invoke();
             }
             else
             {
-            OnPCFanon?.Invoke();
+                OnPCFanon?.Invoke();
             }
-         }
+        }
     }
-
 }
