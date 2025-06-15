@@ -28,6 +28,9 @@ public class Entity : MonoBehaviour
             case EntityType.Vial:
                 StartCoroutine(_VialAI());
                 break;
+            case EntityType.Abhorwretch:
+                StartCoroutine(_AbhorwretchAI());
+                break;
             case EntityType.Wanderer:
                 StartCoroutine(_WandererAI());
                 break;
@@ -338,6 +341,50 @@ public class Entity : MonoBehaviour
             }
         }
     }
+    private IEnumerator _AbhorwretchAI()
+    {
+        CurrentRoom.EnterRoom(EntityType);
+        print("<color=Green>Abo:</color> AI started in " + CurrentRoom.name + ".");
+
+        routeProgress = 0;
+        currentRoute = RoomController.Instance.GetCameraRoomPath(CurrentRoom);
+        while (true)
+        {
+            print("<color=Green>Abo:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
+            yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
+
+            if (MovementOpportunity())
+            {
+                OfficeManager office = CurrentRoom.Office;
+                if (office)
+                {
+                    if (CurrentRoom.GetNoiseLevel() > 2)
+                    {
+                        office.Kill();
+                        continue;
+                    }
+                    else
+                    {
+                        //Teleport Cork to room 7
+                        CurrentRoom.LeaveRoom(EntityType);
+                        CurrentRoom = RoomController.Instance.GetRoom(7);
+                        CurrentRoom.EnterRoom(EntityType);
+
+                        //resume normal behavior
+                        routeProgress = 0;
+                        currentRoute = RoomController.Instance.GetCameraRoomPath(CurrentRoom);
+
+                        print("<color=Green>Abo:</color> Player kill attempt failed.");
+                        print("<color=Green>Abo:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+
+                        continue;
+                    }
+               }
+            }
+                WalkToNextRoom();
+                print("<color=Green>Abo:</color> Went to " + CurrentRoom.name + ".");   
+        }
+    }
 
     private bool MovementOpportunity(int max = 21)
     {
@@ -356,6 +403,9 @@ public class Entity : MonoBehaviour
                     break;
                 case EntityType.Vial:
                     color = "Yellow";
+                    break;
+                case EntityType.Abhorwretch:
+                    color = "Green";
                     break;
                 case EntityType.Wanderer:
                     color = "Green";
@@ -426,6 +476,7 @@ public enum EntityType
 {
     Cork,
     Vial,
+    Abhorwretch,
     Wanderer,
     Hallucination
 }

@@ -47,7 +47,7 @@ public class Modem : MonoBehaviour
 
     private IEnumerator _ResetTimer()
     {
-        float time = 5;
+        float time = 3;
         while (time > 0)
         {
             time -= Time.deltaTime;
