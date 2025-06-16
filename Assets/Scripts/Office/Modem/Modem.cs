@@ -12,6 +12,7 @@ public class Modem : MonoBehaviour
     [Space]
     [SerializeField] private UnityVoidEvent OnModemBreak;
     [SerializeField] private UnityVoidEvent OnModemReset;
+    public OfficeManager Office;
 
     private void Start()
     {
@@ -20,7 +21,7 @@ public class Modem : MonoBehaviour
 
     public void ToggleActive(int cameraPerspective)
     {
-        if (cameraPerspective == ActivePerspective)
+        if (cameraPerspective == ActivePerspective &&  Office.ModemWorking == false)
         {
             ResetButton.interactable = true;
         }
