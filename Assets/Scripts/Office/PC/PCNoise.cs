@@ -7,95 +7,91 @@ public class PCNoise : MonoBehaviour
 {
     [SerializeField] private int ActivePerspective;
     [Space]
-    [SerializeField] private Button PowerButton;
-    [Space]
     [SerializeField] private UnityVoidEvent OnPCBootdown;
     [SerializeField] private UnityVoidEvent OnPCBootup;
     [SerializeField] private UnityVoidEvent OnPCFanoff;
     [SerializeField] private UnityVoidEvent OnPCFanon;
     private bool PCBootDelay = false;
     public OfficeManager Office;
+
+    private bool PerspectiveActive = false;
+
     public void ToggleActive(int cameraPerspective)
     {
         if (cameraPerspective == ActivePerspective)
         {
-            PowerButton.interactable = true;
+            PerspectiveActive = true;
         }
         else
         {
-            PowerButton.interactable = false;
+            PerspectiveActive = false;
         }
     }
 
     public void Update()
     {
-    //if PCWorking == False
-    //and StartBoot
-    //then  StartBootDelay
-    if(Input.GetKeyDown(KeyCode.LeftControl))
+        if (PerspectiveActive)
         {
-        StartBoot();
-        }
-    if(Input.GetKeyDown(KeyCode.F))
-        {
-        StartFan();
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                StartBoot();
+            }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                StartFan();
+            }
         }
     }
+
     private IEnumerator StartBootDelay()
     {
-    float BootTime = 3;
-    while(BootTime > 0)
+        PCBootDelay = true;
+        float BootTime = 3;
+        while (BootTime > 0)
         {
-            if(Input.GetKeyDown(KeyCode.LeftControl))
-            {
-            PCBootDelay = false;
-            StopCoroutine("StartBootDelay");         
-            }
             BootTime -= Time.deltaTime;
             yield return null;
+
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                PCBootDelay = false;
+                StopCoroutine("StartBootDelay");
+            }
         }
-       OnPCBootup?.Invoke();
-       OnPCFanon?.Invoke();
-       PCBootDelay = false;
+
+        OnPCBootup?.Invoke();
+        OnPCFanon?.Invoke();
+        PCBootDelay = false;
     }
 
     public void StartBoot()
     {
-    if (Office.PCWorking == true)
+        if (Office.PCWorking == true)
         {
-        OnPCBootdown?.Invoke();
-        if (Office.PCFan == true)
+            OnPCBootdown?.Invoke();
+            if (Office.PCFan == true)
             {
-            OnPCFanoff?.Invoke();
+                OnPCFanoff?.Invoke();
             }
         }
-   /* else if (PCBootDelay == true)
-       {
-        PCBootDelay = false;
-       }*/
-    else
-       {
-       if(PCBootDelay == false)
-       {
-       PCBootDelay = true;
-       StartCoroutine("StartBootDelay");
-       }        
-       }
+        else if (PCBootDelay == false)
+        {
+            StartCoroutine("StartBootDelay");          
+        }
     }
 
     public void StartFan()
     {
-         if (Office.PCWorking == true)
+        if (Office.PCWorking == true)
         {
             if (Office.PCFan == true)
             {
-            OnPCFanoff?.Invoke();
+                OnPCFanoff?.Invoke();
             }
             else
             {
-            OnPCFanon?.Invoke();
+                OnPCFanon?.Invoke();
             }
-         }
+        }
     }
-
 }
