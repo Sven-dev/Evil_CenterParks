@@ -7,6 +7,10 @@ public class PlayerCameraManager : MonoBehaviour
     [SerializeField] private Camera Camera;
     [SerializeField] private float Duration;
     [SerializeField] private AnimationCurve MovementCurve;
+    [Space]
+    [SerializeField] private GameObject LeftButton;
+    [SerializeField] private GameObject RightButton;
+
     private bool Moving = false;
 
     [SerializeField] private List<Transform> Pivots;
@@ -21,12 +25,16 @@ public class PlayerCameraManager : MonoBehaviour
             return;
         }
 
+        ActivePivot--;
         if (ActivePivot == 0)
         {
-            return;
+            LeftButton.SetActive(false);
+        }
+        else
+        {
+            RightButton.SetActive(true);
         }
 
-        ActivePivot--;
         StartCoroutine(_Move(-1));
         OnCameraPerpectiveChange?.Invoke(ActivePivot);
     }
@@ -38,12 +46,16 @@ public class PlayerCameraManager : MonoBehaviour
             return;
         }
 
+        ActivePivot++;
         if (ActivePivot == Pivots.Count - 1)
         {
-            return;
+            RightButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            LeftButton.SetActive(true);
         }
 
-        ActivePivot++;
         StartCoroutine(_Move(1));
         OnCameraPerpectiveChange?.Invoke(ActivePivot);
     }
