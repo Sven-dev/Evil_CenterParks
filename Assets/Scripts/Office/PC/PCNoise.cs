@@ -6,16 +6,17 @@ using UnityEngine.UI;
 public class PCNoise : MonoBehaviour
 {
     [SerializeField] private int ActivePerspective;
-    [Space]
+    public OfficeManager Office;
+    [Header("Pc events")]
     [SerializeField] private UnityVoidEvent OnPCBootdown;
     [SerializeField] private UnityVoidEvent OnPCBootup;
+    [Header("Fan events")]
     [SerializeField] private UnityVoidEvent OnPCFanoff;
     [SerializeField] private UnityVoidEvent OnPCFanon;
-    private bool PCBootDelay = false;
-    public OfficeManager Office;
 
     private bool PerspectiveActive = false;
-
+    private bool Booting = false;
+    
     public void ToggleActive(int cameraPerspective)
     {
         if (cameraPerspective == ActivePerspective)
@@ -36,16 +37,17 @@ public class PCNoise : MonoBehaviour
             {
                 StartBoot();
             }
+
             if (Input.GetKeyDown(KeyCode.F))
             {
                 StartFan();
             }
-        }
+        }   
     }
 
     private IEnumerator StartBootDelay()
     {
-        PCBootDelay = true;
+        Booting = true;
         float BootTime = 3;
         while (BootTime > 0)
         {
@@ -54,14 +56,14 @@ public class PCNoise : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
-                PCBootDelay = false;
+                Booting = false;
                 StopCoroutine("StartBootDelay");
             }
         }
 
         OnPCBootup?.Invoke();
         OnPCFanon?.Invoke();
-        PCBootDelay = false;
+        Booting = false;
     }
 
     public void StartBoot()
@@ -74,7 +76,7 @@ public class PCNoise : MonoBehaviour
                 OnPCFanoff?.Invoke();
             }
         }
-        else if (PCBootDelay == false)
+        else if (Booting == false)
         {
             StartCoroutine("StartBootDelay");          
         }
