@@ -2579,7 +2579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivePerspective: -1
-  PowerButton: {fileID: 2101083336}
+  Office: {fileID: 367619510}
   OnPCBootdown:
     m_PersistentCalls:
       m_Calls:
@@ -2736,7 +2736,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  Office: {fileID: 367619510}
 --- !u!1001 &444527234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7149,6 +7148,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 402401465}
         m_TargetAssemblyTypeName: Modem, Assembly-CSharp
+        m_MethodName: ToggleActive
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 428482942}
+        m_TargetAssemblyTypeName: PCNoise, Assembly-CSharp
         m_MethodName: ToggleActive
         m_Mode: 0
         m_Arguments:
