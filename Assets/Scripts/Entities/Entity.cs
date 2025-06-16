@@ -166,6 +166,14 @@ public class Entity : MonoBehaviour
                         print("<color=Cyan>Cork:</color> Room " + CurrentRoom + " kill attempt failed.");
                     }
                 }
+                else if (CurrentRoom.ID == 12)
+                {
+                     yield return new WaitForSecondsRealtime(3);
+                    {
+                           office.Kill();
+                           continue;
+                       }
+                }
                 else if (office)
                 {
                     if (office.ShutterOpen)
@@ -189,8 +197,7 @@ public class Entity : MonoBehaviour
 
                         continue;
                     }
-                }
-
+                }                
                 //Movement opportunity
                 WalkToNextRoom();
                 print("<color=Cyan>Cork:</color> Went to " + CurrentRoom.name + ".");                         
@@ -466,6 +473,30 @@ public class Entity : MonoBehaviour
 
     public void KickOutOfOffice()
     {
+            CurrentRoom.LeaveRoom(EntityType);
+            int rnd = UnityEngine.Random.Range(0,3);
+            if (rnd == 0)
+            {
+            CurrentRoom = RoomController.Instance.GetRoom(3);
+            }
+            else if (rnd == 1)
+            {
+            CurrentRoom = RoomController.Instance.GetRoom(8);
+            }
+            else if (rnd == 2)
+            {
+            CurrentRoom = RoomController.Instance.GetRoom(12);
+            }
+            CurrentRoom.EnterRoom(EntityType);
+            routeProgress = 0;
+            currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom);
+            print("<color=Yellow>Vial:</color> Got kicked out of " + currentRoute.Start.name + ", to " + currentRoute.Destination.name);
+    }
+}
+
+/*   Previous Iteration
+    public void KickOutOfOffice()
+    {
         if (CurrentRoom.ID == 1)
         {
             routeProgress = 0;
@@ -475,7 +506,7 @@ public class Entity : MonoBehaviour
         }
     }
 }
-
+*/
 public enum EntityType
 {
     Cork,
