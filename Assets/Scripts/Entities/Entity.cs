@@ -474,7 +474,19 @@ public class Entity : MonoBehaviour
     public void KickOutOfOffice()
     {
             CurrentRoom.LeaveRoom(EntityType);
-            CurrentRoom = RoomController.Instance.GetRoom()
+            int rnd = UnityEngine.Random.Range(0,3);
+            if (rnd == 0)
+            {
+            CurrentRoom = RoomController.Instance.GetRoom(3);
+            }
+            else if (rnd == 1)
+            {
+            CurrentRoom = RoomController.Instance.GetRoom(8);
+            }
+            else if (rnd == 2)
+            {
+            CurrentRoom = RoomController.Instance.GetRoom(12);
+            }
             CurrentRoom.EnterRoom(EntityType);
             routeProgress = 0;
             currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom);
