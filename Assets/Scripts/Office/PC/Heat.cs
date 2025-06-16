@@ -4,15 +4,39 @@ using UnityEngine;
 
 public class Heat : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float Temperature;
+    [SerializeField] private UnityVoidEvent Overheating;
+    [SerializeField] private GameObject Static;
+    float MinHeat = 55;
+    float MaxHeat = 115;
+    public OfficeManager Office;
+    private void Start()
     {
-        
+    StartCoroutine(TempC());
+    }    
+    private IEnumerator TempC()
+    {
+    while (true)    
+    {
+    if (Office.PCFan == false)
+    {
+        Temperature = Mathf.Clamp(Temperature+Time.deltaTime*2, MinHeat, MaxHeat);
+        yield return null;
     }
+    else
+    {
+        Temperature = Mathf.Clamp(Temperature-2*Time.deltaTime*2, MinHeat, MaxHeat);
+        yield return null;
+    }
+    if (Temperature>=100)
+       {
+        Static.SetActive(true);
+        yield return null;
+        }
+    if (Temperature<=100)
+       {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }      
     }
-}
+    }
+    }
