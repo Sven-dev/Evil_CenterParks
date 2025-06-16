@@ -2329,14 +2329,14 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f4348949bb25cdb7b8c302b206b68d78, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.55
+  m_PlayOnAwake: 0
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 60
   DopplerLevel: 0.6
   MinDistance: 3.6
   MaxDistance: 6.5
@@ -7446,6 +7446,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  LeftButton: {fileID: 1859731667}
+  RightButton: {fileID: 914651319}
   Pivots:
   - {fileID: 2017952364}
   - {fileID: 2062603139}
