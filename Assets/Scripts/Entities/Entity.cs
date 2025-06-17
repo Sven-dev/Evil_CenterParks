@@ -180,17 +180,7 @@ public class Entity : MonoBehaviour
                     }
                     else
                     {
-                        //Teleport Cork to room 7
-                        CurrentRoom.LeaveRoom(EntityType);
-                        CurrentRoom = RoomController.Instance.GetRoom(7);
-                        CurrentRoom.EnterRoom(EntityType);
-
-                        //resume normal behavior
-                        routeProgress = 0;
-                        currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, IgnoredRooms);
-
-                        print("<color=Cyan>Cork:</color> Player kill attempt failed.");
-                        print("<color=Cyan>Cork:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+                        KickCorkToRoom(7);
 
                         continue;
                     }
@@ -365,7 +355,7 @@ public class Entity : MonoBehaviour
                }
                else
                {
-                   //Teleport Cork to room 7
+                   //Teleport Abo to room 7
                    CurrentRoom.LeaveRoom(EntityType);
                    CurrentRoom = RoomController.Instance.GetRoom(7);
                    CurrentRoom.EnterRoom(EntityType);
@@ -499,8 +489,7 @@ public class Entity : MonoBehaviour
         routeProgress = 0;
         currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, IgnoredRooms);
 
-        print("<color=Cyan>Cork:</color> Player kill attempt failed.");
-        print("<color=Cyan>Cork:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+        print("<color=Cyan>"+ EntityType.ToString() +":</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
     }
 }
 
