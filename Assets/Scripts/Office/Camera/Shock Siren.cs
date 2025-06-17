@@ -13,7 +13,6 @@ public class Shock : MonoBehaviour
     [Space]
     [SerializeField] public Room CurrentRoom;
     [Space]
-    [Space]
     [SerializeField] private UnityVoidEvent OnFenceSound;
     [SerializeField] private UnityVoidEvent OnShockSound;
     public Entity Entities;
@@ -48,9 +47,10 @@ public class Shock : MonoBehaviour
     {
         if (CorkFence == true)
         {    
-            Entities.KickCorkToRoom(7); 
+           Entities.KickCorkToRoom(7); 
+           CorkFence = false;
         }
+        LampManager.Instance.Flicker();
         OnShockSound?.Invoke();
-        CorkFence = false;
     }
 }

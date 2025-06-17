@@ -181,7 +181,7 @@ public class Entity : MonoBehaviour
                     else
                     {
                         KickCorkToRoom(7);
-
+                        LampManager.Instance.Flicker();
                         continue;
                     }
                 }                
