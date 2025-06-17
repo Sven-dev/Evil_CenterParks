@@ -8,6 +8,11 @@ public class LampManager : MonoBehaviour
 
     [SerializeField] private List<Lamp> Lamps;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public void Flicker()
     {
         foreach (Lamp light in Lamps)
