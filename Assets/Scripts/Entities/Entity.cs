@@ -18,6 +18,8 @@ public class Entity : MonoBehaviour
     private bool AfterAttackMode = false;
     [SerializeField] private Entity Hallucination;
 
+    private List<Room> IgnoredRooms = new List<Room>();
+
     private void Start()
     {
         switch(EntityType)
@@ -58,50 +60,31 @@ public class Entity : MonoBehaviour
         CurrentRoom.EnterRoom(EntityType);
         print("<color=Cyan>Cork:</color> AI started in " + CurrentRoom.name + ".");
 
-        List<Room> ignoredRooms = new List<Room>();
-
         //Hallucination setup
         bool hallucinationMode = false;
         float rnd = UnityEngine.Random.Range(60, 121);     
         TimeSpan hallucinationTimer = DateTime.Now.TimeOfDay + TimeSpan.FromSeconds(UnityEngine.Random.Range(60, 121));
         print("<color=Cyan>Cork:</color> Setting a hallucination timer for " + rnd + " seconds.");
 
-        ignoredRooms.Add(CurrentRoom);
+        IgnoredRooms.Add(CurrentRoom);
         routeProgress = 0;
-        currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, ignoredRooms);
-        ignoredRooms.Remove(CurrentRoom); 
+        currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, IgnoredRooms);
+        IgnoredRooms.Remove(CurrentRoom); 
         print("<color=Cyan>Cork:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
         
         while (true)
         {
             //Checking ignored rooms
-            for (int i = ignoredRooms.Count -1; i >= 0; i--)
+            for (int i = IgnoredRooms.Count -1; i >= 0; i--)
             {
-                Room room = ignoredRooms[i];
+                Room room = IgnoredRooms[i];
                 if (room.GetNoiseLevel() == 0)
                 {
-                    ignoredRooms.Remove(room);
+                    IgnoredRooms.Remove(room);
                 }
             }
 
-            //Waiting based on loudest noise level
-            List<Room> loudestRooms = RoomController.Instance.GetLoudestRooms(ignoredRooms);
-            switch (loudestRooms[0].GetNoiseLevel())
-            {
-                case 5:
-                    print("<color=Cyan>Cork:</color> Waiting for next movement opportunity (" + 2 + " seconds)");
-                    yield return new WaitForSecondsRealtime(2f);
-                    break;
-                case 4:
-                    print("<color=Cyan>Cork:</color> Waiting for next movement opportunity (" + 4 + " seconds)");
-                    yield return new WaitForSecondsRealtime(4f);
-                    break;
-                default:
-                    print("<color=Cyan>Cork:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
-                    yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
-                    break;
-            }
-
+            List<Room> loudestRooms = RoomController.Instance.GetLoudestRooms(IgnoredRooms);
             if (hallucinationMode)
             {
                 if (CurrentRoom == currentRoute.Destination)
@@ -119,7 +102,6 @@ public class Entity : MonoBehaviour
             }
             else if (DateTime.Now.TimeOfDay > hallucinationTimer && CurrentRoom.ID != 1)
             {
-                loudestRooms = RoomController.Instance.GetLoudestRooms(ignoredRooms);
                 if (CurrentRoom.GetNoiseLevel() == 5 || loudestRooms[0].GetNoiseLevel() < 4)
                 {
                     hallucinationMode = true;
@@ -135,14 +117,31 @@ public class Entity : MonoBehaviour
                 }
             }
 
+            //Waiting based on loudest noise level
+            switch (loudestRooms[0].GetNoiseLevel())
+            {
+                case 5:
+                    print("<color=Cyan>Cork:</color> Waiting for next movement opportunity (" + 2 + " seconds)");
+                    yield return new WaitForSecondsRealtime(2f);
+                    break;
+                case 4:
+                    print("<color=Cyan>Cork:</color> Waiting for next movement opportunity (" + 4 + " seconds)");
+                    yield return new WaitForSecondsRealtime(4f);
+                    break;
+                default:
+                    print("<color=Cyan>Cork:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
+                    yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
+                    break;
+            }
+
             if (!hallucinationMode)
             {
                 //if the destination room isn't one of the loudest rooms anymore, recalculate
-                loudestRooms = RoomController.Instance.GetLoudestRooms(ignoredRooms);
+                loudestRooms = RoomController.Instance.GetLoudestRooms(IgnoredRooms);
                 if (loudestRooms[0].GetNoiseLevel() != currentRoute.Destination.GetNoiseLevel())
                 {
                     routeProgress = 0;
-                    currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, ignoredRooms);
+                    currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, IgnoredRooms);
 
                     print("<color=Cyan>Cork:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
                 }
@@ -162,17 +161,15 @@ public class Entity : MonoBehaviour
                     }
                     else
                     {
-                        ignoredRooms.Add(CurrentRoom);
+                        IgnoredRooms.Add(CurrentRoom);
                         print("<color=Cyan>Cork:</color> Room " + CurrentRoom + " kill attempt failed.");
                     }
                 }
                 else if (CurrentRoom.ID == 12)
                 {
-                     yield return new WaitForSecondsRealtime(3);
-                    {
-                           office.Kill();
-                           continue;
-                       }
+                    yield return new WaitForSecondsRealtime(3);
+                    office.Kill();
+                    continue;
                 }
                 else if (office)
                 {
@@ -190,7 +187,7 @@ public class Entity : MonoBehaviour
 
                         //resume normal behavior
                         routeProgress = 0;
-                        currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, ignoredRooms);
+                        currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, IgnoredRooms);
 
                         print("<color=Cyan>Cork:</color> Player kill attempt failed.");
                         print("<color=Cyan>Cork:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
@@ -266,7 +263,6 @@ public class Entity : MonoBehaviour
             }
         }
     }
-
     private IEnumerator _HallucinationAI()
     {
         CurrentRoom = RoomController.Instance.FindEntity(EntityType.Cork);
@@ -319,7 +315,6 @@ public class Entity : MonoBehaviour
             }
         }
     }
-
     private IEnumerator _WandererAI()
     {
         CurrentRoom.EnterRoom(EntityType);
@@ -473,24 +468,39 @@ public class Entity : MonoBehaviour
 
     public void KickOutOfOffice()
     {
-            CurrentRoom.LeaveRoom(EntityType);
-            int rnd = UnityEngine.Random.Range(0,3);
-            if (rnd == 0)
-            {
+        CurrentRoom.LeaveRoom(EntityType);
+        int rnd = UnityEngine.Random.Range(0, 3);
+        if (rnd == 0)
+        {
             CurrentRoom = RoomController.Instance.GetRoom(3);
-            }
-            else if (rnd == 1)
-            {
+        }
+        else if (rnd == 1)
+        {
             CurrentRoom = RoomController.Instance.GetRoom(8);
-            }
-            else if (rnd == 2)
-            {
+        }
+        else if (rnd == 2)
+        {
             CurrentRoom = RoomController.Instance.GetRoom(12);
-            }
-            CurrentRoom.EnterRoom(EntityType);
-            routeProgress = 0;
-            currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom);
-            print("<color=Yellow>Vial:</color> Got kicked out of " + currentRoute.Start.name + ", to " + currentRoute.Destination.name);
+        }
+        CurrentRoom.EnterRoom(EntityType);
+        routeProgress = 0;
+        currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom);
+        print("<color=Yellow>Vial:</color> Got kicked out of " + currentRoute.Start.name + ", to " + currentRoute.Destination.name);
+    }
+
+    public void KickCorkToRoom(int roomID)
+    {
+        //Teleport Cork to room
+        CurrentRoom.LeaveRoom(EntityType);
+        CurrentRoom = RoomController.Instance.GetRoom(roomID);
+        CurrentRoom.EnterRoom(EntityType);
+
+        //resume normal behavior
+        routeProgress = 0;
+        currentRoute = RoomController.Instance.GetLoudestRoomPath(CurrentRoom, IgnoredRooms);
+
+        print("<color=Cyan>Cork:</color> Player kill attempt failed.");
+        print("<color=Cyan>Cork:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
     }
 }
 
