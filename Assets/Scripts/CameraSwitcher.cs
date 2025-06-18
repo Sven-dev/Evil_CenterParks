@@ -15,7 +15,7 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] private RawImage Static;
     [SerializeField] private VideoPlayer VideoPlayer;
 
-    private int CameraIndex = 0;
+    public int CameraIndex = 0;
 
     private void Start()
     {

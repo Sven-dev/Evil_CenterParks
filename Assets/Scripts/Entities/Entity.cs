@@ -6,7 +6,7 @@ using System;
 public class Entity : MonoBehaviour
 {
     [SerializeField] private EntityType EntityType;
-    [Range(1, 20)]
+    [Range(0, 20)]
     [SerializeField] protected int AILevel = 10;
     [Range(1, 10)]
     [SerializeField] protected float MovementOpportunityCooldown = 4.9f; 
@@ -456,7 +456,7 @@ public class Entity : MonoBehaviour
         }
     }
 
-    public void KickOutOfOffice()
+    public void KickOutOfOffice() //KickVialOut
     {
         CurrentRoom.LeaveRoom(EntityType);
         int rnd = UnityEngine.Random.Range(0, 3);
@@ -474,7 +474,7 @@ public class Entity : MonoBehaviour
         }
         CurrentRoom.EnterRoom(EntityType);
         routeProgress = 0;
-        currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom);
+        currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom); 
         print("<color=Yellow>Vial:</color> Got kicked out of " + currentRoute.Start.name + ", to " + currentRoute.Destination.name);
     }
 
