@@ -8,7 +8,6 @@ public class SilentAlarm : MonoBehaviour
     [SerializeField] private float CooldownTime = 1f;
     [Space]
     [SerializeField] private CameraSwitcher CameraTracker;
-    [SerializeField] private Entity Vial;
 
     private bool OnCooldown = false;
 
@@ -18,7 +17,7 @@ public class SilentAlarm : MonoBehaviour
         {
             if (RoomController.Instance.GetRoom(CameraTracker.ActiveCamera) == RoomController.Instance.FindEntity(EntityType.Vial))
             {
-                Vial.KickOutOfOffice();
+                Entities.Instance.Vial.KickOutOfOffice();
             }
 
             OnCooldown = true;

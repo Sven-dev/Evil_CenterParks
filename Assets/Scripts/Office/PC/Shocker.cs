@@ -9,7 +9,6 @@ public class Shocker : MonoBehaviour
     [SerializeField] private UnityVoidEvent OnFenceSound;
     [SerializeField] private UnityVoidEvent OnShockSound;
 
-    [SerializeField] private Entity Cork;
     public bool CorkOnFence = false;
 
     private void Update()
@@ -30,7 +29,7 @@ public class Shocker : MonoBehaviour
         {
             if (CorkOnFence == true)
             {
-                Cork.KickCorkToRoom(7);
+                Entities.Instance.Cork.KickCorkToRoom(7);
                 CorkOnFence = false;
             }
 

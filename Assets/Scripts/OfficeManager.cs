@@ -15,8 +15,9 @@ public class OfficeManager : MonoBehaviour
     public bool PcRunning = true;
     public bool FanRunning = true;
 
-    public void Kill()
+    public void Kill(EntityType killer)
     {
+        print("Whoops! You were killed by " + killer);
         OnDeath?.Invoke();
     }
 
