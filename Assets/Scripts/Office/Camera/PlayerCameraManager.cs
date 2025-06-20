@@ -7,16 +7,15 @@ public class PlayerCameraManager : MonoBehaviour
     [SerializeField] private Camera Camera;
     [SerializeField] private float Duration;
     [SerializeField] private AnimationCurve MovementCurve;
+    [SerializeField] private List<Transform> Pivots;
     [Space]
     [SerializeField] private GameObject LeftButton;
     [SerializeField] private GameObject RightButton;
-
-    private bool Moving = false;
-
-    [SerializeField] private List<Transform> Pivots;
-    private int ActivePivot = 1;
-
+    [Space]
     [SerializeField] private UnityIntEvent OnCameraPerpectiveChange;
+
+    private int ActivePivot = 1;
+    private bool Moving = false;
 
     public void MoveLeft()
     {

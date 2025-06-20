@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Shutter : MonoBehaviour
 {
-    [SerializeField] private int ActivePerspective;
+    [SerializeField] private Perspective Perspective;
     [Space]
     [SerializeField] private Slider Slider;
     [SerializeField] private Animator Animator;
@@ -13,11 +13,11 @@ public class Shutter : MonoBehaviour
     [SerializeField] private OfficeManager OfficeManager;
 
     private bool ForcedOpen = false;
-    private bool ShutterInteractable = false;
+    public bool ShutterInteractable = false;
 
-    public void ToggleActive(int cameraPerspective)
+    public void Interactable(bool state)
     {
-        if (cameraPerspective == ActivePerspective)
+        if (state == true)
         {
             ShutterInteractable = true;
             if (!ForcedOpen)
@@ -28,9 +28,10 @@ public class Shutter : MonoBehaviour
         else
         {
             ShutterInteractable = false;
-            Slider.interactable = false;                
-        }        
+            Slider.interactable = false;
+        }
     }
+
 
     public void StopFalling()
     {

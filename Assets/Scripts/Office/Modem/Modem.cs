@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Modem : MonoBehaviour
 {
-    [SerializeField] private int ActivePerspective;
-    [Space]
     [SerializeField] private float BreakChance;
     [SerializeField] private Button ResetButton;
     [Space]
@@ -19,9 +17,9 @@ public class Modem : MonoBehaviour
         StartCoroutine(_RandomBreak());
     }
 
-    public void ToggleActive(int cameraPerspective)
+    public void Interactable(bool state)
     {
-        if (cameraPerspective == ActivePerspective &&  Office.ModemWorking == false)
+        if (state == true && !Office.ModemWorking)
         {
             ResetButton.interactable = true;
         }

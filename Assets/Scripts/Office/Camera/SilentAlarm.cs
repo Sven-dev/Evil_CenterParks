@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class SilentAlarm : MonoBehaviour
 {
-    [SerializeField] private CameraSwitcher CameraTracker;
-    public Entity Entities;
-    private bool OnCooldown = false;
+    [SerializeField] private Perspective Perspective;
     [SerializeField] private float CooldownTime = 1f;
+    [Space]
+    [SerializeField] private CameraSwitcher CameraTracker;
+    [SerializeField] private Entity Vial;
 
+    private bool OnCooldown = false;
 
     public void Scare()
     {
-        if (OnCooldown == false)
+        if (Perspective.Active && !OnCooldown)
         {
+            if (RoomController.Instance.GetRoom(CameraTracker.ActiveCamera) == RoomController.Instance.FindEntity(EntityType.Vial))
+            {
+                Vial.KickOutOfOffice();
+            }
+
             OnCooldown = true;
             Invoke("CooldownDone", CooldownTime);
-            if (RoomController.Instance.GetRoom(CameraTracker.CameraIndex+1) == RoomController.Instance.FindEntity(EntityType.Vial))
-            {
-                   Entities.KickOutOfOffice();
-            }
-        print ("AAAAAAAA");
         }
     }
 

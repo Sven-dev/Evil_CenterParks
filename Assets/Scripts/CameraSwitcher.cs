@@ -6,60 +6,38 @@ using UnityEngine.Video;
 
 public class CameraSwitcher : MonoBehaviour
 {
-    [SerializeField] private int ActivePerspective;
+    [SerializeField] private Perspective Perspective;
     [Space]
-    [SerializeField] private List<ParkCamera> Cameras;
-    [SerializeField] private List<Button> Buttons;
-    [Space]
+    public int ActiveCamera;
     [SerializeField] private float SwitchTime;
-    [SerializeField] private RawImage Static;
+    [SerializeField] private List<ParkCamera> Cameras;
+    [Space]
+    [SerializeField] private CanvasGroup Static;
     [SerializeField] private VideoPlayer VideoPlayer;
-
-    public int CameraIndex = 0;
 
     private void Start()
     {
-        Cameras[CameraIndex].EnableCamera();
-    }
-
-    public void ToggleActive(int cameraPerspective)
-    {
-        if (cameraPerspective == ActivePerspective)
-        {
-            foreach(Button button in Buttons)
-            {
-                button.interactable = true;
-            }
-        }
-        else
-        {
-            foreach (Button button in Buttons)
-            {
-                button.interactable = false;
-            }
-        }
+        Cameras[ActiveCamera - 1].EnableCamera();
     }
 
     public void SwitchToRoom(int index)
     {
-        StartCoroutine(_SwitchToRoom(index));
+        if (Perspective.Active)
+        {
+            StartCoroutine(_SwitchToRoom(index));
+        }
     }
 
     public IEnumerator _SwitchToRoom(int index)
     {
-        Cameras[CameraIndex].DisableCamera();
-        CameraIndex = index - 1;
-        Cameras[CameraIndex].EnableCamera();
+        Cameras[ActiveCamera - 1].DisableCamera();
+        ActiveCamera = index;
+        Cameras[ActiveCamera - 1].EnableCamera();
 
-        Color c = Static.color;
-        c.a = 1;
-        Static.color = c;
-
+        Static.alpha = 1f;
         VideoPlayer.SetDirectAudioVolume(0, 0.5f);
         yield return new WaitForSeconds(SwitchTime);
+        Static.alpha = 0.1f;
         VideoPlayer.SetDirectAudioVolume(0, 0f);
-
-        c.a = 0.1f;
-        Static.color = c;
     }
 }
