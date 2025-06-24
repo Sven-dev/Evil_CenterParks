@@ -64,7 +64,8 @@ public class RoomController : MonoBehaviour
         //Filter through all rooms until you have the ones with the lowest noise level
         int loudestNoiseLevel = 6;
         List<Room> quietestRooms = new List<Room>();
-        foreach(Room room in Rooms)
+        quietestRooms.Add(GetRoom(1));
+        foreach (Room room in Rooms)
         {
             if (room.GuestRooms == null || room == currentRoom || ignoredRooms.Contains(room))
             {
@@ -93,8 +94,8 @@ public class RoomController : MonoBehaviour
 
         //Calculate all possible routes
         List<Route> routes = new List<Route>();
-        foreach(Room targetRoom in quietestRooms)
-        {        
+        foreach (Room targetRoom in quietestRooms)
+        {
             List<Route> possibleRoutes = FindShortestRoutes(currentRoom, targetRoom);
             //Per room, pick a random route (avoids bias towards rooms with multiple entrances)
             routes.Add(possibleRoutes[Random.Range(0, possibleRoutes.Count)]);
@@ -115,15 +116,8 @@ public class RoomController : MonoBehaviour
             }
         }
 
-        if (furthestRoutes.Count > 0)
-        {
-            //return a random route
-            return furthestRoutes[Random.Range(0, furthestRoutes.Count)];
-        }
-        else
-        {
-            //Return the office
-        }
+        //return a random route
+        return furthestRoutes[Random.Range(0, furthestRoutes.Count)];
     }
 
     public Route GetRandomRoomPath(Room currentRoom)
