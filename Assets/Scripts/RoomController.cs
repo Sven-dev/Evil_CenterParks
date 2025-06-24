@@ -115,8 +115,15 @@ public class RoomController : MonoBehaviour
             }
         }
 
-        //return a random route
-        return furthestRoutes[Random.Range(0, furthestRoutes.Count)];
+        if (furthestRoutes.Count > 0)
+        {
+            //return a random route
+            return furthestRoutes[Random.Range(0, furthestRoutes.Count)];
+        }
+        else
+        {
+            //Return the office
+        }
     }
 
     public Route GetRandomRoomPath(Room currentRoom)
