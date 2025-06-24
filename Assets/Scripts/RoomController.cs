@@ -66,7 +66,7 @@ public class RoomController : MonoBehaviour
         List<Room> quietestRooms = new List<Room>();
         foreach(Room room in Rooms)
         {
-            if (room.GuestRooms == null || ignoredRooms.Contains(room))
+            if (room.GuestRooms == null || room == currentRoom || ignoredRooms.Contains(room))
             {
                 continue;
             }
