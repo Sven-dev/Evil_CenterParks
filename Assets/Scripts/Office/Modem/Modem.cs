@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Modem : MonoBehaviour
 {
     [SerializeField] private float BreakChance;
-    [SerializeField] private Button ResetButton;
     [Space]
     [SerializeField] private UnityVoidEvent OnModemBreak;
     [SerializeField] private UnityVoidEvent OnModemReset;
@@ -18,40 +17,22 @@ public class Modem : MonoBehaviour
         StartCoroutine(_RandomBreak());
     }
 
-    public void Interactable(bool state)
+    public void OnMouseDown()
     {
-        if (Shadow.Frustrated == true)
+        if (Shadow.Frustrated == false)
         {
+            if (RoomController.Instance.GetRoom(1) == RoomController.Instance.FindEntity(EntityType.Vial))
             {
-                ResetButton.interactable = false;
+                StartCoroutine("_ResetTimer");
             }
-        }
-        else
-        {
-            if (state == true && !Office.ModemWorking)
+            else if (Office.ModemWorking == true)
             {
-                ResetButton.interactable = true;
+                OnModemBreak?.Invoke();
             }
             else
             {
-                ResetButton.interactable = false;
+                OnModemReset?.Invoke();
             }
-        }
-    }
-
-    public void OnMouseDown()
-    {
-        if (RoomController.Instance.GetRoom(1) == RoomController.Instance.FindEntity(EntityType.Vial))
-        {
-            StartCoroutine("_ResetTimer");
-        }
-        else if (Office.ModemWorking == true)
-        {
-            OnModemBreak?.Invoke();
-        }
-        else
-        {
-            OnModemReset?.Invoke();
         }
     }
 
