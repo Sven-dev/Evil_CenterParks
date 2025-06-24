@@ -33,13 +33,13 @@ public class Heat : MonoBehaviour
             {
                 //Fan turned on
                 //Temperature decreases by 1 (decrement value * wait time)
-                Temperature = Mathf.Clamp(Temperature - 2 * 0.5f, MinHeat, MaxHeat);
+                Temperature = Mathf.Clamp(Temperature - 0.75f * 0.5f, MinHeat, MaxHeat);
             }
             else
             {
                 //Fan turned off
                 //Temperature increases by 0.5 (increment value * wait time)
-                Temperature = Mathf.Clamp(Temperature + 1 * 0.5f, MinHeat, MaxHeat);
+                Temperature = Mathf.Clamp(Temperature + 2 * 0.5f, MinHeat, MaxHeat);
             }
 
             if (!Overheating)

@@ -40,12 +40,12 @@ public class PcFan : MonoBehaviour
     public void TurnOn()
     {
         Office.FanRunning = true;
-        OnFanDisable?.Invoke();            
+        OnFanEnable?.Invoke();            
     }
 
     public void TurnOff()
     {
         Office.FanRunning = false;
-        OnFanEnable?.Invoke();
+        OnFanDisable?.Invoke();
     }
 }

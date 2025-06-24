@@ -9,6 +9,7 @@ public class Entities : MonoBehaviour
     public Cork Cork;
     public Vial Vial;
     public Abhorwretch Abhorwretch;
+    public Shade Shade;
     public Hallucination Hallucination;
     public Wanderer Wanderer;
 
