@@ -59,14 +59,14 @@ public class RoomController : MonoBehaviour
         return routes[Random.Range(0, routes.Count)];
     }
 
-    public Route GetFurthestQuietestRoomPath(Room currentRoom)
+    public Route GetFurthestQuietestRoomPath(Room currentRoom, List<Room> ignoredRooms)
     {
         //Filter through all rooms until you have the ones with the lowest noise level
         int loudestNoiseLevel = 6;
         List<Room> quietestRooms = new List<Room>();
         foreach(Room room in Rooms)
         {
-            if (room.GuestRooms == null)
+            if (room.GuestRooms == null || ignoredRooms.Contains(room))
             {
                 continue;
             }

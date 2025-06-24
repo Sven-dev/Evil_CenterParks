@@ -3811,7 +3811,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  Cork: {fileID: 2060861706}
   CorkOnFence: 0
 --- !u!82 &551536058
 AudioSource:
@@ -6174,7 +6173,6 @@ MonoBehaviour:
   Perspective: {fileID: 428482944}
   CooldownTime: 8
   CameraTracker: {fileID: 1576789088}
-  Vial: {fileID: 418757813}
 --- !u!1 &895360636
 GameObject:
   m_ObjectHideFlags: 0
@@ -14603,7 +14601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7423834335706776669, guid: 8ff41f34265957b449ab533294529c47, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14945,6 +14943,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 598709010}
     m_Modifications:
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 418757813}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: AddIgnoredRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Vial, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1846751022}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Killed
+      objectReference: {fileID: 0}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: Room, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1171188605830733620, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -16271,7 +16305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6730142107623607788, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7188985745075559016, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
       propertyPath: m_Name
@@ -16344,6 +16378,42 @@ PrefabInstance:
     - target: {fileID: 8365985416522298739, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -4.130005
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 418757813}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: AddIgnoredRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Vial, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 585647053}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Killed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: Room, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17285,7 +17355,6 @@ MonoBehaviour:
   Perspective: {fileID: 0}
   CooldownTime: 5
   CameraTracker: {fileID: 0}
-  Vial: {fileID: 0}
 --- !u!4 &6645823804573671806
 Transform:
   m_ObjectHideFlags: 0
@@ -17309,6 +17378,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 598709010}
     m_Modifications:
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 418757813}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: AddIgnoredRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Vial, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1156066594}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Killed
+      objectReference: {fileID: 0}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: Room, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 862658378224938638, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -4.130005
@@ -17391,7 +17496,7 @@ PrefabInstance:
       objectReference: {fileID: 1208305247}
     - target: {fileID: 2488081318806132241, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2654070608239362708, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -18041,7 +18146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5814435548465413566, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6001554833472750098, guid: 4ed1d4e5bd0001947838303866807556, type: 3}
       propertyPath: m_IsActive
@@ -19266,7 +19371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8076471818111898221, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8522837707508106984, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
       propertyPath: m_AnchoredPosition.x

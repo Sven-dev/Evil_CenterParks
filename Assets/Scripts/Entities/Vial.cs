@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Vial : Entity
 {
+    private List<Room> IgnoredRooms = new List<Room>();
+
     protected IEnumerator _BehaviourLoop()
     {
         yield return null;
@@ -12,7 +14,7 @@ public class Vial : Entity
         Log("AI enabled in " + CurrentRoom.name + ".");
 
         routeProgress = 0;
-        currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom);
+        currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom, IgnoredRooms);
         print("<color=Yellow>Vial:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
         while (true)
         {
@@ -36,7 +38,7 @@ public class Vial : Entity
                 else if (rnd >= 2)
                 {
                     routeProgress = 0;
-                    currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom);
+                    currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom, IgnoredRooms);
                     print("<color=Yellow>Vial:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
                 }
             }
@@ -86,7 +88,12 @@ public class Vial : Entity
         }
         CurrentRoom.EnterRoom(EntityType);
         routeProgress = 0;
-        currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom);
+        currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom, IgnoredRooms);
         Log("Got kicked out of " + currentRoute.Start.name + ", to " + currentRoute.Destination.name);
+    }
+
+    public void AddIgnoredRoom(Room room)
+    {
+        IgnoredRooms.Add(room);
     }
 }
