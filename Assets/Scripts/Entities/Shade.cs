@@ -29,23 +29,63 @@ public class Shade : Entity
                 {
                     Frustrated = true;
                     OnHaunt?.Invoke();
-
-                    print("Shade Frustrated!");
+                    // Enable frustrated Visual Stage 5
+                    CurrentRoom.LeaveRoom(EntityType);
+                    CurrentRoom = RoomController.Instance.GetRoom(1);
+                    CurrentRoom.EnterRoom(EntityType);
                 }
-                else if (Office.ModemWorking == false)
+                else if (Frustration >= 16)
                 {
-                    //Radio turned on
-                    //Frustration decreases by 2
-                    Frustration = Mathf.Clamp(Frustration - 2, MinFrustration, MaxFrustration);
+                    // Enable frustrated Visual Stage 4
+                    CurrentRoom.LeaveRoom(EntityType);
+                    CurrentRoom = RoomController.Instance.GetRoom(2);
+                    CurrentRoom.EnterRoom(EntityType);
                 }
-                else
+                else if (Frustration >= 12)
                 {
-                    //Radio turned off
-                    //Frustration increases by 1
-                    Frustration = Mathf.Clamp(Frustration + 1, MinFrustration, MaxFrustration);
+                    // Enable frustrated Visual Stage 3
+                    CurrentRoom.LeaveRoom(EntityType);
+                    CurrentRoom = RoomController.Instance.GetRoom(3);
+                    CurrentRoom.EnterRoom(EntityType);
                 }
-                yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
+                else if (Frustration >= 8)
+                {
+                    // Enable frustrated Visual Stage 2
+                    CurrentRoom.LeaveRoom(EntityType);
+                    CurrentRoom = RoomController.Instance.GetRoom(4);
+                    CurrentRoom.EnterRoom(EntityType);
+                }
+                else if (Frustration >= 4)
+                {
+                    // Enable frustrated Visual Stage 1
+                    CurrentRoom.LeaveRoom(EntityType);
+                    CurrentRoom = RoomController.Instance.GetRoom(5);
+                    CurrentRoom.EnterRoom(EntityType);
+                }
+                else if (Frustration == 0)
+                {
+                    // Enable frustrated Visual Stage 0
+                    CurrentRoom.LeaveRoom(EntityType);
+                    CurrentRoom = RoomController.Instance.GetRoom(6);
+                    CurrentRoom.EnterRoom(EntityType);
+                }
+                if (Frustration != 20)
+                {
+                    if (Office.ModemWorking == false)
+                    {
+                        //Radio turned on
+                        //Frustration decreases by 2
+                        Frustration = Mathf.Clamp(Frustration - 2, MinFrustration, MaxFrustration);
+                    }
+                    else
+                    {
+                        //Radio turned off
+                        //Frustration increases by 1
+                        Frustration = Mathf.Clamp(Frustration + 2, MinFrustration, MaxFrustration);
+                    }
+                }
             }
+            yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
         } 
     }
 } 
