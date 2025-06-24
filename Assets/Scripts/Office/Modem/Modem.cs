@@ -39,12 +39,23 @@ public class Modem : MonoBehaviour
         }
     }
 
-    public void StartReset()
+    public void OnMouseDown()
     {
-        StartCoroutine("_ResetTimer");
+        if (RoomController.Instance.GetRoom(1) == RoomController.Instance.FindEntity(EntityType.Vial))
+        {
+            StartCoroutine("_ResetTimer");
+        }
+        else if (Office.ModemWorking == true)
+        {
+            OnModemBreak?.Invoke();
+        }
+        else
+        {
+            OnModemReset?.Invoke();
+        }
     }
 
-    public void StopReset()
+    public void OnMouseUp()
     {
         StopCoroutine("_ResetTimer");
     }
@@ -77,5 +88,5 @@ public class Modem : MonoBehaviour
                 BreakModem();
             }
         }
-    }
+    } 
 }

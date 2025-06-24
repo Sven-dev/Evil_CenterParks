@@ -23,7 +23,7 @@ public class Shocker : MonoBehaviour
         }            
     }
 
-    public void StartShock()
+    public void OnMouseDown()
     {
         if (Perspective.Active)
         {

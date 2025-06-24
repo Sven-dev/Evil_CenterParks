@@ -11,7 +11,7 @@ public class SilentAlarm : MonoBehaviour
 
     private bool OnCooldown = false;
 
-    public void Scare()
+    public void OnMouseDown()
     {
         if (Perspective.Active && !OnCooldown)
         {
