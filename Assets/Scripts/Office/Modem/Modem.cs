@@ -11,6 +11,7 @@ public class Modem : MonoBehaviour
     [SerializeField] private UnityVoidEvent OnModemBreak;
     [SerializeField] private UnityVoidEvent OnModemReset;
     public OfficeManager Office;
+    public Shade Shadow;
 
     private void Start()
     {
@@ -19,22 +20,42 @@ public class Modem : MonoBehaviour
 
     public void Interactable(bool state)
     {
-        if (state == true && !Office.ModemWorking)
+        if (Shadow.Frustrated == true)
         {
-            ResetButton.interactable = true;
+            {
+                ResetButton.interactable = false;
+            }
         }
         else
         {
-            ResetButton.interactable = false;
+            if (state == true && !Office.ModemWorking)
+            {
+                ResetButton.interactable = true;
+            }
+            else
+            {
+                ResetButton.interactable = false;
+            }
         }
     }
 
-    public void StartReset()
+    public void OnMouseDown()
     {
-        StartCoroutine("_ResetTimer");
+        if (RoomController.Instance.GetRoom(1) == RoomController.Instance.FindEntity(EntityType.Vial))
+        {
+            StartCoroutine("_ResetTimer");
+        }
+        else if (Office.ModemWorking == true)
+        {
+            OnModemBreak?.Invoke();
+        }
+        else
+        {
+            OnModemReset?.Invoke();
+        }
     }
 
-    public void StopReset()
+    public void OnMouseUp()
     {
         StopCoroutine("_ResetTimer");
     }
@@ -67,5 +88,5 @@ public class Modem : MonoBehaviour
                 BreakModem();
             }
         }
-    }
+    } 
 }

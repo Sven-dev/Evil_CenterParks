@@ -8,6 +8,7 @@ public enum EntityType
     Cork,
     Vial,
     Abhorwretch,
+    Shade,
     Wanderer,
     Hallucination
 }
@@ -87,7 +88,13 @@ public abstract class Entity : MonoBehaviour
                     AILevel++;
                 }
                 break;
-        }
+
+            case EntityType.Shade:
+                if (currentTime.Hours == 2 || currentTime.Hours == 3 || currentTime.Hours == 4 || currentTime.Hours == 5)
+                {
+                    AILevel++;
+                }
+                break;        }
     }
 
     protected void Log(string message)

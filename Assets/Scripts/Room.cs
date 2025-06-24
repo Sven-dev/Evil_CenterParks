@@ -12,6 +12,7 @@ public class Room : MonoBehaviour
     [SerializeField] private List<GameObject> CorkVisuals;
     [SerializeField] private List<GameObject> VialVisuals;
     [SerializeField] private List<GameObject> AbhorwretchVisuals;
+    [SerializeField] private List<GameObject> ShadeVisuals;
     [SerializeField] private List<GameObject> WandererVisuals;
     [SerializeField] private List<GameObject> HallucinationVisuals;
 
@@ -61,6 +62,9 @@ public class Room : MonoBehaviour
                     Office.VialEnter();
                 }
                 break;
+            case EntityType.Shade:
+                ShadeVisuals[Random.Range(0, ShadeVisuals.Count)].SetActive(true);
+                break;
             case EntityType.Abhorwretch:
                 AbhorwretchVisuals[Random.Range(0, AbhorwretchVisuals.Count)].SetActive(true);
                 break;
@@ -89,6 +93,9 @@ public class Room : MonoBehaviour
                 {
                     AlterNoiseLevel(-1);
                 }
+                break;
+            case EntityType.Shade:
+                ShadeVisuals[Random.Range(0, ShadeVisuals.Count)].SetActive(false);
                 break;
             case EntityType.Abhorwretch:
                 AbhorwretchVisuals[Random.Range(0, AbhorwretchVisuals.Count)].SetActive(false);
