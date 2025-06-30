@@ -9,8 +9,11 @@ public class PCBooter : MonoBehaviour
     [SerializeField] private OfficeManager Office;
     [SerializeField] private PcFan Fan;
     [Space]
+    [SerializeField] private UnityVoidEvent OnPCBootSound;
     [SerializeField] private UnityVoidEvent OnPCBootup;
     [SerializeField] private UnityVoidEvent OnPCBootdown;
+
+    [SerializeField] private UnityVoidEvent OnPCBootCancel;
 
     private bool Booting = false;
 
@@ -44,6 +47,7 @@ public class PCBooter : MonoBehaviour
     private IEnumerator _StartBootDelay()
     {
         Booting = true;
+        OnPCBootSound?.Invoke();
         float BootTime = 3;
         while (BootTime > 0)
         {
@@ -53,11 +57,12 @@ public class PCBooter : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 Booting = false;
+                OnPCBootCancel?.Invoke();
                 StopCoroutine("_StartBootDelay");
             }
         }
 
-        OnPCBootup?.Invoke();
+        OnPCBootup?.Invoke(); 
         Fan.TurnOn();
         Booting = false;
     }

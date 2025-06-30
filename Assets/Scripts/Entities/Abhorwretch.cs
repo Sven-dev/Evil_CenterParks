@@ -17,7 +17,7 @@ public class Abhorwretch : Entity
             if (office)
             {
                 yield return new WaitForSecondsRealtime(3 - AILevel * 0.1f);
-                if (CurrentRoom.GetNoiseLevel() > 2)
+                if (CurrentRoom.GetNoiseLevel() >= 3)
                 {
                     office.Kill(EntityType);
                     continue;
