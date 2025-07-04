@@ -37,7 +37,7 @@ public class CameraSwitcher : MonoBehaviour
         Static.alpha = 1f;
         VideoPlayer.SetDirectAudioVolume(0, 0.5f);
         yield return new WaitForSeconds(SwitchTime);
-        Static.alpha = 0.1f;
+        Static.alpha = 0f;
         VideoPlayer.SetDirectAudioVolume(0, 0f);
     }
 }
