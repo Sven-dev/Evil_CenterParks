@@ -12,6 +12,7 @@ public class OfficeManager : MonoBehaviour
 
     public bool ShutterOpen = true;
     public bool ModemWorking = true;
+     public bool RadioWorking = false;
     public bool PcRunning = true;
     public bool FanRunning = true;
 
@@ -88,6 +89,16 @@ public class OfficeManager : MonoBehaviour
     public void ModemBroken()
     {
         ModemWorking = false;
+    }
+
+        public void RadioOn()
+    {
+        RadioWorking = true;
+    }
+
+    public void RadioOff()
+    {
+        RadioWorking = false;
     }
    
     public void PCON()

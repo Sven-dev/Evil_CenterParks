@@ -71,7 +71,7 @@ public class Shade : Entity
                 }
                 if (Frustration != 20)
                 {
-                    if (Office.ModemWorking == false)
+                    if (Office.RadioWorking == true)
                     {
                         //Radio turned on
                         //Frustration decreases by 2
