@@ -23,6 +23,7 @@ public class Shade : Entity
         yield return null;
         while (Frustrated == false)
         {
+            yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
             if (MovementOpportunity())
             {
                 if (Frustration == 20)
@@ -85,7 +86,6 @@ public class Shade : Entity
                     }
                 }
             }
-            yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
         } 
     }
 } 

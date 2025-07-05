@@ -29,6 +29,7 @@ public class Shutter : MonoBehaviour
         {
             ShutterInteractable = false;
             Slider.interactable = false;
+            StartCoroutine(_FallBackDown());
         }
     }
 
