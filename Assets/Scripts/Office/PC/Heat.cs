@@ -32,14 +32,20 @@ public class Heat : MonoBehaviour
             if (Office.FanRunning)
             {
                 //Fan turned on
-                //Temperature decreases by 1 (decrement value * wait time)
-                Temperature = Mathf.Clamp(Temperature - 0.75f * 0.5f, MinHeat, MaxHeat);
+                //Temperature decreases by 0.75 (decrement value * wait time)
+                Temperature = Mathf.Clamp(Temperature - 1f * 0.5f, MinHeat, MaxHeat);
             }
-            else
+            else if (Office.PcRunning == false)
+            {
+                //Pc turned off
+                //Temperature decreases by 1 (decrement value * wait time)
+                Temperature = Mathf.Clamp(Temperature - 0.25f * 0.5f, MinHeat, MaxHeat);
+            }            
+            else if (Office.PcRunning == true)
             {
                 //Fan turned off
                 //Temperature increases by 0.5 (increment value * wait time)
-                Temperature = Mathf.Clamp(Temperature + 2 * 0.5f, MinHeat, MaxHeat);
+                Temperature = Mathf.Clamp(Temperature + 3 * 0.5f, MinHeat, MaxHeat);
             }
 
             if (!Overheating)

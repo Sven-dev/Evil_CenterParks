@@ -13,8 +13,8 @@ public class OfficeManager : MonoBehaviour
     public bool ShutterOpen = true;
     public bool ModemWorking = true;
      public bool RadioWorking = false;
-    public bool PcRunning = true;
-    public bool FanRunning = true;
+    public bool PcRunning = false;
+    public bool FanRunning = false;
 
     public void Kill(EntityType killer)
     {

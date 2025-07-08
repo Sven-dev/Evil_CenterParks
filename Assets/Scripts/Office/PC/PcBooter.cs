@@ -28,6 +28,11 @@ public class PCBooter : MonoBehaviour
         }
     }
 
+    public void Start()
+    {
+        StartCoroutine("_StartBootDelay");  
+    }
+
     public void TogglePc()
     {
         if (Office.PcRunning == true)
@@ -40,7 +45,7 @@ public class PCBooter : MonoBehaviour
         }
         else if (Booting == false)
         {
-            StartCoroutine("_StartBootDelay");          
+            StartCoroutine("_StartBootDelay");
         }
     }
 

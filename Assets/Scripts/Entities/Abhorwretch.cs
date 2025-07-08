@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Abhorwretch : Entity
 {
+    [SerializeField] private UnityVoidEvent OnAboEnter;
     protected IEnumerator _BehaviourLoop()
     {
         CurrentRoom.EnterRoom(EntityType);
@@ -16,7 +17,8 @@ public class Abhorwretch : Entity
             OfficeManager office = CurrentRoom.Office;
             if (office)
             {
-                yield return new WaitForSecondsRealtime(3 - AILevel * 0.1f);
+                OnAboEnter?.Invoke();
+                yield return new WaitForSecondsRealtime(6.4f - AILevel * 0.1f);
                 if (CurrentRoom.GetNoiseLevel() >= 3)
                 {
                     office.Kill(EntityType);
