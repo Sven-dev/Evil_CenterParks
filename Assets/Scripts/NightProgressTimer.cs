@@ -6,7 +6,7 @@ using UnityEngine;
 public class NightProgressTimer : MonoBehaviour
 {
     [Tooltip("The amount of seconds an in-game hour lasts for.")]
-    [SerializeField] private float HourDuration = 90f;
+    [SerializeField] private float HourDuration = 90f; 
     [Space]
     [SerializeField] private UnityTimeSpanEvent OnHourPassed;
     [SerializeField] private UnityVoidEvent OnNightFinished;

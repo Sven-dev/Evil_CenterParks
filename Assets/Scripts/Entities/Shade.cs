@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Shade : Entity
 {
+    [SerializeField] private Perspective Perspective;
     [SerializeField] private Animator Animator;
     [SerializeField] private int Frustration;
     [Space]
@@ -16,20 +17,21 @@ public class Shade : Entity
 
 
     private IEnumerator _BehaviourLoop()
-    { 
+    {
         yield return null;
         while (Frustrated == false)
         {
             Animator.SetInteger("Frustration", Frustration);
+            if (Frustration == 20)
+            {
+                Frustrated = true;
+                OnHaunt?.Invoke();
+                // Enable frustrated Visual Stage 5
+            }
+
             yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
             if (MovementOpportunity())
             {
-                if (Frustration == 20)
-                {
-                    Frustrated = true;
-                    OnHaunt?.Invoke();
-                    // Enable frustrated Visual Stage 5
-                }
                 if (Frustration != 20)
                 {
                     if (Office.RadioWorking == true)

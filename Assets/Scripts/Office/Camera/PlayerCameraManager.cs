@@ -29,10 +29,16 @@ public class PlayerCameraManager : MonoBehaviour
         if (ActivePivot == 0)
         {
             LeftButton.SetActive(false);
+            RightButton.SetActive(true);
+        }
+        else if (ActivePivot == 1 && RadioAccessible == true)
+        {
+            RightButton.SetActive(true);
+            LeftButton.SetActive(true);
         }
         else
         {
-            RightButton.SetActive(true);
+            LeftButton.SetActive(true);
         }
 
         StartCoroutine(_Move(-1));
@@ -47,16 +53,19 @@ public class PlayerCameraManager : MonoBehaviour
         }
 
         ActivePivot++;
-        if (ActivePivot == Pivots.Count - 1)
+        if (ActivePivot == 2)
         {
-            RightButton.gameObject.SetActive(false);
+            RightButton.SetActive(false);
+            LeftButton.SetActive(true);
         }
-        else if (ActivePivot == 1 && !RadioAccessible)
+        else if (ActivePivot == 1 && RadioAccessible == true)
         {
-            RightButton.gameObject.SetActive(false);
+            RightButton.SetActive(true);
+            LeftButton.SetActive(true);
         }
-        else
+        else if (ActivePivot == 1 && !RadioAccessible == true)
         {
+            RightButton.SetActive(false);
             LeftButton.SetActive(true);
         }
 
@@ -91,7 +100,11 @@ public class PlayerCameraManager : MonoBehaviour
         RadioAccessible = false;
         if (ActivePivot == 1)
         {
-            RightButton.gameObject.SetActive(false);
+            RightButton.SetActive(false);
+        }
+        else if (ActivePivot == 2)
+        {
+            MoveLeft();
         }
     }
 }
