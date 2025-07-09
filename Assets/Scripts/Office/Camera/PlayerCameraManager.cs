@@ -16,6 +16,7 @@ public class PlayerCameraManager : MonoBehaviour
 
     private int ActivePivot = 1;
     private bool Moving = false;
+    private bool RadioAccessible = true;
 
     public void MoveLeft()
     {
@@ -50,6 +51,10 @@ public class PlayerCameraManager : MonoBehaviour
         {
             RightButton.gameObject.SetActive(false);
         }
+        if (ActivePivot == Pivots.Count - 2 && !RadioAccessible)
+        {
+            RightButton.gameObject.SetActive(false);
+        }
         else
         {
             LeftButton.SetActive(true);
@@ -79,5 +84,14 @@ public class PlayerCameraManager : MonoBehaviour
         }
 
         Moving = false;
+    }
+
+    public void RemoveRadioAccess()
+    {
+        RadioAccessible = false;
+        if (ActivePivot == Pivots.Count - 1 || ActivePivot == Pivots.Count - 2)
+        {
+            RightButton.gameObject.SetActive(false);
+        }
     }
 }
