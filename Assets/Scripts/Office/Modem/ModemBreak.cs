@@ -9,6 +9,7 @@ public class Modem : MonoBehaviour
     [Space]
     [SerializeField] private UnityVoidEvent OnModemBreak;
     [SerializeField] private UnityVoidEvent OnModemReset;
+    [SerializeField] private UnityVoidEvent OnStartTune;
     public OfficeManager Office;
     private void Start()
     {
@@ -35,6 +36,7 @@ public class Modem : MonoBehaviour
 
     private IEnumerator _ResetTimer()
     {
+        OnStartTune?.Invoke();
         float time = 3;
         while (time > 0)
         {
