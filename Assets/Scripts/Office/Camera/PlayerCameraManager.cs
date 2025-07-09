@@ -30,10 +30,6 @@ public class PlayerCameraManager : MonoBehaviour
         {
             LeftButton.SetActive(false);
         }
-        else if (ActivePivot == 1 && !RadioAccessible)
-        {
-            RightButton.gameObject.SetActive(false);
-        }
         else
         {
             RightButton.SetActive(true);
@@ -52,6 +48,10 @@ public class PlayerCameraManager : MonoBehaviour
 
         ActivePivot++;
         if (ActivePivot == Pivots.Count - 1)
+        {
+            RightButton.gameObject.SetActive(false);
+        }
+        else if (ActivePivot == 1 && !RadioAccessible)
         {
             RightButton.gameObject.SetActive(false);
         }
