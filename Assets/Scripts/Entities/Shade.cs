@@ -6,11 +6,10 @@ public class Shade : Entity
 {
     [SerializeField] private Perspective Perspective;
     [SerializeField] private Animator Animator;
-    [SerializeField] private int Frustration;
+    private int Frustration;
     [Space]
-    [SerializeField] private int MinFrustration = 0;
-    [SerializeField] private int MaxFrustration = 20;
-    [Space]
+    private int MinFrustration = 0;
+    private int MaxFrustration = 20;
     [SerializeField] private UnityVoidEvent OnHaunt;
     public OfficeManager Office;
     public bool Frustrated = false;
@@ -38,13 +37,13 @@ public class Shade : Entity
                     {
                         //Radio turned on
                         //Frustration decreases by 2
-                        Frustration = Mathf.Clamp(Frustration - 2, MinFrustration, MaxFrustration);
+                        Frustration = Mathf.Clamp(Frustration - 1, MinFrustration, MaxFrustration);
                     }
                     else
                     {
                         //Radio turned off
                         //Frustration increases by 2
-                        Frustration = Mathf.Clamp(Frustration + 2, MinFrustration, MaxFrustration);
+                        Frustration = Mathf.Clamp(Frustration + 1, MinFrustration, MaxFrustration);
                     }
                 }
             }

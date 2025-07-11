@@ -35,15 +35,17 @@ public class PCBooter : MonoBehaviour
 
     public void TogglePc()
     {
-        if (Office.PcRunning == true)
+        //If the pc is on, turn the pc & fan off
+        if (Office.PcRunning)
         {
             OnPCBootdown?.Invoke();
-            if (Office.FanRunning == true)
+            if (Office.FanRunning)
             {
                 Fan.TurnOff();
             }
         }
-        else if (Booting == false)
+        //If the pc is off and not booting, start the boot sequence
+        else if (!Booting)
         {
             StartCoroutine("_StartBootDelay");
         }
@@ -51,6 +53,7 @@ public class PCBooter : MonoBehaviour
 
     private IEnumerator _StartBootDelay()
     {
+        //Starts boot, waiting a set period before turning the pc & fan back on
         Booting = true;
         OnPCBootSound?.Invoke();
         float BootTime = 3;

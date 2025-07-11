@@ -90,7 +90,7 @@ public abstract class Entity : MonoBehaviour
                 break;
 
             case EntityType.Shade:
-                if (currentTime.Hours == 2 || currentTime.Hours == 3 || currentTime.Hours == 4 || currentTime.Hours == 5)
+                if (currentTime.Hours == 1 || currentTime.Hours == 2 || currentTime.Hours == 3 || currentTime.Hours == 4 || currentTime.Hours == 5)
                 {
                     AILevel++;
                 }

@@ -20,9 +20,19 @@ public class Vial : Entity
         {
             if (CurrentRoom.ID == 1)
             {
-                print("<color=Yellow>Vial:</color> Vial is in the camera room, and will not move until removed");
-                yield return new WaitForSecondsRealtime(1f);
-                continue;
+                //If the shutter is closed when Vial enters room 1, instantly forces him out, otherwise he will enter the office
+                OfficeManager office = CurrentRoom.Office;
+                if (!office.ShutterOpen)
+                {
+                    office.VialLeave();
+                    continue;
+                }
+                else
+                {
+                    print("<color=Yellow>Vial:</color> Vial is in the camera room, and will not move until removed");
+                    yield return new WaitForSecondsRealtime(1f);
+                    continue;
+                }
             }
 
             if (CurrentRoom == currentRoute.Destination && CurrentRoom.GetNoiseLevel() == 5)

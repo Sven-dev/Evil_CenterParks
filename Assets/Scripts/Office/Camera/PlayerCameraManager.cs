@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerCameraManager : MonoBehaviour
 {
+    [SerializeField] private int ActivePivot = 2;
     [SerializeField] private Camera Camera;
     [SerializeField] private float Duration;
     [SerializeField] private AnimationCurve MovementCurve;
@@ -14,7 +15,6 @@ public class PlayerCameraManager : MonoBehaviour
     [Space]
     [SerializeField] private UnityIntEvent OnCameraPerpectiveChange;
 
-    private int ActivePivot = 1;
     private bool Moving = false;
     private bool RadioAccessible = true;
 
@@ -31,15 +31,12 @@ public class PlayerCameraManager : MonoBehaviour
             LeftButton.SetActive(false);
             RightButton.SetActive(true);
         }
-        else if (ActivePivot == 1 && RadioAccessible == true)
+        if (ActivePivot == 1 || (ActivePivot == 2 && RadioAccessible))
         {
             RightButton.SetActive(true);
             LeftButton.SetActive(true);
         }
-        else
-        {
-            LeftButton.SetActive(true);
-        }
+
 
         StartCoroutine(_Move(-1));
         OnCameraPerpectiveChange?.Invoke(ActivePivot);
@@ -53,19 +50,19 @@ public class PlayerCameraManager : MonoBehaviour
         }
 
         ActivePivot++;
-        if (ActivePivot == 2)
+        if (ActivePivot == 3)
         {
             RightButton.SetActive(false);
             LeftButton.SetActive(true);
         }
-        else if (ActivePivot == 1 && RadioAccessible == true)
+        else if (ActivePivot == 2 && !RadioAccessible)
+        {
+            RightButton.SetActive(false);
+            LeftButton.SetActive(true);
+        }
+        else if (ActivePivot == 1 || ActivePivot == 2)
         {
             RightButton.SetActive(true);
-            LeftButton.SetActive(true);
-        }
-        else if (ActivePivot == 1 && !RadioAccessible == true)
-        {
-            RightButton.SetActive(false);
             LeftButton.SetActive(true);
         }
 
@@ -98,11 +95,11 @@ public class PlayerCameraManager : MonoBehaviour
     public void RemoveRadioAccess()
     {
         RadioAccessible = false;
-        if (ActivePivot == 1)
+        if (ActivePivot == 2)
         {
             RightButton.SetActive(false);
         }
-        else if (ActivePivot == 2)
+        else if (ActivePivot == 3)
         {
             MoveLeft();
         }

@@ -15,6 +15,7 @@ public class Shocker : MonoBehaviour
 
     private void Update()
     {
+        //Checks whether Cork has entered room 12, if he has it plays a noise for the player
         if (!CorkOnFence)
         {
             if (RoomController.Instance.GetRoom(12) == RoomController.Instance.FindEntity(EntityType.Cork))
@@ -27,6 +28,7 @@ public class Shocker : MonoBehaviour
 
     private IEnumerator _ShockLoop()
     {
+        //Loop to kick cork out of room 12 while the player holds down the shocker
         while (true)
         {
             if (CorkOnFence == true)

@@ -9,7 +9,7 @@ public class Abhorwretch : Entity
     {
         CurrentRoom.EnterRoom(EntityType);
         Log("AI enabled in " + CurrentRoom.name + ".");
-
+        //Always paths Abo to Office
         routeProgress = 0;
         currentRoute = RoomController.Instance.GetCameraRoomPath(CurrentRoom);
         while (true)
@@ -17,6 +17,7 @@ public class Abhorwretch : Entity
             OfficeManager office = CurrentRoom.Office;
             if (office)
             {
+                //Checks if Abo is in office and then after a set period of time, if the noise limit is met, kills the player
                 OnAboEnter?.Invoke();
                 yield return new WaitForSecondsRealtime(6.4f - AILevel * 0.1f);
                 if (CurrentRoom.GetNoiseLevel() >= 3)

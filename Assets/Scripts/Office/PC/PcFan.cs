@@ -24,6 +24,7 @@ public class PcFan : MonoBehaviour
 
     public void ToggleFan()
     {
+        //Toggles the fan on or off if the pc is running
         if (Office.PcRunning)
         {
             if (Office.FanRunning)

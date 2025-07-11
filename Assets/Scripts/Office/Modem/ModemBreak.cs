@@ -10,6 +10,7 @@ public class Modem : MonoBehaviour
     [SerializeField] private UnityVoidEvent OnModemBreak;
     [SerializeField] private UnityVoidEvent OnModemReset;
     [SerializeField] private UnityVoidEvent OnStartTune;
+    [SerializeField] private UnityVoidEvent OnStopTune;
     public OfficeManager Office;
     private void Start()
     {
@@ -18,7 +19,8 @@ public class Modem : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (Office.ModemWorking == false)
+        //Prevents "fixing" a modem that isn't broken
+        if (!Office.ModemWorking)
         {
             StartCoroutine("_ResetTimer");
         }
@@ -27,6 +29,7 @@ public class Modem : MonoBehaviour
     public void OnMouseUp()
     {
         StopCoroutine("_ResetTimer");
+        OnStopTune?.Invoke();
     }
 
     public void BreakModem()
@@ -44,6 +47,11 @@ public class Modem : MonoBehaviour
             yield return null;
         }
 
+        FixModem();
+    }
+
+    public void FixModem()
+    {
         OnModemReset?.Invoke();
     }
 

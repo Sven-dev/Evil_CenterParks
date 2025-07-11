@@ -25,6 +25,7 @@ public class SilentAlarm : MonoBehaviour
 
     public void BuzzVial()
     {
+        //Checks if the current camera selected is == the room Vial is in, if he is allows the player to scare him away
         if (RoomController.Instance.GetRoom(CameraTracker.ActiveCamera) == RoomController.Instance.FindEntity(EntityType.Vial))
         {
             Entities.Instance.Vial.KickOutOfOffice();
