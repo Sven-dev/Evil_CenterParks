@@ -51,6 +51,12 @@ public class PCBooter : MonoBehaviour
         }
     }
 
+    public void TurnOffPc()
+    {
+        OnPCBootdown?.Invoke();
+        Fan.TurnOff();
+    }
+
     private IEnumerator _StartBootDelay()
     {
         //Starts boot, waiting a set period before turning the pc & fan back on
@@ -70,7 +76,7 @@ public class PCBooter : MonoBehaviour
             }
         }
 
-        OnPCBootup?.Invoke(); 
+        OnPCBootup?.Invoke();
         Fan.TurnOn();
         Booting = false;
     }

@@ -12,7 +12,7 @@ public class OfficeManager : MonoBehaviour
 
     public bool ShutterOpen = true;
     public bool ModemWorking = true;
-     public bool RadioWorking = false;
+    public bool RadioWorking = false;
     public bool PcRunning = false;
     public bool FanRunning = false;
 
