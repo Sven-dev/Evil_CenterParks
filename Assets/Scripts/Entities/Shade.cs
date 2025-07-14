@@ -10,10 +10,11 @@ public class Shade : Entity
     [Space]
     private int MinFrustration = 0;
     private int MaxFrustration = 20;
+    [Space]
     [SerializeField] private UnityVoidEvent OnHaunt;
+
     public OfficeManager Office;
     public bool Frustrated = false;
-
 
     private IEnumerator _BehaviourLoop()
     {

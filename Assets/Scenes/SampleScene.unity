@@ -2734,9 +2734,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityType: 3
-  Color: {r: 0.1509434, g: 0.12887149, b: 0.12887149, a: 0}
-  AILevel: 15
+  Color: {r: 0.1509434, g: 0.12887149, b: 0.12887149, a: 1}
   MovementOpportunityCooldown: 2
+  AILevel: 15
+  AILevelIncreases:
+  - Time: 1
+    IncreaseBy: 1
+  - Time: 2
+    IncreaseBy: 1
+  - Time: 3
+    IncreaseBy: 1
+  - Time: 4
+    IncreaseBy: 1
+  - Time: 5
+    IncreaseBy: 1
   CurrentRoom: {fileID: 403715167}
   Perspective: {fileID: 995231010}
   Animator: {fileID: 1915770538}
@@ -4022,8 +4033,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityType: 1
   Color: {r: 1, g: 1, b: 0, a: 1}
-  AILevel: 20
   MovementOpportunityCooldown: 4.1
+  AILevel: 20
+  AILevelIncreases:
+  - Time: 2
+    IncreaseBy: 1
+  - Time: 4
+    IncreaseBy: 1
   CurrentRoom: {fileID: 1799719089}
 --- !u!1 &428482940
 GameObject:
@@ -7246,8 +7262,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityType: 5
   Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  AILevel: 10
   MovementOpportunityCooldown: 4.9
+  AILevel: 10
+  AILevelIncreases:
+  - Time: 2
+    IncreaseBy: 1
+  - Time: 3
+    IncreaseBy: 1
+  - Time: 4
+    IncreaseBy: 1
   CurrentRoom: {fileID: 1799719089}
 --- !u!1 &645441401 stripped
 GameObject:
@@ -12915,8 +12938,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityType: 2
   Color: {r: 0, g: 1, b: 0, a: 1}
-  AILevel: 15
   MovementOpportunityCooldown: 7.8
+  AILevel: 15
+  AILevelIncreases: []
   CurrentRoom: {fileID: 638219893}
   OnAboEnter:
     m_PersistentCalls:
@@ -14698,8 +14722,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityType: 3
   Color: {r: 1, g: 1, b: 1, a: 1}
-  AILevel: 1
   MovementOpportunityCooldown: 4.9
+  AILevel: 1
+  AILevelIncreases: []
   CurrentRoom: {fileID: 462565260}
 --- !u!1 &1587354465
 GameObject:
@@ -19122,8 +19147,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityType: 0
   Color: {r: 0, g: 1, b: 1, a: 1}
-  AILevel: 15
   MovementOpportunityCooldown: 4.9
+  AILevel: 15
+  AILevelIncreases:
+  - Time: 2
+    IncreaseBy: 1
+  - Time: 3
+    IncreaseBy: 1
+  - Time: 4
+    IncreaseBy: 1
   CurrentRoom: {fileID: 1799719089}
   Hallucination: {fileID: 645059975}
 --- !u!1001 &2062097418

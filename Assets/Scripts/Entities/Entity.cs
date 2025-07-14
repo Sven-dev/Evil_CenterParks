@@ -17,12 +17,15 @@ public abstract class Entity : MonoBehaviour
 {
     [SerializeField] protected EntityType EntityType;
     [SerializeField] protected Color Color;
+    [Range(1, 10)]
+    [SerializeField] protected float MovementOpportunityCooldown = 4.9f;   
+    [Space]
     [Range(0, 20)]
     [SerializeField] protected int AILevel = 10;
-    [Range(1, 10)]
-    [SerializeField] protected float MovementOpportunityCooldown = 4.9f; 
+    [SerializeField] private List<EntityLevelIncreaseWrapper> AILevelIncreases;
     [Space]
     [SerializeField] protected Room CurrentRoom;
+
     protected Route currentRoute;
     protected int routeProgress = 0;
 
@@ -66,39 +69,26 @@ public abstract class Entity : MonoBehaviour
 
     public void CheckForAILevelIncrease(TimeSpan currentTime)
     {
-        switch (EntityType)
+        foreach (EntityLevelIncreaseWrapper data in AILevelIncreases)
         {
-            case EntityType.Cork:
-                if (currentTime.Hours == 2 || currentTime.Hours == 3 || currentTime.Hours == 4)
-                {
-                    AILevel++;
-                }
-                break;
-
-            case EntityType.Vial:
-                if (currentTime.Hours == 2 || currentTime.Hours == 4)
-                {
-                    AILevel++;
-                }
-                break;
-
-            case EntityType.Hallucination:
-                if (currentTime.Hours == 2 || currentTime.Hours == 3 || currentTime.Hours == 4)
-                {
-                    AILevel++;
-                }
-                break;
-
-            case EntityType.Shade:
-                if (currentTime.Hours == 1 || currentTime.Hours == 2 || currentTime.Hours == 3 || currentTime.Hours == 4 || currentTime.Hours == 5)
-                {
-                    AILevel++;
-                }
-                break;        }
+            if (currentTime.Hours == data.Time)
+            {
+                AILevel = Mathf.Clamp(AILevel + data.IncreaseBy, 0, 21);
+            }
+        }
     }
 
     protected void Log(string message)
     {
         print("<color=#" + ColorUtility.ToHtmlStringRGB(Color) + ">" + EntityType.ToString() + ": </color>" + message);
     }
+}
+
+[Serializable]
+public class EntityLevelIncreaseWrapper
+{
+    [Tooltip("The hour when the increase should happen.")]
+    public int Time;
+    [Range(-3, 3)]
+    public int IncreaseBy = 1;
 }
