@@ -30,6 +30,7 @@ public class SilentAlarm : MonoBehaviour
         {
             Entities.Instance.Vial.KickOutOfOffice();
         }
+
         OnBuzzerSound?.Invoke();
         OnCooldown = true;
         Invoke("CooldownDone", CooldownTime);

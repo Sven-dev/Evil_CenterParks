@@ -21,32 +21,29 @@ public class Shade : Entity
         yield return null;
         while (Frustrated == false)
         {
-            Animator.SetInteger("Frustration", Frustration);
-            if (Frustration == 20)
-            {
-                Frustrated = true;
-                OnHaunt?.Invoke();
-                // Enable frustrated Visual Stage 5
-            }
-
             yield return new WaitForSecondsRealtime(Cooldown);
             if (MovementOpportunity())
             {
-                if (Frustration != 20)
+                if (Office.RadioWorking == true)
                 {
-                    if (Office.RadioWorking == true)
+                    //Radio turned on
+                    //Frustration decreases by 1
+                    Frustration = Mathf.Clamp(Frustration - 1, MinFrustration, MaxFrustration);
+                }
+                else
+                {
+                    //Radio turned off
+                    //Frustration increases by 1
+                    Frustration = Mathf.Clamp(Frustration + 1, MinFrustration, MaxFrustration);
+                    if (Frustration == MaxFrustration)
                     {
-                        //Radio turned on
-                        //Frustration decreases by 2
-                        Frustration = Mathf.Clamp(Frustration - 1, MinFrustration, MaxFrustration);
-                    }
-                    else
-                    {
-                        //Radio turned off
-                        //Frustration increases by 2
-                        Frustration = Mathf.Clamp(Frustration + 1, MinFrustration, MaxFrustration);
+                        Frustrated = true;
+                        OnHaunt?.Invoke();
+                        //Enable frustrated Visual Stage 5
                     }
                 }
+
+                Animator.SetInteger("Frustration", Frustration);              
             }
         }
     }

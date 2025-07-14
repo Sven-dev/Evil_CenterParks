@@ -80,7 +80,7 @@ public abstract class Entity : MonoBehaviour
         {
             if (currentTime.Hours == data.Time)
             {
-                AILevel = Mathf.Clamp(AILevel + data.IncreaseBy, 0, 21);
+                AILevel = Mathf.Clamp(AILevel + data.IncreaseBy, 0, 20);
             }
         }
     }
