@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum OfficePerspective
+{
+    RadioShock = 0,
+    Pc = 1,
+    Shutter = 2,
+    Modem = 3
+}
+
 public class PlayerCameraManager : MonoBehaviour
 {
-    [SerializeField] private int ActivePivot = 2;
+    [SerializeField] private OfficePerspective CurrentPerspective;
     [SerializeField] private Camera Camera;
     [SerializeField] private float Duration;
     [SerializeField] private AnimationCurve MovementCurve;
-    [SerializeField] private List<Transform> Pivots;
+    [SerializeField] private List<Transform> Perspectives;
     [Space]
     [SerializeField] private GameObject LeftButton;
     [SerializeField] private GameObject RightButton;
@@ -18,67 +26,54 @@ public class PlayerCameraManager : MonoBehaviour
     private bool Moving = false;
     private bool RadioAccessible = true;
 
-    public void MoveLeft()
+    //Debug
+    private void Update()
     {
-        if (Moving)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            return;
+            MoveToPerspective(OfficePerspective.Shutter);
         }
-
-        ActivePivot--;
-        if (ActivePivot == 0)
-        {
-            LeftButton.SetActive(false);
-            RightButton.SetActive(true);
-        }
-        if (ActivePivot == 1 || (ActivePivot == 2 && RadioAccessible))
-        {
-            RightButton.SetActive(true);
-            LeftButton.SetActive(true);
-        }
-
-
-        StartCoroutine(_Move(-1));
-        OnCameraPerpectiveChange?.Invoke(ActivePivot);
     }
 
-    public void MoveRight()
+    public void MovePerspective(int direction)
     {
-        if (Moving)
+        if (!Moving)
         {
-            return;
-        }
-
-        ActivePivot++;
-        if (ActivePivot == 3)
-        {
-            RightButton.SetActive(false);
-            LeftButton.SetActive(true);
-        }
-        else if (ActivePivot == 2 && !RadioAccessible)
-        {
-            RightButton.SetActive(false);
-            LeftButton.SetActive(true);
-        }
-        else if (ActivePivot == 1 || ActivePivot == 2)
-        {
-            RightButton.SetActive(true);
-            LeftButton.SetActive(true);
-        }
-
-        StartCoroutine(_Move(1));
-        OnCameraPerpectiveChange?.Invoke(ActivePivot);
+            MoveToPerspective(CurrentPerspective + direction);
+        }  
     }
 
-    private IEnumerator _Move(int direction)
+    public void MoveToPerspective(OfficePerspective newPerspective)
+    {
+        StartCoroutine(_Move(CurrentPerspective, newPerspective));
+
+        CurrentPerspective = newPerspective;
+        OnCameraPerpectiveChange?.Invoke((int)CurrentPerspective);
+        UpdateControls();
+    }
+
+    public void RemoveRadioAccess()
+    {
+        RadioAccessible = false;
+        if (CurrentPerspective == OfficePerspective.Shutter)
+        {
+            RightButton.SetActive(false);
+        }
+        else if (CurrentPerspective == OfficePerspective.Modem)
+        {
+            MoveToPerspective(OfficePerspective.Shutter);
+        }
+    }
+
+    private IEnumerator _Move(OfficePerspective from, OfficePerspective to)
     {
         Moving = true;
 
-        Vector3 startPosition = Pivots[ActivePivot - direction].position;
-        Vector3 endPosition = Pivots[ActivePivot].position;
+        Vector3 startPosition = Perspectives[(int)from].position;
+        Vector3 endPosition = Perspectives[(int)to].position;
 
-        Quaternion startRotation = Pivots[ActivePivot - direction].rotation;
-        Quaternion endRotation = Pivots[ActivePivot].rotation;
+        Quaternion startRotation = Perspectives[(int)from].rotation;
+        Quaternion endRotation = Perspectives[(int)to].rotation;
 
         float progress = 0;
         while (progress < 1)
@@ -92,16 +87,27 @@ public class PlayerCameraManager : MonoBehaviour
         Moving = false;
     }
 
-    public void RemoveRadioAccess()
+    /// <summary>
+    /// Enables or disables certain buttons based on where the player is looking.
+    /// </summary>
+    private void UpdateControls()
     {
-        RadioAccessible = false;
-        if (ActivePivot == 2)
+        LeftButton.SetActive(true);
+        RightButton.SetActive(true);
+       
+        if ((int)CurrentPerspective == 0)
         {
+            //If perspective is the leftmost one, disable the left button
+            LeftButton.SetActive(false);
+        }      
+        else if ((int)CurrentPerspective == Perspectives.Count -1)
+        {
+            //If perspective is the rightmost one, disable the right button
             RightButton.SetActive(false);
         }
-        else if (ActivePivot == 3)
+        else if (CurrentPerspective == OfficePerspective.Shutter && !RadioAccessible)
         {
-            MoveLeft();
+            RightButton.SetActive(false);
         }
     }
 }
