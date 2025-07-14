@@ -18,13 +18,20 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] protected EntityType EntityType;
     [SerializeField] protected Color Color;
     [Range(1, 10)]
-    [SerializeField] protected float MovementOpportunityCooldown = 4.9f;   
+    [SerializeField] private float MovementOpportunityCooldown = 4.9f;
+    [Range(0, 3)]
+    public int Bloodlust = 0;
     [Space]
     [Range(0, 20)]
     [SerializeField] protected int AILevel = 10;
     [SerializeField] private List<EntityLevelIncreaseWrapper> AILevelIncreases;
     [Space]
     [SerializeField] protected Room CurrentRoom;
+
+    protected float Cooldown
+    {
+        get { return MovementOpportunityCooldown * (1 - Bloodlust / 10f); }
+    }
 
     protected Route currentRoute;
     protected int routeProgress = 0;

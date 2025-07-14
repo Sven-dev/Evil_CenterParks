@@ -53,8 +53,8 @@ public class Vial : Entity
                 }
             }
 
-            print("<color=Yellow>Vial:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
-            yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
+            print("<color=Yellow>Vial:</color> Waiting for next movement opportunity (" + Cooldown + " seconds)");
+            yield return new WaitForSecondsRealtime(Cooldown);
 
             //Movement opportunites (Vial takes 2)
             for (int i = 1; i < 3; i++)

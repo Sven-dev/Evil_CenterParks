@@ -17,4 +17,14 @@ public class Entities : MonoBehaviour
     {
         Instance = this;
     }
+
+    public void IncreaseBloodLust()
+    {
+        Cork.Bloodlust++;
+        Vial.Bloodlust++;
+        Abhorwretch.Bloodlust++;
+        Shade.Bloodlust++;
+        Hallucination.Bloodlust++;
+        Wanderer.Bloodlust++;
+    }
 }

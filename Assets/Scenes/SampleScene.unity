@@ -2736,6 +2736,7 @@ MonoBehaviour:
   EntityType: 3
   Color: {r: 0.1509434, g: 0.12887149, b: 0.12887149, a: 1}
   MovementOpportunityCooldown: 2
+  Bloodlust: 0
   AILevel: 15
   AILevelIncreases:
   - Time: 1
@@ -4034,6 +4035,7 @@ MonoBehaviour:
   EntityType: 1
   Color: {r: 1, g: 1, b: 0, a: 1}
   MovementOpportunityCooldown: 4.1
+  Bloodlust: 0
   AILevel: 20
   AILevelIncreases:
   - Time: 2
@@ -7263,6 +7265,7 @@ MonoBehaviour:
   EntityType: 5
   Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   MovementOpportunityCooldown: 4.9
+  Bloodlust: 0
   AILevel: 10
   AILevelIncreases:
   - Time: 2
@@ -12939,6 +12942,7 @@ MonoBehaviour:
   EntityType: 2
   Color: {r: 0, g: 1, b: 0, a: 1}
   MovementOpportunityCooldown: 7.8
+  Bloodlust: 0
   AILevel: 15
   AILevelIncreases: []
   CurrentRoom: {fileID: 638219893}
@@ -14723,6 +14727,7 @@ MonoBehaviour:
   EntityType: 3
   Color: {r: 1, g: 1, b: 1, a: 1}
   MovementOpportunityCooldown: 4.9
+  Bloodlust: 0
   AILevel: 1
   AILevelIncreases: []
   CurrentRoom: {fileID: 462565260}
@@ -19117,7 +19122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2060861705
 Transform:
   m_ObjectHideFlags: 0
@@ -19148,6 +19153,7 @@ MonoBehaviour:
   EntityType: 0
   Color: {r: 0, g: 1, b: 1, a: 1}
   MovementOpportunityCooldown: 4.9
+  Bloodlust: 0
   AILevel: 15
   AILevelIncreases:
   - Time: 2
@@ -20970,18 +20976,30 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 418757813}
     - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 320338667}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
@@ -20989,8 +21007,16 @@ PrefabInstance:
       value: AddIgnoredRoom
       objectReference: {fileID: 0}
     - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: IncreaseBloodLust
+      objectReference: {fileID: 0}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: Vial, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Entities, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
@@ -21001,8 +21027,20 @@ PrefabInstance:
       value: Killed
       objectReference: {fileID: 0}
     - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_StringArgument
+      value: Killed
+      objectReference: {fileID: 0}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: Room, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 203652156365891201, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1171188605830733620, guid: 3e70e57ad107fc444b0a6907dccf865f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -22701,18 +22739,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 418757813}
     - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 320338667}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
@@ -22720,8 +22770,16 @@ PrefabInstance:
       value: AddIgnoredRoom
       objectReference: {fileID: 0}
     - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: IncreaseBloodLust
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: Vial, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Entities, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
@@ -22732,8 +22790,20 @@ PrefabInstance:
       value: Killed
       objectReference: {fileID: 0}
     - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_StringArgument
+      value: Killed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: Room, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443892968367362347, guid: 10873694fffcd4945b55c20f93b8e3f4, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23751,18 +23821,30 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 418757813}
     - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 320338667}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
@@ -23770,8 +23852,16 @@ PrefabInstance:
       value: AddIgnoredRoom
       objectReference: {fileID: 0}
     - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: IncreaseBloodLust
+      objectReference: {fileID: 0}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: Vial, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Entities, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
@@ -23782,8 +23872,20 @@ PrefabInstance:
       value: Killed
       objectReference: {fileID: 0}
     - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_StringArgument
+      value: Killed
+      objectReference: {fileID: 0}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
       propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: Room, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 717934327075202654, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
+      propertyPath: OnKill.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 862658378224938638, guid: 8ebfe3f398aef2b43838639fc01555d9, type: 3}
       propertyPath: m_AnchoredPosition.x

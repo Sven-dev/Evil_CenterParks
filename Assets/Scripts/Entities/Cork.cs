@@ -76,16 +76,16 @@ public class Cork : Entity
             switch (loudestRooms[0].GetNoiseLevel())
             {
                 case 5:
-                    Log("Waiting for next movement opportunity (" + 2 + " seconds)");
-                    yield return new WaitForSecondsRealtime(2f);
+                    Log("Waiting for next movement opportunity (" + (Cooldown * 0.41f).ToString("F2") + " seconds)");
+                    yield return new WaitForSecondsRealtime(Cooldown * 0.41f);
                     break;
                 case 4:
-                    Log("Waiting for next movement opportunity (" + 4 + " seconds)");
-                    yield return new WaitForSecondsRealtime(4f);
+                    Log("Waiting for next movement opportunity (" + (Cooldown * 0.82f).ToString("F2") + " seconds)");
+                    yield return new WaitForSecondsRealtime(Cooldown * 0.82f);
                     break;
                 default:
-                    Log("Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
-                    yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
+                    Log("Waiting for next movement opportunity (" + Cooldown + " seconds)");
+                    yield return new WaitForSecondsRealtime(Cooldown);
                     break;
             }
 

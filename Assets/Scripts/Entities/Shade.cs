@@ -29,7 +29,7 @@ public class Shade : Entity
                 // Enable frustrated Visual Stage 5
             }
 
-            yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
+            yield return new WaitForSecondsRealtime(Cooldown);
             if (MovementOpportunity())
             {
                 if (Frustration != 20)

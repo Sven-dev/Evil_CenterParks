@@ -44,8 +44,8 @@ public class Abhorwretch : Entity
             }
             else
             {
-                Log("Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
-                yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
+                Log("Waiting for next movement opportunity (" + Cooldown + " seconds)");
+                yield return new WaitForSecondsRealtime(Cooldown);
 
                 if (MovementOpportunity())
                 {

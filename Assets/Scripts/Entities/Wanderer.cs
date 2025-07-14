@@ -13,8 +13,8 @@ public class Wanderer : Entity
         currentRoute = RoomController.Instance.GetRandomRoomPath(CurrentRoom);
         while (true)
         {
-            print("<color=Green>Wanderer:</color> Waiting for next movement opportunity (" + MovementOpportunityCooldown + " seconds)");
-            yield return new WaitForSecondsRealtime(MovementOpportunityCooldown);
+            print("<color=Green>Wanderer:</color> Waiting for next movement opportunity (" + Cooldown + " seconds)");
+            yield return new WaitForSecondsRealtime(Cooldown);
 
             if (MovementOpportunity())
             {
