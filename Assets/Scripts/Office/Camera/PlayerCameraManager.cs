@@ -29,10 +29,10 @@ public class PlayerCameraManager : MonoBehaviour
     //Debug
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        /*if (Input.GetKeyDown(KeyCode.Space))
         {
             MoveToPerspective(OfficePerspective.Shutter);
-        }
+        }*/
     }
 
     public void MovePerspective(int direction)

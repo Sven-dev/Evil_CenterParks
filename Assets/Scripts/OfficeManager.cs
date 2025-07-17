@@ -10,6 +10,7 @@ public class OfficeManager : MonoBehaviour
     [SerializeField] private UnityVoidEvent OnVialEnter;
     [SerializeField] private UnityVoidEvent OnVialLeave;
 
+    public bool PowerWorking = true; 
     public bool ShutterOpen = true;
     public bool ModemWorking = true;
     public bool RadioWorking = false;

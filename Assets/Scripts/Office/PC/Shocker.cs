@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Shocker : MonoBehaviour
 {
+    public OfficeManager Office;
     [SerializeField] private Animator Animator;
     [SerializeField] private Perspective Perspective;
     [Space]
@@ -31,7 +32,7 @@ public class Shocker : MonoBehaviour
         //Loop to kick cork out of room 12 while the player holds down the shocker
         while (true)
         {
-            if (CorkOnFence == true)
+            if (CorkOnFence)
             {
                 Entities.Instance.Cork.KickCorkToRoom(7);
                 CorkOnFence = false;
@@ -44,17 +45,17 @@ public class Shocker : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (Perspective.Active)
+        Animator.SetBool("HoldUp", true);
+        if (Office.PowerWorking)
         {
             StartCoroutine("_ShockLoop");
             OnShockSound?.Invoke();
-            Animator.SetBool("HoldUp", true);
         }
     }
     public void OnMouseUp()
     {
-        OnShockRelease?.Invoke();
-        Animator.SetBool("HoldUp", false);
-        StopCoroutine("_ShockLoop");
+    OnShockRelease?.Invoke();
+    Animator.SetBool("HoldUp", false);
+    StopCoroutine("_ShockLoop");
     }
 }

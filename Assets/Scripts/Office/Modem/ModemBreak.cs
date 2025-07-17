@@ -20,7 +20,7 @@ public class Modem : MonoBehaviour
     public void OnMouseDown()
     {
         //Prevents "fixing" a modem that isn't broken
-        if (!Office.ModemWorking)
+        if (!Office.ModemWorking && Office.PowerWorking)
         {
             StartCoroutine("_ResetTimer");
         }
@@ -34,7 +34,10 @@ public class Modem : MonoBehaviour
 
     public void BreakModem()
     {
-        OnModemBreak?.Invoke();
+        if (Office.ModemWorking && Office.PowerWorking)
+        {
+            OnModemBreak?.Invoke();
+        }
     }
 
     private IEnumerator _ResetTimer()

@@ -12,7 +12,7 @@ public class Radio : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (!Shadow.Frustrated) 
+        if (!Shadow.Frustrated && Office.PowerWorking) 
         {
             //Turns radio on or off
             if (Office.RadioWorking)

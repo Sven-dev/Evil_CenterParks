@@ -19,7 +19,7 @@ public class PCBooter : MonoBehaviour
 
     public void Update()
     {
-        if (Perspective.Active)
+        if (Perspective.Active && Office.PowerWorking)
         {
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {

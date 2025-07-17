@@ -5,6 +5,7 @@ using UnityEngine;
 public class Power : MonoBehaviour
 {
     [SerializeField] private UnityVoidEvent OnEntityUpdate;
+    public OfficeManager Office;
 
     [Header("Power")]
     [Range(0, 4)]
@@ -17,7 +18,7 @@ public class Power : MonoBehaviour
     [SerializeField] private UnityVoidEvent OnBlackout;
     [SerializeField] private UnityVoidEvent OnBreaker;
 
-    private bool Blackout = false;
+    [SerializeField] private bool Blackout = false;
 
     private void Start()
     {
@@ -35,6 +36,7 @@ public class Power : MonoBehaviour
         {
             OnBlackout?.Invoke();
             Blackout = true;
+            Office.PowerWorking = false;
         }
         else
         {
@@ -43,12 +45,13 @@ public class Power : MonoBehaviour
         }
     }
 
-        public void OnMouseDown()
+    public void OnMouseDown()
     {
         if (Blackout == true)
         {
             OnBreaker?.Invoke();
             Blackout = false;
+            Office.PowerWorking = true;
         }
     }
 }
