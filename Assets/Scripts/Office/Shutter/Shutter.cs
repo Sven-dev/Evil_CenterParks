@@ -7,7 +7,7 @@ public class Shutter : MonoBehaviour
 {
     [SerializeField] private Perspective Perspective;
     [Space]
-    [SerializeField] private Slider Slider;
+    [SerializeField] private SpacialSlider Slider;
     [SerializeField] private Animator Animator;
     [Space]
     [SerializeField] private OfficeManager OfficeManager;
@@ -22,26 +22,26 @@ public class Shutter : MonoBehaviour
             ShutterInteractable = true;
             if (!ForcedOpen)
             {
-                Slider.interactable = true;
+                Slider.Interactable = true;
             }
         }
         else
         {
             ShutterInteractable = false;
-            Slider.interactable = false;
-            StartCoroutine(_FallBackDown());
+            Slider.Interactable = false;
+            StartCoroutine("_FallBackDown");
         }
     }
 
 
     public void StopFalling()
     {
-        StopCoroutine(_FallBackDown());
+        StopCoroutine("_FallBackDown");
     }
 
     public void StartFalling()
     {
-        StartCoroutine(_FallBackDown());
+        StartCoroutine("_FallBackDown");
     }
 
     public void UpdatePosition(float value)
@@ -63,13 +63,13 @@ public class Shutter : MonoBehaviour
     public void ForceShutterOpen()
     {
         ForcedOpen = true;
-        Slider.interactable = false;
+        Slider.Interactable = false;
     }
 
     public void ReleaseShutter()
     {
         ForcedOpen = false;
-        Slider.interactable = ShutterInteractable;      
+        Slider.Interactable = ShutterInteractable;      
     }
 
     private IEnumerator _FallBackDown()
