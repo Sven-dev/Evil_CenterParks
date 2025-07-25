@@ -34,7 +34,7 @@ public class Shocker : MonoBehaviour
         {
             if (CorkOnFence)
             {
-                Entities.Instance.Cork.KickCorkToRoom(7);
+                Entities.Instance.Cork.KickCorkToRoom(8);
                 CorkOnFence = false;
             }
 
