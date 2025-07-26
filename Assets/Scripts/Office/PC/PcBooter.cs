@@ -1,83 +1,128 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class PCBooter : MonoBehaviour
+public class PCBooter : Powerable
 {
     [SerializeField] private Perspective Perspective;
-    [SerializeField] private OfficeManager Office;
     [SerializeField] private PcFan Fan;
-    [Space]
-    [SerializeField] private UnityVoidEvent OnPCBootSound;
-    [SerializeField] private UnityVoidEvent OnPCBootup;
-    [SerializeField] private UnityVoidEvent OnPCBootdown;
+    [SerializeField] private GameObject Screen;
+    [SerializeField] private NoiseMaker NoiseMaker;
 
-    [SerializeField] private UnityVoidEvent OnPCBootCancel;
+    [Header("Screens")]
+    [SerializeField] private GameObject BootScreen;
+    [SerializeField] private GameObject DesktopScreen;
+    [SerializeField] private GameObject ShutDownScreen;
 
     private bool Booting = false;
-
-    public void Update()
-    {
-        if (Perspective.Active && Office.PowerWorking)
-        {
-            if (Input.GetKeyDown(KeyCode.LeftControl))
-            {
-                TogglePc();
-            }
-        }
-    }
+    private bool Running = false;
 
     public void Start()
     {
-        StartCoroutine("_StartBootDelay");  
+        base.Start();
+        Boot();
+    }
+
+    public void Update()
+    {
+        if (Perspective.Active && HasPower && Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            TogglePc();          
+        }
     }
 
     public void TogglePc()
     {
         //If the pc is on, turn the pc & fan off
-        if (Office.PcRunning)
+        if (Running)
         {
-            OnPCBootdown?.Invoke();
-            if (Office.FanRunning)
-            {
-                Fan.TurnOff();
-            }
+            Shutdown();
         }
         //If the pc is off and not booting, start the boot sequence
         else if (!Booting)
         {
-            StartCoroutine("_StartBootDelay");
+            Boot();          
         }
     }
 
-    public void TurnOffPc()
+    private void Boot()
     {
-        OnPCBootdown?.Invoke();
-        Fan.TurnOff();
+        UsingPower = true;
+        
+        BootScreen.SetActive(true);
+        DesktopScreen.SetActive(false);
+        ShutDownScreen.SetActive(false);
+
+        NoiseMaker.MakingNoise = true;
+        StartCoroutine("_StartBootDelay");
+    }
+
+    private void AbortBoot()
+    {
+        UsingPower = false;           
+        BootScreen.SetActive(false);
+        NoiseMaker.MakingNoise = false;
+    }
+
+    private void LoadDesktop()
+    {
+        Running = true;
+
+        BootScreen.SetActive(false);
+        DesktopScreen.SetActive(true);
+        ShutDownScreen.SetActive(false);
+
+        Fan.Power(true);
+    }
+
+    public void Shutdown()
+    {
+        UsingPower = false;
+        Running = false;
+        
+        BootScreen.SetActive(false);
+        DesktopScreen.SetActive(false);
+        ShutDownScreen.SetActive(true);
+
+        NoiseMaker.MakingNoise = false;
+        Fan.Power(false);
     }
 
     private IEnumerator _StartBootDelay()
     {
         //Starts boot, waiting a set period before turning the pc & fan back on
         Booting = true;
-        OnPCBootSound?.Invoke();
-        float BootTime = 3;
-        while (BootTime > 0)
+
+        float timer = 3;
+        while (timer > 0)
         {
-            BootTime -= Time.deltaTime;
+            timer -= Time.deltaTime;
             yield return null;
 
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (Perspective.Active && HasPower && Input.GetKeyDown(KeyCode.LeftControl))
             {
                 Booting = false;
-                OnPCBootCancel?.Invoke();
+                AbortBoot();
+
                 StopCoroutine("_StartBootDelay");
             }
         }
 
-        OnPCBootup?.Invoke();
-        Fan.TurnOn();
+        LoadDesktop();     
         Booting = false;
+    }
+
+    protected override void LosePower()
+    {
+        base.LosePower();
+        Screen.SetActive(false);
+        Shutdown();
+        ShutDownScreen.SetActive(false);
+    }
+
+    protected override void RegainPower()
+    {
+        base.RegainPower();
+        Screen.SetActive(true);
+
     }
 }

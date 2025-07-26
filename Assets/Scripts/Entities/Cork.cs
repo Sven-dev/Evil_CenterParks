@@ -6,6 +6,8 @@ using System;
 public class Cork : Entity
 {
     [SerializeField] private Entity Hallucination;
+    [Space]
+    [SerializeField] private UnityVoidEvent OnKill;
 
     private List<Room> IgnoredRooms = new List<Room>();
 
@@ -105,7 +107,6 @@ public class Cork : Entity
             if (MovementOpportunity())
             {
                 GuestRoomManager guestRooms = CurrentRoom.GuestRooms;
-                OfficeManager office = CurrentRoom.Office;
                 if (guestRooms && !guestRooms.Killed)
                 {
                     if (guestRooms.BeingDisturbed)
@@ -126,14 +127,16 @@ public class Cork : Entity
                     yield return new WaitForSecondsRealtime(3);
 
                     CurrentRoom = RoomController.Instance.GetRoom(1);
-                    CurrentRoom.Office.Kill(EntityType);
+                    OnKill?.Invoke();
+                    Log("Whoops! You were killed by " + EntityType);
                     continue;
                 }
-                else if (office)
+                else if (CurrentRoom.ID == 1)
                 {
-                    if (office.ShutterOpen)
+                    if (Shutter.Open)
                     {
-                        office.Kill(EntityType);
+                        OnKill.Invoke();
+                        Log("Whoops! You were killed by " + EntityType);
                         continue;
                     }
                     else

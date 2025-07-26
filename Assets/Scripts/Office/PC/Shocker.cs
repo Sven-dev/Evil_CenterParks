@@ -2,40 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shocker : MonoBehaviour
+public class Shocker : Powerable
 {
-    public OfficeManager Office;
     [SerializeField] private Animator Animator;
-    [SerializeField] private Perspective Perspective;
-    [Space]
-    [SerializeField] private UnityVoidEvent OnFenceSound;
-    [SerializeField] private UnityVoidEvent OnShockSound;
-    [SerializeField] private UnityVoidEvent OnShockRelease;
+    [SerializeField] private AudioSource ShockAudio;
+    [SerializeField] private NoiseMaker NoiseMaker;
 
-    public bool CorkOnFence = false;
-
-    private void Update()
+    public void OnMouseDown()
     {
-        //Checks whether Cork has entered room 12, if he has it plays a noise for the player
-        if (!CorkOnFence)
+        Animator.SetBool("HoldUp", true);
+        if (HasPower)
         {
-            if (RoomController.Instance.GetRoom(12) == RoomController.Instance.FindEntity(EntityType.Cork))
-            {
-                CorkOnFence = true;
-                OnFenceSound?.Invoke();
-            }
+            ShockAudio.PlayDelayed(0.216f);
+            UsingPower = true;
+            NoiseMaker.MakingNoise = true;
+            StartCoroutine("_ShockLoop");          
         }
+    }
+    public void OnMouseUp()
+    {
+        Animator.SetBool("HoldUp", false);
+
+        ShockAudio.Stop();
+        UsingPower = false;
+        NoiseMaker.MakingNoise = false;
+        StopCoroutine("_ShockLoop");
     }
 
     private IEnumerator _ShockLoop()
-    {
-        //Loop to kick cork out of room 12 while the player holds down the shocker
+    {       
         while (true)
         {
-            if (CorkOnFence)
+            //Loop to kick cork out of room 12 while the player holds down the shocker
+            if (RoomController.Instance.GetRoom(12) == RoomController.Instance.FindEntity(EntityType.Cork))
             {
                 Entities.Instance.Cork.KickCorkToRoom(7);
-                CorkOnFence = false;
             }
 
             LampManager.Instance.Flicker();
@@ -43,19 +44,9 @@ public class Shocker : MonoBehaviour
         }
     }
 
-    public void OnMouseDown()
+    protected override void LosePower()
     {
-        Animator.SetBool("HoldUp", true);
-        if (Office.PowerWorking)
-        {
-            StartCoroutine("_ShockLoop");
-            OnShockSound?.Invoke();
-        }
-    }
-    public void OnMouseUp()
-    {
-    OnShockRelease?.Invoke();
-    Animator.SetBool("HoldUp", false);
-    StopCoroutine("_ShockLoop");
+        base.LosePower();
+        StopCoroutine("_ShockLoop");
     }
 }

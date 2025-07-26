@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Abhorwretch : Entity
 {
-    [SerializeField] private UnityVoidEvent OnAboEnter;
+    [Space]
+    [SerializeField] private UnityVoidEvent OnKill;
+
     protected IEnumerator _BehaviourLoop()
     {
         CurrentRoom.EnterRoom(EntityType);
@@ -14,15 +16,14 @@ public class Abhorwretch : Entity
         currentRoute = RoomController.Instance.GetCameraRoomPath(CurrentRoom);
         while (true)
         {
-            OfficeManager office = CurrentRoom.Office;
-            if (office)
+            if (CurrentRoom.ID == 1)
             {
                 //Checks if Abo is in office and then after a set period of time, if the noise limit is met, kills the player
-                OnAboEnter?.Invoke();
                 yield return new WaitForSecondsRealtime(6.4f - AILevel * 0.1f);
                 if (CurrentRoom.GetNoiseLevel() >= 3)
                 {
-                    office.Kill(EntityType);
+                    OnKill.Invoke();
+                    Log("Whoops! You were killed by " + EntityType);
                     continue;
                 }
                 else

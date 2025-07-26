@@ -14,12 +14,9 @@ public class SilentAlarm : MonoBehaviour
 
     public void Update()
     {
-        if (Perspective.Active && !OnCooldown)
+        if (Perspective.Active && !OnCooldown && Input.GetKeyDown(KeyCode.Space))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                BuzzVial();
-            }
+            BuzzVial();
         }
     }
 

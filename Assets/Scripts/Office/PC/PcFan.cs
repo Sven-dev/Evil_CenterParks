@@ -5,29 +5,30 @@ using UnityEngine;
 public class PcFan : MonoBehaviour
 {
     [SerializeField] private Perspective Perspective;
-    [SerializeField] private OfficeManager Office;
+    [SerializeField] private AudioSource FanAudio;
+    [SerializeField] private NoiseMaker NoiseMaker;
 
+    private bool Powered = false;
+    private bool Running = false;
+
+    [Header("Temperature")]
+    [SerializeField] private float Temperature;
     [Space]
-    [SerializeField] private UnityVoidEvent OnFanEnable;
-    [SerializeField] private UnityVoidEvent OnFanDisable;
+    [SerializeField] private float MinimumTemperature = 55;
+    [SerializeField] private float MaximumTemperature = 115;
+    [Space]
+    [SerializeField] private UnityIntEvent OnTemperatureUpdate;
+
+    private void Awake()
+    {
+        StartCoroutine(_Temperature());
+    }
 
     public void Update()
     {
-        if (Perspective.Active)
+        if (Perspective.Active && Powered && Input.GetKeyDown(KeyCode.F))
         {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                ToggleFan();
-            }
-        }
-    }
-
-    public void ToggleFan()
-    {
-        //Toggles the fan on or off if the pc is running
-        if (Office.PcRunning)
-        {
-            if (Office.FanRunning)
+            if (Running)
             {
                 TurnOff();
             }
@@ -40,13 +41,63 @@ public class PcFan : MonoBehaviour
 
     public void TurnOn()
     {
-        Office.FanRunning = true;
-        OnFanEnable?.Invoke();            
+        Running = true;
+        NoiseMaker.MakingNoise = true;
+
+        FanAudio.volume = 0.2f;
+        FanAudio.pitch = 1f;        
     }
 
     public void TurnOff()
     {
-        Office.FanRunning = false;
-        OnFanDisable?.Invoke();
+        Running = false;
+        NoiseMaker.MakingNoise = false;
+
+        FanAudio.volume = 0.1f;
+        FanAudio.pitch = 0.95f;
+    }
+
+    public void Power(bool state)
+    {
+        Powered = state;
+        Running = Powered;
+        if (Running)
+        {
+            TurnOn();
+        }
+        else
+        {
+            TurnOff();
+        }
+    }
+
+    private IEnumerator _Temperature()
+    {
+        while (true)
+        {
+            if (Powered)
+            {
+                //Pc turned on
+                if (Running)
+                {
+                    //Fan turned on, Temperature decreases by 1 per second
+                    Temperature = Mathf.Clamp(Temperature - 1f * Time.deltaTime, MinimumTemperature, MaximumTemperature);
+                }
+                else
+                {
+                    //Fan turned off, Temperature increases by 3 per second
+                    Temperature = Mathf.Clamp(Temperature + 3f * Time.deltaTime, MinimumTemperature, MaximumTemperature);
+                    
+                }
+            }
+            else
+            {
+                //Pc turned off, Temperature increases by 0.25 per second
+                Temperature = Mathf.Clamp(Temperature + 0.25f * Time.deltaTime, MinimumTemperature, MaximumTemperature);
+            }
+
+            OnTemperatureUpdate?.Invoke((int)Temperature);
+            yield return null;
+        }
     }
 }

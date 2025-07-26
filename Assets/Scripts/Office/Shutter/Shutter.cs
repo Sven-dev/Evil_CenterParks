@@ -9,11 +9,10 @@ public class Shutter : MonoBehaviour
     [Space]
     [SerializeField] private SpacialSlider Slider;
     [SerializeField] private Animator Animator;
-    [Space]
-    [SerializeField] private OfficeManager OfficeManager;
 
     private bool ForcedOpen = false;
-    public bool ShutterInteractable = false;
+    private bool ShutterInteractable = false;
+    public static bool Open = true;
 
     public void Interactable(bool state)
     {
@@ -49,11 +48,11 @@ public class Shutter : MonoBehaviour
         Animator.SetFloat("Position", value);
         if (value > 0.8f)
         {
-            OfficeManager.ShutterOpen = false;
+            Open = false;
         }
         else
         {
-            OfficeManager.ShutterOpen = true;
+            Open = true;
         }
     }
 

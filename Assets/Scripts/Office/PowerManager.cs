@@ -2,26 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Power : MonoBehaviour
+public class PowerManager : MonoBehaviour
 {
-    [SerializeField] private UnityVoidEvent OnEntityUpdate;
-    public OfficeManager Office;
+    public static PowerManager Instance;
 
     [Header("Power")]
-    [Range(0, 4)]
     [SerializeField] private int PowerLevel = 0;
-
-    private const int PowerCeiling = 4;
-
+    [SerializeField] private int PowerCeiling = 4;
     [Space]
-    [SerializeField] private UnityFloatEvent OnPowerLevelChange;
-    [SerializeField] private UnityVoidEvent OnBlackout;
-    [SerializeField] private UnityVoidEvent OnBreaker;
+    [SerializeField] private UnityFloatEvent OnPowerLevelChange = new UnityFloatEvent();
+    [SerializeField] public UnityVoidEvent OnBlackout = new UnityVoidEvent();
+    [SerializeField] public UnityVoidEvent OnRestorePower = new UnityVoidEvent();
 
-    [SerializeField] private bool Blackout = false;
+    private bool Blackout = false;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
-    {
+    {      
         OnPowerLevelChange?.Invoke(PowerLevel);
     }
 
@@ -32,11 +33,10 @@ public class Power : MonoBehaviour
 
     public void AlterPowerLevel(int amount)
     {
-        if (PowerLevel + amount >= 4)
+        if (PowerLevel + amount >= PowerCeiling)
         {
             OnBlackout?.Invoke();
             Blackout = true;
-            Office.PowerWorking = false;
         }
         else
         {
@@ -47,11 +47,10 @@ public class Power : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (Blackout == true)
+        if (Blackout)
         {
-            OnBreaker?.Invoke();
+            OnRestorePower?.Invoke();
             Blackout = false;
-            Office.PowerWorking = true;
         }
     }
 }

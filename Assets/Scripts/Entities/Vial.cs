@@ -5,6 +5,11 @@ using UnityEngine;
 public class Vial : Entity
 {
     private List<Room> IgnoredRooms = new List<Room>();
+    [Space]    
+    [SerializeField] private UnityVoidEvent OnEnteringOffice;
+    [SerializeField] private UnityVoidEvent OnLeavingOfOffice;
+
+    private bool InOffice = false;
 
     protected IEnumerator _BehaviourLoop()
     {
@@ -15,22 +20,36 @@ public class Vial : Entity
 
         routeProgress = 0;
         currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom, IgnoredRooms);
-        print("<color=Yellow>Vial:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+        Log("Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
         while (true)
         {
             if (CurrentRoom.ID == 1)
             {
-                //If the shutter is closed when Vial enters room 1, instantly forces him out, otherwise he will enter the office
-                OfficeManager office = CurrentRoom.Office;
-                if (!office.ShutterOpen)
-                {
-                    office.VialLeave();
+                if (!InOffice)
+                {                 
+                    //If the shutter is closed when Vial enters room 1, instantly forces him out, otherwise he will enter the office
+                    if (!Shutter.Open)
+                    {
+                        KickOutOfOffice();
+                        continue;
+                    }
+                    else
+                    {
+                        InOffice = true;
+                        OnEnteringOffice?.Invoke();
+                        Log("Vial is in the office, and will not move until the modem is fixed.");
+                        continue;
+                    }
+                }
+                else if (Modem.broken)
+                {           
+                    yield return null;
                     continue;
                 }
                 else
                 {
-                    print("<color=Yellow>Vial:</color> Vial is in the camera room, and will not move until removed");
-                    yield return new WaitForSecondsRealtime(1f);
+                    KickOutOfOffice();
+                    OnLeavingOfOffice?.Invoke();
                     continue;
                 }
             }
@@ -43,17 +62,17 @@ public class Vial : Entity
                 {
                     routeProgress = 0;
                     currentRoute = RoomController.Instance.GetCameraRoomPath(CurrentRoom);
-                    print("<color=Yellow>Vial:</color> Beelining it from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+                    Log("Beelining it from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
                 }
                 else if (rnd >= 2)
                 {
                     routeProgress = 0;
                     currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom, IgnoredRooms);
-                    print("<color=Yellow>Vial:</color> Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
+                    Log("Calculating route from " + currentRoute.Start.name + " to " + currentRoute.Destination.name);
                 }
             }
 
-            print("<color=Yellow>Vial:</color> Waiting for next movement opportunity (" + Cooldown + " seconds)");
+            Log("Waiting for next movement opportunity (" + Cooldown + " seconds)");
             yield return new WaitForSecondsRealtime(Cooldown);
 
             //Movement opportunites (Vial takes 2)
@@ -65,13 +84,13 @@ public class Vial : Entity
                     {
                         //Walking
                         WalkToNextRoom();
-                        print("<color=Yellow>Vial:</color> Went to " + CurrentRoom.name + ".");
+                        Log("Went to " + CurrentRoom.name + ".");
                     }
                     else if (CurrentRoom.GetNoiseLevel() < 5)
                     {
                         //Noise raising
                         CurrentRoom.AlterNoiseLevel(+1);
-                        print("<color=Yellow>Vial:</color> Raising " + CurrentRoom.name + " noise level to " + CurrentRoom.GetNoiseLevel() + ".");
+                        Log("Raising " + CurrentRoom.name + " noise level to " + CurrentRoom.GetNoiseLevel() + ".");
                     }
                 }
 
@@ -96,10 +115,11 @@ public class Vial : Entity
         {
             CurrentRoom = RoomController.Instance.GetRoom(12);
         }
+
         CurrentRoom.EnterRoom(EntityType);
         routeProgress = 0;
         currentRoute = RoomController.Instance.GetFurthestQuietestRoomPath(CurrentRoom, IgnoredRooms);
-        Log("Got kicked out of " + currentRoute.Start.name + ", to " + currentRoute.Destination.name);
+        Log("Got moved to " + CurrentRoom.name);
     }
 
     public void AddIgnoredRoom(Room room)

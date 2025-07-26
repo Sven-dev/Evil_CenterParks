@@ -31,7 +31,6 @@ public class Room : MonoBehaviour
     [SerializeField] private UnityFloatEvent OnNoiseLevelChange;
 
     public GuestRoomManager GuestRooms;
-    public OfficeManager Office;
 
     private void Start()
     {
@@ -49,18 +48,10 @@ public class Room : MonoBehaviour
         {
             case EntityType.Cork:
                 CorkVisuals[Random.Range(0, CorkVisuals.Count)].SetActive(true);
-                if (Office)
-                {
-                    //Office.CorkEnter();
-                }
                 break;
             case EntityType.Vial:
                 VialVisuals[Random.Range(0, VialVisuals.Count)].SetActive(true);
                 AlterNoiseLevel(+1);
-                if (Office)
-                {
-                    Office.VialEnter();
-                }
                 break;
             case EntityType.Shade:
                 ShadeVisuals[Random.Range(0, ShadeVisuals.Count)].SetActive(true);

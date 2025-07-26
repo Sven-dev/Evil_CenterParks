@@ -13,7 +13,7 @@ public class Shade : Entity
     [Space]
     [SerializeField] private UnityVoidEvent OnHaunt;
 
-    public OfficeManager Office;
+    [SerializeField] private Radio Radio;
     public bool Frustrated = false;
 
     private IEnumerator _BehaviourLoop()
@@ -24,7 +24,7 @@ public class Shade : Entity
             yield return new WaitForSecondsRealtime(Cooldown);
             if (MovementOpportunity())
             {
-                if (Office.RadioWorking == true)
+                if (Radio.On)
                 {
                     //Radio turned on
                     //Frustration decreases by 1
@@ -38,8 +38,11 @@ public class Shade : Entity
                     if (Frustration == MaxFrustration)
                     {
                         Frustrated = true;
+                        Radio.Haunt();
                         OnHaunt?.Invoke();
                         //Enable frustrated Visual Stage 5
+
+                        StopCoroutine("_BehaviourLoop");                      
                     }
                 }
 
