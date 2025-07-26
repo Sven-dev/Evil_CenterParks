@@ -16,19 +16,22 @@ public class Radio : Powerable
     {
         if (HasPower && !Haunted) 
         {
-            if (On)
+            if (!On)
             {
-                TurnOff();
+                TurnOn();
+                
             }
             else
             {
-                TurnOn();
+                TurnOff();
             }
         }
     }
 
     private void TurnOn()
     {
+        On = true;
+
         Music.volume = 0.6f;
         NoiseMaker.MakingNoise = true;
         UsingPower = true;
@@ -36,6 +39,8 @@ public class Radio : Powerable
 
     private void TurnOff()
     {
+        On = false;
+
         Music.volume = 0;
         NoiseMaker.MakingNoise = false;
         UsingPower = false;

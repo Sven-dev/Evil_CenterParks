@@ -48,6 +48,7 @@ public class Vial : Entity
                 }
                 else
                 {
+                    InOffice = false;
                     KickOutOfOffice();
                     OnLeavingOfOffice?.Invoke();
                     continue;

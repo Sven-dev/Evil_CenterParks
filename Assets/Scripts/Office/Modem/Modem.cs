@@ -20,10 +20,13 @@ public class Modem : Powerable
         while (true)
         {
             yield return new WaitForSecondsRealtime(30);
-            float rnd = Random.Range(0, 1f);
-            if (rnd < BreakChance)
+            if (HasPower && !broken)
             {
-                BreakModem();
+                float rnd = Random.Range(0, 1f);
+                if (rnd < BreakChance)
+                {
+                    BreakModem();
+                }
             }
         }
     }
@@ -54,7 +57,6 @@ public class Modem : Powerable
 
         FixModem();
     }
-
 
     public void BreakModem()
     {

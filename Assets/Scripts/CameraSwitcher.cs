@@ -22,7 +22,7 @@ public class CameraSwitcher : MonoBehaviour
 
     public void SwitchToRoom(int index)
     {
-        if (Perspective.Active)
+        if (Perspective.Active && ActiveCamera != index)
         {
             StartCoroutine(_SwitchToRoom(index));
         }
