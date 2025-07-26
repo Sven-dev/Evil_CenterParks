@@ -141,7 +141,7 @@ public class Cork : Entity
                     }
                     else
                     {
-                        KickCorkToRoom(7);
+                        KickCorkToRoom(8);
                         LampManager.Instance.Flicker();
                         continue;
                     }

@@ -36,7 +36,7 @@ public class Shocker : Powerable
             //Loop to kick cork out of room 12 while the player holds down the shocker
             if (RoomController.Instance.GetRoom(12) == RoomController.Instance.FindEntity(EntityType.Cork))
             {
-                Entities.Instance.Cork.KickCorkToRoom(7);
+                Entities.Instance.Cork.KickCorkToRoom(8);
             }
 
             LampManager.Instance.Flicker();
