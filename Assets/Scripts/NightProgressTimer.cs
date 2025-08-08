@@ -9,6 +9,7 @@ public class NightProgressTimer : MonoBehaviour
     [SerializeField] private float HourDuration = 90f; 
     [Space]
     [SerializeField] private UnityTimeSpanEvent OnHourPassed;
+    [SerializeField] private UnityTimeSpanEvent OnMinutePassed;
     [SerializeField] private UnityVoidEvent OnNightFinished;
 
     private TimeSpan currentTime = new TimeSpan(23, 0, 0);
@@ -30,16 +31,17 @@ public class NightProgressTimer : MonoBehaviour
         while (currentTime < endTime)
         {          
             currentTime += CustomTimeScale;
+            OnMinutePassed?.Invoke(currentTime);
             //print("Time: " + currentTime.Hours + ":" + currentTime.Minutes + "." + currentTime.Seconds);
-
-            yield return new WaitForSecondsRealtime(1);
-
+         
             if (currentTime.Hours != currentHour)
             {
                 currentHour = currentTime.Hours;
                 print("An hour has passed");
                 OnHourPassed?.Invoke(currentTime);
             }
+
+            yield return new WaitForSecondsRealtime(1);
         }
 
         print("Night over");
