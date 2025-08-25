@@ -132,6 +132,31 @@ public class RoomController : MonoBehaviour
         return routes[Random.Range(0, routes.Count)];
     }
 
+    public Route GetRandomGuestRoomPath(Room currentRoom)
+    {
+        Room targetRoom = currentRoom;
+        switch (UnityEngine.Random.Range(0, 2))
+        {
+            case 0:
+                targetRoom = GetRoom(5);
+                break;
+            case 1:
+                targetRoom = GetRoom(6);
+                break;
+            case 2:
+                targetRoom = GetRoom(10);
+                break;
+        }
+
+        while (targetRoom == currentRoom)
+        {
+            targetRoom = Rooms[Random.Range(0, Rooms.Count)];
+        }
+
+        List<Route> routes = FindShortestRoutes(currentRoom, targetRoom);
+        return routes[Random.Range(0, routes.Count)];
+    }
+
     public Route GetCameraRoomPath(Room currentRoom)
     {
         //Get the cameraRoom

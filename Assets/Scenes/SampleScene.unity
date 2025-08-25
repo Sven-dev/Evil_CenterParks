@@ -394,6 +394,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  GuestEntity: {fileID: 634462685}
+  WandererEntity: {fileID: 1585366521}
 --- !u!4 &19009892
 Transform:
   m_ObjectHideFlags: 0
@@ -3883,6 +3885,7 @@ Transform:
   - {fileID: 215739856}
   - {fileID: 645059974}
   - {fileID: 1585366520}
+  - {fileID: 634462684}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &320338667
@@ -7230,7 +7233,7 @@ GameObject:
   - component: {fileID: 598709010}
   - component: {fileID: 598709012}
   m_Layer: 0
-  m_Name: Park cameras
+  m_Name: Park
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7867,6 +7870,57 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3e361ec64d6de914f9410c3336e8f4da, type: 3}
   m_PrefabInstance: {fileID: 689689514}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &634462683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 634462684}
+  - component: {fileID: 634462685}
+  m_Layer: 0
+  m_Name: Guest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &634462684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634462683}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 320338666}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &634462685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634462683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb6c59134e53634184a6943db0d0481, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntityType: 6
+  Color: {r: 0.20558919, g: 0.39352417, b: 0.7924528, a: 1}
+  MovementOpportunityCooldown: 4.9
+  Bloodlust: 0
+  AILevel: 10
+  AILevelIncreases: []
+  CurrentRoom: {fileID: 0}
 --- !u!114 &638219893 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5672082207307318763, guid: 78e0063cf15bcb742beac648e3430378, type: 3}
@@ -16425,13 +16479,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e318850aff8c8ee42b8182794dc1fdd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityType: 3
-  Color: {r: 1, g: 1, b: 1, a: 1}
+  EntityType: 4
+  Color: {r: 0.7830189, g: 0.22530258, b: 0.22530258, a: 1}
   MovementOpportunityCooldown: 4.9
   Bloodlust: 0
   AILevel: 1
   AILevelIncreases: []
-  CurrentRoom: {fileID: 462565260}
+  CurrentRoom: {fileID: 0}
 --- !u!1 &1587354465
 GameObject:
   m_ObjectHideFlags: 0

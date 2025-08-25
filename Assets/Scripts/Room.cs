@@ -15,6 +15,7 @@ public class Room : MonoBehaviour
     [SerializeField] private List<GameObject> ShadeVisuals;
     [SerializeField] private List<GameObject> WandererVisuals;
     [SerializeField] private List<GameObject> HallucinationVisuals;
+    [SerializeField] private List<GameObject> GuestVisuals;
 
     [Space]
     [SerializeField] private UnityVoidEvent OnEntityUpdate;

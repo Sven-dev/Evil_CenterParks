@@ -10,7 +10,8 @@ public enum EntityType
     Abhorwretch,
     Shade,
     Wanderer,
-    Hallucination
+    Hallucination,
+    Guest
 }
 
 public abstract class Entity : MonoBehaviour

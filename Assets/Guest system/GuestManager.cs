@@ -23,6 +23,9 @@ namespace GuestSystem
         [Space]
         [SerializeField] private UnityVoidEvent OnGuestAtDoor;
 
+        [SerializeField] private Entity GuestEntity;
+        [SerializeField] private Entity WandererEntity;
+
         private Guest ActiveGuest;
 
         private void Start()
@@ -83,7 +86,7 @@ namespace GuestSystem
                 if (!guest.Arrived && currentTime >= arrival)
                 {
                     ActiveGuest = Instantiate(guest.Prefab, DoorPivot.position, Quaternion.Euler(0, 90, 0), transform);
-                    ActiveGuest.SetData(guest.Info);
+                    ActiveGuest.SetData(guest);
 
                     guest.Arrived = true;
                     OnGuestAtDoor?.Invoke();
@@ -106,8 +109,15 @@ namespace GuestSystem
         {
             ActiveGuest.MoveTo(ParkPivot);
             Invoke("UnloadGuest", 1f);
-
-            //To do: Spawn guest park entity
+      
+            if (ActiveGuest.Data.ValidGuest)
+            {
+                GuestEntity.gameObject.SetActive(true);
+            }
+            else
+            {
+                WandererEntity.gameObject.SetActive(true);
+            }
         }
 
         private void UnloadGuest()

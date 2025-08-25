@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,15 +6,19 @@ namespace GuestSystem
 {
     public class Guest : MonoBehaviour
     {
+        [HideInInspector] public ArrivalData Data;
+
         [SerializeField] private Text NameLabel;
         [SerializeField] private Text ReferenceLabel;
         [SerializeField] private Text DepartureLabel;
 
-        public void SetData(GuestData data)
+        public void SetData(ArrivalData Guest)
         {
-            NameLabel.text += data.Name;
-            ReferenceLabel.text += data.Reference.ToString("D4");
-            DepartureLabel.text += data.Departure.ToString();
+            Data = Guest;
+
+            NameLabel.text += Guest.Info.Name;
+            ReferenceLabel.text += Guest.Info.Reference.ToString("D4");
+            DepartureLabel.text += Guest.Info.Departure.ToString();
         }
 
         public void MoveTo(Transform pivot)
