@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 311986364116922825}
   - component: {fileID: 324298489544388806}
   m_Layer: 0
-  m_Name: John Doe
+  m_Name: DebugGuest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,14 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ca499327759254a9c573964511a086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: John Doe
-  ReferenceNumber: 1
-  RoomNumber: 1
-  StayDays: 7
   NameLabel: {fileID: 4616855261139462877}
   ReferenceLabel: {fileID: 2913779214365025460}
-  RoomLabel: {fileID: 8021059720528297351}
-  StayLabel: {fileID: 2703974743892713767}
+  DepartureLabel: {fileID: 2703974743892713767}
 --- !u!1 &471360082170816077
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,8 +169,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.588, y: 4.13}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchoredPosition: {x: 0.588, y: 3.903}
+  m_SizeDelta: {x: 1920, y: 810}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4302541482532163056
 Canvas:
@@ -318,7 +313,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Ref: 0001'
+  m_Text: 'Reference number: '
 --- !u!1 &3418680134286963546
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,86 +392,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Name: John Doe'
---- !u!1 &6839954895981357062
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2884156200202716216}
-  - component: {fileID: 4627049189248658720}
-  - component: {fileID: 8021059720528297351}
-  m_Layer: 5
-  m_Name: Room
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2884156200202716216
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6839954895981357062}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5097673489202360921}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -540}
-  m_SizeDelta: {x: -50, y: 270}
-  m_Pivot: {x: 0.5, y: 1}
---- !u!222 &4627049189248658720
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6839954895981357062}
-  m_CullTransparentMesh: 1
---- !u!114 &8021059720528297351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6839954895981357062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 141
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 141
-    m_Alignment: 3
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'Room: 01'
+  m_Text: 'Name: '
 --- !u!1 &7458956407020335351
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +425,6 @@ RectTransform:
   m_Children:
   - {fileID: 4138581701507379795}
   - {fileID: 1816421400731677402}
-  - {fileID: 2884156200202716216}
   - {fileID: 1098656086537065926}
   m_Father: {fileID: 8688643873830385477}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -568,7 +483,7 @@ GameObject:
   - component: {fileID: 4983530499329807622}
   - component: {fileID: 2703974743892713767}
   m_Layer: 5
-  m_Name: Stay
+  m_Name: Departure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -582,17 +497,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8083867747630337066}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.000000017695129}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5097673489202360921}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -810}
-  m_SizeDelta: {x: -50, y: 270}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0.00036621094, y: 0}
+  m_SizeDelta: {x: 0, y: 270}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &4983530499329807622
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -634,4 +549,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Stay: 7 days'
+  m_Text: 'Departure: '

@@ -30,5 +30,5 @@ public class UnitySpriteEvent : UnityEvent<Sprite> { }
 #region Custom
 [Serializable]
 public class UnityTimeSpanEvent : UnityEvent<TimeSpan> { }
-public class UnityGuestEvent : UnityEvent<Guest> { }
+public class UnityGuestEvent : UnityEvent<GuestSystem.Guest> { }
 #endregion
