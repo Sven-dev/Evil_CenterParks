@@ -17,6 +17,7 @@ public class PcFan : MonoBehaviour
     [SerializeField] private float MinimumTemperature = 55;
     [SerializeField] private float MaximumTemperature = 115;
     [Space]
+    [SerializeField] private GameObject OverheatWarning;
     [SerializeField] private UnityIntEvent OnTemperatureUpdate;
 
     private void Awake()
@@ -61,14 +62,8 @@ public class PcFan : MonoBehaviour
     {
         Powered = state;
         Running = Powered;
-        if (Running)
-        {
-            TurnOn();
-        }
-        else
-        {
-            TurnOff();
-        }
+
+        TurnOff();
     }
 
     private IEnumerator _Temperature()
@@ -86,14 +81,23 @@ public class PcFan : MonoBehaviour
                 else
                 {
                     //Fan turned off, Temperature increases by 3 per second
-                    Temperature = Mathf.Clamp(Temperature + 3f * Time.deltaTime, MinimumTemperature, MaximumTemperature);
-                    
+                    Temperature = Mathf.Clamp(Temperature + 3f * Time.deltaTime, MinimumTemperature, MaximumTemperature);              
                 }
             }
             else
             {
                 //Pc turned off, Temperature increases by 0.25 per second
                 Temperature = Mathf.Clamp(Temperature + 0.25f * Time.deltaTime, MinimumTemperature, MaximumTemperature);
+            }
+
+            if (Temperature >= 90)
+            {
+                ParkCamera.Framerate = Mathf.Lerp(10, 0.666f, Temperature / MaximumTemperature);
+                OverheatWarning.SetActive(true);
+            }
+            else
+            {
+                OverheatWarning.SetActive(false);
             }
 
             OnTemperatureUpdate?.Invoke((int)Temperature);

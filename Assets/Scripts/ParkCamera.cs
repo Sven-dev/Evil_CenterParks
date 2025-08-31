@@ -10,12 +10,14 @@ public class ParkCamera : MonoBehaviour
     [SerializeField] private float Downtime;
     [SerializeField] private GameObject Static;
 
+    public static float Framerate = 10;
+
     public void EnableCamera()
     {
         //Camera.enabled = true;
         Camera.depth = -9;
 
-        StartCoroutine("_Temp");
+        StartCoroutine("_RenderLoop");
     }
 
     public void DisableCamera()
@@ -23,15 +25,15 @@ public class ParkCamera : MonoBehaviour
         Camera.depth = -10;
         //Camera.enabled = false;
 
-        StopCoroutine("_Temp");
+        StopCoroutine("_RenderLoop");
     }
 
-    private IEnumerator _Temp()
+    private IEnumerator _RenderLoop()
     {
         while (true)
         {
             Camera.Render();
-            yield return new WaitForSecondsRealtime(0.1f);
+            yield return new WaitForSecondsRealtime(1 / Framerate);
         }
     }
 
