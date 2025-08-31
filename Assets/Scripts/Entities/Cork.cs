@@ -106,6 +106,7 @@ public class Cork : Entity
 
             if (MovementOpportunity())
             {
+                //Guest room management
                 GuestRoomManager guestRooms = CurrentRoom.GuestRooms;
                 if (guestRooms && !guestRooms.Killed)
                 {
@@ -121,6 +122,7 @@ public class Cork : Entity
                         Log("Room " + CurrentRoom + " kill attempt failed.");
                     }
                 }
+                //Electric fence room
                 else if (CurrentRoom.ID == 12)
                 {
                     CurrentRoom.LeaveRoom(EntityType);
@@ -131,6 +133,7 @@ public class Cork : Entity
                     Log("Whoops! You were killed by " + EntityType);
                     continue;
                 }
+                //Office
                 else if (CurrentRoom.ID == 1)
                 {
                     if (Shutter.Open)
@@ -145,6 +148,16 @@ public class Cork : Entity
                         LampManager.Instance.Flicker();
                         continue;
                     }
+                }
+                //Front door
+                else if (routeProgress + 1 != currentRoute.Distance)
+                {
+                    //If there are guests at the door
+                    if (currentRoute.Path[routeProgress + 1].ID == 0)
+                    {
+                        //Don't go in the room
+                        continue;
+                    }               
                 }
 
                 //Movement opportunity

@@ -8,6 +8,8 @@ public class FrontDoorButton : MonoBehaviour
 
     [SerializeField] private UnityVoidEvent OnDoorOpened;
     [SerializeField] private UnityVoidEvent OnGuestDenied;
+    [Space]
+    [SerializeField] private UnityVoidEvent OnCorkKill;
 
     private bool DoorRequiresOpening = false;
     private bool GuestCheck = false;
@@ -20,12 +22,17 @@ public class FrontDoorButton : MonoBehaviour
             {
                 DoorRequiresOpening = false;
                 GuestCheck = true;
+                GuestSystem.GuestManager.Instance.GuestAtDoor = false;
                 OnDoorOpened?.Invoke();
             }
             else if (GuestCheck)
             {
                 GuestCheck = false;
                 OnGuestDenied?.Invoke();
+            }
+            else if (RoomController.Instance.FindEntity(EntityType.Cork).ID == 0)
+            {
+                OnCorkKill.Invoke();
             }
         }
     }

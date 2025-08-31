@@ -17,7 +17,7 @@ public class CameraSwitcher : MonoBehaviour
 
     private void Start()
     {
-        Cameras[ActiveCamera - 1].EnableCamera();
+        Cameras[ActiveCamera].EnableCamera();
     }
 
     public void SwitchToRoom(int index)
@@ -30,9 +30,9 @@ public class CameraSwitcher : MonoBehaviour
 
     public IEnumerator _SwitchToRoom(int index)
     {
-        Cameras[ActiveCamera - 1].DisableCamera();
+        Cameras[ActiveCamera].DisableCamera();
         ActiveCamera = index;
-        Cameras[ActiveCamera - 1].EnableCamera();
+        Cameras[ActiveCamera].EnableCamera();
 
         Static.alpha = 1f;
         VideoPlayer.SetDirectAudioVolume(0, 0.5f);

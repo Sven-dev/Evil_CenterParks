@@ -20,7 +20,8 @@ namespace GuestSystem
         [SerializeField] private Transform ParkPivot;
         [Space]
         [SerializeField] private GuestListItem GuestListPrefab;
-        [Space]
+        public bool GuestAtDoor;
+        [Space]       
         [SerializeField] private UnityVoidEvent OnGuestAtDoor;
 
         [SerializeField] private Entity GuestEntity;
@@ -89,6 +90,7 @@ namespace GuestSystem
                     ActiveGuest.SetData(guest);
 
                     guest.Arrived = true;
+                    GuestAtDoor = true;
                     OnGuestAtDoor?.Invoke();
                 }
             }

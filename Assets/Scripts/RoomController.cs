@@ -278,7 +278,7 @@ public class RoomController : MonoBehaviour
 
     public Room GetRoom(int ID)
     {
-        return Rooms[ID - 1];
+        return Rooms[ID];
     }
 
     public Room FindEntity(EntityType entity)
